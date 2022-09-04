@@ -1,0 +1,571 @@
+%!TEX root = ../main.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 22/02/2016 - PRIMA SETTIMANA (1)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Topologia Generale}
+
+La \emph{topologia} studia gli aspetti geometrici più generali, senza introdurre né strutture algebriche, né metriche, né coordinate.
+%%%%%%%%%%%%%%%
+%SPAZI METRICI%
+%%%%%%%%%%%%%%%
+\section{Spazi metrici}
+
+\begin{defn}{Spazio metrico}{spazioMetrico}\index{Spazio!metrico}
+    Sia $X\neq\emptyset$ un insieme.
+    Diremo che $X$ è uno \emph{spazio metrico} se è definita un'applicazione
+    \[
+        d\colon X\times X\to\R,(x,y)\mapsto d(x,y),
+    \]
+    detta \emph{distanza}, che rispetti le seguenti proprietà:
+    \begin{description}
+        \item[Positività]$d(x,y)\ge 0,\,\fa x,y\in X$ e $d(x,y)=0\iff x=y$;
+        \item[Simmetria]$d(x,y)=d(y,x),\,\fa x,y\in X$;
+        \item[Triangolare]$d(x,y)\le d(x,z)+d(z,y),\,\fa x,y,z\in X$.
+    \end{description}
+\end{defn}
+
+\begin{notz}\index{Funzione}
+    Da questo momento con \emph{funzione} denoteremo un'applicazione che ha $\R$ come codominio.
+\end{notz}
+
+\begin{exe}
+    $\R$ è uno spazio metrico, ponendo
+    \[
+        d(x,y)=\abs{y-x}.
+    \]
+\end{exe}
+
+\begin{sol}
+    \'E sufficiente verificare che le proprietà della definizione \ref{df:spazioMetrico} siano verificate.
+    La positività segue banalmente dalla definizione di valore assoluto.
+    Per la simmetria osserviamo che
+    \[
+        d(x,y)=\abs{y-x}=\abs{-(x-y)}=\abs{x-y}=d(y,x).
+    \]
+    Infine, dal momento che la disuguaglianza triangolare è valida per il valore assoluto, segue
+    \[
+        d(x,y)=\abs{y-x}=\abs{y-z+z-x}\le\abs{y-z}+\abs{z-x}=d(z,y)+d(x,z).
+    \]
+\end{sol}
+
+\begin{ese}
+    $\R^n$ è uno spazio metrico, ponendo
+    \[
+        d(\vec{x},\vec{y})=\norma{\vec{y}-\vec{x}}.
+    \]
+\end{ese}
+
+\begin{ese}
+    Sia $X\neq\emptyset$ un insieme qualsiasi, $X$ è uno spazio metrico ponendo
+    \[
+        d(x,y)= \begin{cases}
+            0 & x=y     \\
+            1 & x\neq y
+        \end{cases},
+    \]
+    tale applicazione si definisce \emph{distanza discreta}.
+\end{ese}
+
+\begin{prop}{Sottoinsieme di uno spazio metrico è uno spazio metrico}{}
+    Sia $(X,d)$ uno spazio metrico e sia $Y\subset X$, allora:
+    $(Y,\left. d\right|_Y)$ è uno spazio metrico, con
+    \[
+        \left. d\right|_Y\colon Y\times Y\to\R,(y',y'')\mapsto d(y',y'').
+    \]
+\end{prop}
+
+\begin{proof}
+    $(X,d)$ è uno spazio metrico, quindi per definizione $d$ costituisce una distanza su $X$. Consideriamo quindi la restrizione $\left. d\right|_Y$ di $d$ su $Y$, tale applicazione soddisfa necessariamente le proprietà della distanza in quanto è definita a partire da $d$. Pertanto $(Y,\left. d\right|_Y)$ è uno spazio metrico.
+\end{proof}
+
+\begin{notz}
+    $\left. d\right|_Y$ di definisce \emph{distanza indotta}.
+\end{notz}
+
+\begin{defn}{Sottospazio metrico}{sottospazioMetrico}\index{Sottospazio!metrico}
+    Sia $(X,d)$ uno spazio metrico e sia $Y\subset X$.
+    $(Y,\left. d\right|_Y)$ si definisce \emph{sottospazio metrico} di $(X,d)$.
+\end{defn}
+
+\begin{defn}{Applicazione continua tra spazi metrici}{applContinuaSpMet}\index{Applicazione continua!tra spazi metrici}
+    Siano $(X,d_X)$ e $(Y,d_Y)$ due spazi metrici. Un'applicazione $f\colon (X,d_X)\to (Y,d_Y)$ si dice \emph{continua} se, comunque preso $x_0\in X$
+    \[
+        \fa\e >0\,\ex\d=\d(\e)>0\text{ tale che }d_X(x,x_0)<\d\implies d_Y\big(f(x),f(x_0)\big)<\e.
+    \]
+\end{defn}
+
+\begin{exe}[per casa]
+    Si dimostri che ogni applicazione costante tra spazi metrici è continua.
+\end{exe}
+
+\begin{sol}
+    Siano $(X,d_X)$ e $(Y,d_Y)$ spazi metrici, definiamo quindi una generica applicazione costante
+    \[
+        f\colon X\to Y,x\mapsto y_0\in Y,
+    \]
+    con $y_0$ fissato.
+    Sia ora $x_0\in X$ e fissiamo $\e >0$, osserviamo quindi che, preso un qualsiasi $x\in X$, avremo
+    \[
+        d_Y\big(f(x),f(x_0)\big)=d_Y(y_0,y_0)=0<\e,
+    \]
+    indipendentemente da $d_X(x,x_0)$.
+    Dalla definizione \ref{df:applContinuaSpMet} segue quindi che $f$ è continua.
+\end{sol}
+
+\begin{exe}[per casa]
+    Sia $(X,d)$ uno spazio metrico, si dimostri che $id_X\colon X\to X,x\mapsto x$ è continua.
+\end{exe}
+
+\begin{sol}
+    Sia $x_0\in X$ e fissiamo $\e >0$, poniamo quindi $\d>0$ tale che $\d < \e$, da cui
+    \[
+        d(x,x_0)<\d\implies d\big(id(x),id(x_0)\big)=d(x,x_0)<\d<\e,
+    \]
+    ovvero $f$ è continua.
+\end{sol}
+%%%%%%%%%%%%%%%%
+%INSIEMI APERTI%
+%%%%%%%%%%%%%%%%
+\section{Insiemi aperti}
+
+\begin{defn}{Disco aperto}{discoAperto}\index{Disco aperto}
+    Sia $(X,d)$ uno spazio metrico. Sia $x\in X$ e sia $r>0$.
+    Si definisce \emph{disco aperto} di centro $x$ e raggio $r$, il sottoinsieme di $X$ di tutti i punti la cui distanza da $x$ è inferiore ad $r$:
+    \[
+        D_x(r)=\Set{y\in X | d(y,x)<r}.
+    \]
+\end{defn}
+
+\begin{ese}
+    Su $\big(\R,\abs{.}\big)$ i dischi aperti di centro $x$ e raggio $r$ sono gli intervalli aperti $(x-r,x+r)$.
+\end{ese}
+
+\begin{ese}
+    Su $\big(\R^n,\norma{.}\big)$ i dischi aperti sono palle aperte.
+\end{ese}
+
+\begin{defn}{Insieme aperto}{aperto}\index{Insieme!aperto}
+    Sia $(X,d)$ uno spazio metrico e sia $A\subset X$.
+    $A$ è un insieme aperto se può essere scritto come unione di dischi aperti.
+\end{defn}
+
+\begin{oss}
+    Equivalentemente possiamo definire $A$ aperto se
+    \[
+        \fa x\in A\,\ex r>0:D_x(r)\subset A,
+    \]
+    infatti basterà mostrare che
+    \[
+        A=\bigcup_{x\in A}D_x(r).
+    \]
+    \graffito{$\subseteq$}Sia $z\in A$, avremo quindi $z\in D_z(r)\implies z\in\bigcup_{x\in A}D_x(r)$;
+
+    \graffito{$\supseteq$}Sia $z\in\bigcup_{x\in A}D_x(r)$, per cui $z\in D_z(r)$, ma per ipotesi $D_z(r)\subset A$, ovvero $z\in A$.
+\end{oss}
+
+\begin{ese}
+    Sono aperti di $\big(\R,\abs{.}\big)$ i seguenti:
+    \begin{itemize}
+        \item $\displaystyle{\R=\bigcup_{n\in \Z} D_n(1)}$, oppure $\displaystyle{\R=\bigcup_{n\in \Z} D_0(n)}$;
+        \item $\emptyset$;
+        \item $(a,b)=D_c(\frac{b-a}{2})$, dove $c=\frac{a+b}{2}$ è il punto medio fra $a,b$;
+        \item $(a,+\infty)$;
+        \item $(-\infty,b)$.
+    \end{itemize}
+\end{ese}
+
+\begin{ese}
+    Non sono aperti di $\big(\R,\abs{.}\big)$ i seguenti:
+    \begin{itemize}
+        \item Insiemi finiti;
+        \item $\Z$;
+        \item $\Q$;
+        \item $\R\setminus\Q$.
+    \end{itemize}
+\end{ese}
+
+\begin{exe}[per casa]
+    Su $\big(\R,\abs{.}\big)$ si dimostri che un intervallo chiuso $[a,b]$ non è un insieme aperto.
+\end{exe}
+
+\begin{sol}
+    Se per assurdo $[a,b]$ fosse aperto, avremmo che
+    \[
+        \fa x\in [a,b]\,\ex r>0:D_x(r)\subset [a,b],
+    \]
+    in particolare $\ex r>0:D_a(r)\subset [a,b]$, dove
+    \[
+        D_a(r)=\Set{x\in\R : \abs{a-x}<r}.
+    \]
+    Sia ora $0<r'<r$, segue banalmente che $a-r'\in D_a(r)$, ma ciò è assurdo, in quanto $a-r'\notin [a,b]$.
+    Quindi $[a,b]$ non è un aperto di $\R$.
+\end{sol}
+
+\begin{exe}[per casa]
+    Su $\big(\R,\abs{.}\big)$ si dimostri che un intervallo semichiuso $[a,b)$ non è un insieme aperto.
+\end{exe}
+
+\begin{sol}
+    Analoga alla precedente.
+\end{sol}
+
+\begin{teor}{Continuità definita per aperti}{continuitàAperti}\index{Teorema!di continuità definita per aperti}
+    Siano $(X,d_X)$ e $(Y,d_Y)$ spazi metrici e sia $f\colon X\to Y$, allora:
+    \[
+        f\text{ è continua}\iff f^{-1}(A)\text{ è aperto },\,\fa A\subset Y\text{ aperto.}
+    \]
+\end{teor}
+
+\begin{proof}
+    \graffito{$\Rightarrow)$}Sia $\emptyset\neq A\subset Y$ aperto e sia $x\in f^{-1}(A)\subset X$, vogliamo dimostrare che $f^{-1}(A)$ è aperto.
+    Dobbiamo quindi mostrare che
+    \[
+        \ex r>0:D_x(r)\subset f^{-1}(A).
+    \]
+    Ora $A$ aperto implica
+    \[
+        \ex\e>0:D_{f(x)}(\e)\subset A,\,\fa f(x)\in A,
+    \]
+    inoltre $f$ continua, per cui
+    \[
+        \ex\d=\d(\e):f\big(D_x(\d)\big)\subset D_{f(x)}(\e),
+    \]
+    in particolare
+    \[
+        D_{f(x)}(\e)\subset A\implies f\big(D_x(\d)\big)\subset A,
+    \]
+    ovvero
+    \[
+        D_x(\d)\subset f^{-1}(A).
+    \]
+    \graffito{$\Leftarrow)$}La dimostrazione è analoga.
+\end{proof}
+
+\begin{oss}
+    La nozione di applicazione continua su uno spazio metrico qualsiasi, non dipende quindi dalla distanza, ma solamente dalla nozione di insieme aperto.
+\end{oss}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 24/02/2016 - PRIMA SETTIMANA (2)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%
+%SPAZI TOPOLOGICI%
+%%%%%%%%%%%%%%%%%%
+\section{Spazi topologici}
+
+\begin{defn}{Topologia su un insieme}{topologiaSuInsieme}\index{Topologia}
+    Sia \(X\neq\emptyset\) un insieme.
+    Una famiglia \(\Tau\) di sottoinsiemi di \(X\), detti \emph{insiemi aperti}, si definisce una \emph{topologia} su \(X\) se soddisfa le seguenti proprietà:
+    \begin{enumerate}
+        \item \(\emptyset\) e \(X\) appartengo a \(\Tau\);
+        \item l'unione qualsiasi di aperti è un aperto;
+        \item l'intersezione finita di aperti è un aperto.
+    \end{enumerate}
+\end{defn}
+
+\begin{notz}
+    Se \(A\in \Tau\), si dice che \(A\) è un aperto di \(X\).
+\end{notz}
+
+\begin{defn}{Spazio topologico}{spazioTopologico}\index{Spazio!topologico}
+    Sia \(X\neq\emptyset\) un insieme e sia \(\Tau\) una topologia su \(X\).
+    Si definisce \emph{spazio topologico} la coppia \(X,\Tau\).
+\end{defn}
+
+\begin{notz}
+    Gli elementi \(x\in X\) si definiscono \emph{punti} di \(X\).
+\end{notz}
+
+Le definizioni che seguono mostrano alcuni esempi di spazi topologici.
+
+\begin{defn}{Topologia indotta dalla metrica}{topologiaIndottaMetrica}\index{Topologia!indotta dalla metrica}
+    Sia \((X,d)\) uno spazio metrico.
+    Gli insiemi aperti della definizione \ref{df:aperto} inducono una topologia su \(X\), detta \emph{topologia indotta dalla metrica}.
+\end{defn}
+
+\begin{oss}
+    Mostriamo che tale topologia verifica le proprietà:
+    \begin{enumerate}
+        \item Banalmente
+              \[
+                  \emptyset =\bigcup_\emptyset D_x(r),
+              \]
+              e
+              \[
+                  X=\bigcup_{x\in X}D_x(r).
+              \]
+        \item Per definizione \(A_i\) è aperto se e soltanto se
+              \[
+                  A_i=\bigcup_{\substack{x_i\in X\\r_i>0}}D_{x_i}(r_i),
+              \]
+              per cui
+              \[
+                  \begin{split}
+                      \bigcup_{i\in I}A_i & =\bigcup_{i\in I}\bigcup_{\substack{x_i\in X\\r_i>0}}D_{x_i}(r_i)\\
+                      & =\bigcup_{i\in I}D_{x_i}(r_i),
+                  \end{split}
+              \]
+              ovvero
+              \[
+                  \bigcup_{i\in I}A_i
+              \]
+              è aperto.
+        \item Siano \(A_1,\dots,A_n\in\Tau\), dobbiamo mostrare che
+              \[
+                  \bigcap_{i=1,\dots,n}A_i\in\Tau.
+              \]
+              Ma ciò vale se e soltanto se
+              \[
+                  B_1,B_2\in\Tau\implies B_1\cap B_2\in\Tau,
+              \]
+              in quanto ciò ci permette di procedere per induzione.
+              Nel nostro caso abbiamo infatti:
+              \[
+                  B_1\cap B_2=\bigcup_{\substack{x\in B_1\cap B_2\\r:D_x(r)\subset B_1\cap B_2}}D_x(r).
+              \]
+    \end{enumerate}
+\end{oss}
+
+\begin{ese}
+    La topologia naturale di \(\R^n\) è lo spazio metrico \(\big(\R^n,\norma{.}\big)\).
+\end{ese}
+
+\begin{defn}{Topologia banale}{topologiaBanale}\index{Topologia!banale}
+    Sia \(X\) un insieme qualsiasi.
+    \(\Tau=\Set{\emptyset,X}\) si definisce \emph{topologia banale} di \(X\).
+\end{defn}
+
+\begin{defn}{Topologia discreta}{topologiaDiscreta}\index{Topologia!discreta}
+    Sia \(X\) un insieme qualsiasi.
+    \(\Tau=\mathcal{P}(X)\) si definisce \emph{topologia discreta} di \(X\).
+\end{defn}
+
+\begin{exe}
+    Sia \(X=\Set{a,b,c,d}\) un insieme di \(4\) elementi.
+    Siano
+    \begin{gather*}
+        \Tau=\Set{X,\emptyset,\Set{a},\Set{a,b},\Set{a,b,c},\Set{a,b,d}}\\
+        \mathrm{S}=\Set{X,\emptyset,\Set{b},\Set{b,c},\Set{a,b,c}}.
+    \end{gather*}
+    Stabilire se \(\Tau\) o \(\mathrm{S}\) sono due topologie diverse dello stesso insieme \(X\).
+\end{exe}
+
+\begin{sol}
+    Verificando le proprietà segue banalemte che entrambe sono topologie di \(X\), inoltre
+    \[
+        \Set{a}\notin \mathrm{S}\text{ e }\Set{b}\notin\Tau,
+    \]
+    per cui non costituiscono le stesse topologie.
+\end{sol}
+
+\begin{exe}
+    Rifacendosi all'esercizio precedente, stabile se
+    \[
+        \mathrm{R}=\Set{X,\emptyset,\Set{a},\Set{b},\Set{a,b},\Set{a,b,c},\Set{b,c,d}}
+    \]
+    è una topologia su \(X\).
+\end{exe}
+
+\begin{sol}
+    No, in quanto
+    \[
+        \Set{a,b,c}\cap\Set{b,c,d}=\Set{b,c},
+    \]
+    ma
+    \[
+        \Set{b,c}\notin\mathrm{R}.
+    \]
+\end{sol}
+
+\begin{defn}{Relazione di finezza}{finezza}\index{Finezza}
+    Sia \(X\) un insieme su cui sono definite due topologie \(\Tau\) e \(\Tau'\).
+    Diremo che \(\Tau'\) è più \emph{fine} di \(\Tau\) se ogni aperto di \(\Tau\) è anche aperto di \(\Tau'\).
+\end{defn}
+
+\begin{notz}
+    Si scrive \(\Tau'>\Tau\).
+\end{notz}
+
+\begin{oss}
+    Qualunque sia \(X\) avremo sempre che la topologia banale è la meno fine, mentre quella discreta è la più fine.
+\end{oss}
+
+\begin{defn}{Base}{base}\index{Base}
+    Una base di uno spazio topologico \((X,\Tau)\) è una famigli di aperti \(\mathcal{B}\) tale che ogni aperto di \(X\) è unione di elementi di \(\mathcal{B}\).
+\end{defn}
+
+\begin{exe}[per casa]
+    Mostrare che, equivalentemente, \(\mathcal{B}\) è una base se e soltanto se
+    \begin{equation}\label{eq:base1}
+        \fa A\subset X\text{ aperto e }\fa x\in A\,\ex B\in\mathcal{B}:x\in B\subseteq A.
+    \end{equation}
+\end{exe}
+
+\begin{sol}
+    \graffito{\(\Rightarrow)\)}Supponiamo che \(\mathcal{B}\) sia una base di \(\Tau\) e sia \(A\) un aperto di \(X\), per cui
+    \[
+        A=\bigcup_{i\in I}B_i,\text{ con }B_i\in\mathcal{B}.
+    \]
+    Sia ora \(x\in A\), quindi \(\ex i\in I\) tale che \(x\in B_i\).
+    Resta da mostrare che \(B\subseteq A\), ma ciò segue immediatamente dalla scrittura di \(A\) come unione di \(B_i\).\\
+    \graffito{\(\Leftarrow)\)}Supponiamo che \(\mathcal{B}\) soddisfi \eqref{eq:base1} e sia \(A\) un aperto di \(X\).
+    Noi vorremmo mostrare che
+    \[
+        A=\bigcup_{x\in A}B_x,\text{ con }B_x\in\mathcal{B}.
+    \]
+    Sia quindi \(x\in A\), avremo quindi che
+    \[
+        \ex B_x\in\mathcal{B}:x\in B_x\subseteq A,
+    \]
+    ovvero
+    \[
+        A\subseteq\bigcup_{x\in A}B_x.
+    \]
+    Sia \(y\in\bigcup_{x\in A}B_x\), avremo \(\ex B_x:y\in B_x\), ma \(B_x\in \mathcal{B}\), quindi, per ipotesi, \(B\subseteq A\), ovvero
+    \[
+        A\supseteq\bigcup_{x\in A}B_x.
+    \]
+\end{sol}
+
+\begin{ese}
+    Gli intervalli limitati sono una base della topologia naturale di \(\R\).
+\end{ese}
+
+\begin{ese}
+    Più in generale, i dischi di uno spazio metrico, sono una base della topologia indotta dalla metrica, ovvero
+    \[
+        \mathcal{B}=\Set{D_x(r) | x\in X,r>0}
+    \]
+    è una base di \((X,d)\).
+\end{ese}
+
+\begin{prop}{Caratterizzazione delle basi}{caratBasi}
+    Sia \(\mathcal{B}\) una famiglia di sottoinsiemi di \(X\) tale che:
+    \begin{enumerate}
+        \item \(\displaystyle\bigcup_{b\in\mathcal{B}}B=X\), ovvero \(\mathcal{B}\) è un ricoprimento di \(X\);
+        \item \(\fa A,B\in \mathcal{B}\implies A\cap B\) è unione di elementi di \(\mathcal{B}\).
+    \end{enumerate}
+    Allora esiste un'unica topologia \(\Tau_{\mathcal{B}}\) su \(X\) tale che \(\mathcal{B}\) è una base di \(\Tau_{\mathcal{B}}\).
+\end{prop}
+
+\begin{proof}
+    Definiamo \(\Tau_{\mathcal{B}}\) come la famiglia dei sottoinsiemi di \(X\) che si possono scrivere come unione (tipicamente infinita) di elementi di \(\mathcal{B}\).
+    Tale scelta definisce \(\Tau_{\mathcal{B}}\) in maniera univoca.
+    Dobbiamo quindi dimostrare che \(\Tau_{\mathcal{B}}\) è una topologia su \(X\):
+    \begin{itemize}
+        \item \(\displaystyle X\overset{(1)}{=}\bigcup_{B\in\mathcal{B}}B\) e \(\displaystyle\emptyset=\bigcup_\emptyset B\), per cui \(\Set{\emptyset,X}\in\Tau_{\mathcal{B}}\).
+        \item Sia ora \(\{U_j\}_{j\in J}\) una famiglia di aperti di \(X\), per costruzione avremo
+              \[
+                  U_j=\bigcup_{k\in K(j)}B_k,\text{ con }B_k\in\mathcal{B},
+              \]
+              da cui
+              \[
+                  \bigcup_{j\in J}U_j=\bigcup_{j\in J}\left(\bigcup_{k\in K(j)}B_k\right)=\bigcup_{\substack{k\in K(j)\\j\in J}}B_k,
+              \]
+              ovvero un'unione di elementi di \(\mathcal{B}\) che è pertanto un aperto.
+        \item Sia infine \(U_1,\dots,U_n\) una famiglia finita di aperti, dobbiamo verificare che
+              \[
+                  \bigcap_{i=1}^n U_i
+              \]
+              sia aperto.
+              Per farlo basta verificare che \(U_1\cap U_2\) sia aperto, ma ciò segue banalmente da \((2)\), infatti
+              \begin{gather*}
+                  U_1=\bigcup_{h\in H}B_h,\text{ con }B_h\in\mathcal{B};\\
+                  U_2=\bigcup_{k\in K}B_k,\text{ con }B_k\in\mathcal{B},
+              \end{gather*}
+              da cui
+              \[
+                  U_1\cap U_2=\bigcup_{\substack{h\in H\\k\in K}}\left(B_h\cap B_k\right)\overset{(2)}{=}\bigcup_{\substack{h\in H\\k\in K}}\left(\bigcup_{j\in J}B_j\right)\in\Tau_{\mathcal{B}}.\qedhere
+              \]
+    \end{itemize}
+\end{proof}
+
+\begin{oss}
+    Prese due basi \(\mathcal{B}\)e \(\mathcal{B}'\) dello stesso insieme \(X\), avremo che
+    \[
+        \Tau_{\mathcal{B}}<\Tau_{\mathcal{B}'}\iff \mathcal{B}\subset\mathcal{B}'.
+    \]
+\end{oss}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 25/02/2016 - PRIMA SETTIMANA (3)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{defn}{Intorno di un punto}{intorno}\index{Intorno}
+    Preso un punto \(x\in X\) in uno spazio topologico \((X,\Tau)\), un \emph{intorno} di \(x\) è un qualsiasi aperto \(U\) che contiene \(x\)
+\end{defn}
+
+\begin{notz}
+    Indicheremo con \(U_x\) un intorno di \(x\in X\).
+\end{notz}
+
+\begin{defn}{Intorno di un insieme}{intornoInsieme}
+    Sia \((X,\Tau)\) uno spazio topologico e sia \(K\subset X\) un sottoinsieme qualsiasi.
+    Un \emph{intorno} di \(K\) è un aperto \(U\) che contiene \(K\).
+\end{defn}
+
+\begin{prop}{Caratterizzazione degli aperti tramite intorni}{caratApertiIntorni}
+    Sia \((X,\Tau)\) uno spazio topologico e sia \(A\subset X\).
+    Allora \(A\) è aperto se e soltanto se
+    \[
+        \fa x\in A \,\ex U_x:U_x\subseteq A.
+    \]
+\end{prop}
+
+\begin{proof}
+    \graffito{\(\Rightarrow)\)}Se \(A\) è aperto basta prendere \(U=A\), in quanto \(A\) è intorno di ogni suo punto.\\
+    \graffito{\(\Leftarrow)\)}Supponiamo che, preso \(x\in A\), \(U_x\) sia un suo intorno, è facile mostrare che
+    \[
+        A=\bigcup_{x\in A}U_x.
+    \]
+    Per cui \(A\) è aperto in quanto unione arbitraria di aperti.
+\end{proof}
+%%%%%%%%%%%%%
+%SUCCESSIONI%
+%%%%%%%%%%%%%
+\section{Successioni}
+
+In questo paragrafo faremo riferimento allo spazio topologico \(X\) come la coppia \((X,\Tau)\).
+
+\begin{defn}{Successione}{successione}\index{Successione}
+    Una \emph{successione} \(\{X_n\}_{n\in\N}\) in uno spazio topologico \(X\) è un'applicazione
+    \[
+        \N\to X,n\mapsto x_n.
+    \]
+\end{defn}
+
+\begin{defn}{Successione convergente}{successioneConvergente}\index{Successione!convergente}
+    Una successione \(\{X_n\}_{n\in\N}\) in uno spazio topologico \(X\) si dice \emph{convergente} ad \(x\in X\) se, per ogni intorno \(U\) di \(x\)
+    \[
+        \ex N\in\N\text{ tale che }x_n\in U,\,\fa n>N.
+    \]
+\end{defn}
+
+\begin{notz}
+    Quando una successione è convergente si scrive \(x_n\to x\) oppure
+    \[
+        \lim_{n\to +\infty} x_n=x.
+    \]
+\end{notz}
+
+\begin{ese}
+    Se \((X,d)\) è uno spazio metrico, ovvero uno spazio topologico indotto dalla metrica, ritroviamo facilmente la definizione che abbiamo in analisi.
+    Infatti, dal momento che i dischi sono una base della topologia, è sufficiente che \(U\) sia un disco, per cui, preso \(U=D_\e(x)\), avremo
+    \[
+        x_n\to x\iff \fa\e>0\,\ex N\in\N:d(x_n,x)<\e\graffito{\(d(x_n,x)\iff x_n\in D_\e(x)\)},\fa n>\N.
+    \]
+\end{ese}
+
+\begin{ese}
+    Se \(X\) ha la topologia banale, allora ogni successione \(\N\to X\) converge ad ogni punto di \(X\).
+\end{ese}
+
+\begin{ese}
+    Se \(X\) ha la topologia discreta, allora, le uniche successioni convergenti sono quelle costanti o definitivamente costanti,ovvero quelle dove
+    \[
+        x_n=x_{n+1},\,\fa n>N.
+    \]
+\end{ese}

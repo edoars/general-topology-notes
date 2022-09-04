@@ -1,0 +1,321 @@
+%!TEX root = ../main.tex
+\chapter{Rivestimenti topologici}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 16/05/2016 - DODICESIMA SETTIMANA (1)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%
+%INTRODUZIONE%
+%%%%%%%%%%%%%%
+\section{Introduzione}
+
+\begin{defn}{Rivestimento}{rivestimento}\index{Rivestimento}
+	Siano \(E,X\) due spazi topologici.
+	Un'applicazione continua e suriettiva \(p\colon E \to X\) si definisce un \emph{rivestimento}, se per ogni \(x\in X\) esiste un intorno aperto \(U_x\) di \(x\) tale che
+	\[
+		p^{-1}(U_x) = \bigsqcup_{i\in J} V_i, \qquad\text{con \(V_i\) aperti in \(E\)}.
+	\]
+	Inoltre vale la proprietà che la restrizione
+	\[
+		p|_{V_i}\colon V_i \to U_x
+	\]
+	è un omeomorfismo.
+\end{defn}
+
+\begin{notz}
+	L'intorno aperto \(U_x\) si dice ben rivestito.
+\end{notz}
+
+\begin{oss}
+	La figura \ref{fig:stackPancakes} mostra un intorno di \(x\) ben rivestito.
+	Tale rappresentazione viene anche chiamata "stack of pancakes".
+\end{oss}
+
+\begin{figure}[tp]
+	\begin{centering}
+		\includegraphics[height = 75mm]{stackPancakes.pdf}
+		\caption{Un intorno ben rivestito di \(x\in X\).}
+		\label{fig:stackPancakes}
+	\end{centering}
+\end{figure}
+
+\begin{lem}
+	Sia \(p\colon E \to X\) un rivestimento.
+	Allora \(p\) è un omomorfismo locale suriettivo.
+\end{lem}
+
+\begin{proof}
+	Conseguenza diretta della definizione.
+\end{proof}
+
+\begin{oss}
+	In particolare \(p\) risulta essere un'applicazione quoziente.
+\end{oss}
+
+\begin{lem}
+	Sia \(p\colon E \to X\) un rivestimento.
+	Allora per ogni \(x\in X\) la fibra \(p^{-1}(x)\) è un sottospazio topologico di \(E\) dotato della topologia discreta.
+\end{lem}
+
+\begin{proof}
+	Conseguenza diretta della definizione.
+\end{proof}
+
+\begin{lem}
+	Sia \(p\colon E \to X\) un rivestimento.
+	Se \(X\) è connesso e localmente connesso e se esiste \(x\in X\) tale che \(\abs{p^{-1}(x)}=n<+\infty\), allora
+	\[
+		\abs{p^{-1}(y)} = n,\,\fa y\in X.
+	\]
+\end{lem}
+
+\begin{proof}
+	Sia \(x\in X\) tale che \(\abs{p^{-1}(x)}=n\) e sia \(N=\Set{y\in X | \abs{p^{-1}(y)}=n}\).
+
+	Per ipotesi \(X\) è connesso e \(N\neq \emptyset\), affinchè \(N=X\) ci basta dimostrare che \(N\) è sia aperto che chiuso.
+
+	Per ogni \(z\in N\) sia \(U_z\) un suo intorno ben rivestito.
+	Quindi
+	\[
+		p^{-1}(U_z) = \bigsqcup_{i\in J} V_i \qquad\text{e}\qquad p|_{V_i}\colon V_i \to U_z \text{ è un omeomorfismo}.
+	\]
+	Pertanto esiste un unico \(y_i\in V_i\) tale che \(p|_{V_i}(y_i)=z\) per ogni \(i\in J\).
+	Osserviamo inoltre che \(J=\{1,\ldots,n\}\) in quanto per ipotesi \(\abs{p^{-1}(z)}=n\).
+	Inoltre per ogni \(z'\in U_z\) avremo che \(\abs{p^{-1}(z')}=n\), cioè \(U_z\subset N\).
+	Ovvero \(N\) è aperto in \(X\).
+
+	Mostriamo che \(N\) è anche chiuso.
+	Se \(M=X\setminus N\), allora, con lo stesso ragionamento, si dimostra che per ogni \(w\in M\), preso \(U_w\) un suo intorno ben rivestito, si ha \(U_w\subset M\).
+	Quindi \(M\) è un aperto di \(X\), ovvero \(N\) è un chiuso di \(X\).
+\end{proof}
+
+\begin{defn}{Grado della restrizione}{gradoRestrizione}\index{Grado della restrizione}
+	Sia \(p\colon E \to X\) un rivestimento.
+	Supponiamo che \(\abs{p^{-1}(x)}=n\) per qualche \(x\in X\).
+	Allora diremo che \(n\) è il \emph{grado} di \(p\).
+\end{defn}
+
+\begin{oss}
+	La definizione è ben posta in quanto se esiste \(x\in X\) tale che \(\abs{p^{-1}(x)}=n\) allora, per il lemma precedente, \(\abs{p^{-1}(y)}=n\) per ogni \(y\in X\).
+\end{oss}
+
+\begin{oss}
+	Un rivestimento ha grado \(1\) se e soltanto se è iniettivo, ovvero se e soltanto se è un omeomorfismo.
+\end{oss}
+
+\begin{ese}[Rivestimento banale]
+	Sia \(X\) uno spazio topologico qualsiasi.
+	\(p\colon X\sqcup X\to X\) si definisce rivestimento doppio banale.
+\end{ese}
+
+\begin{oss}
+	Per questa ragione, d'ora in poi considereremo \(E\) connesso.
+\end{oss}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 18/05/2016 - DODICESIMA SETTIMANA (2)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{ese}
+	L'applicazione
+	\[
+		q \colon S^1 \to S^1, e^{2\p\,i\,t} \mapsto e^{4\p\,i\,t},
+	\]
+	è un rivestimento doppio, ovvero di grado \(2\), di \(S^1\).
+\end{ese}
+
+\begin{ese}
+	Analogamente all'esempio precedente, la restrizione di
+	\[
+		Z^n \colon \C \to \C, z \mapsto z^n,
+	\]
+	al cerchio unitario \(S^1\), è un rivestimento a \(n\)-fogli di \(S^1\).
+\end{ese}
+
+\begin{figure}[tp]
+	\begin{centering}
+		\includegraphics[height = 100mm]{rivestimentoS1.pdf}
+		\caption{Intorni ben rivestiti di \(S^1\).}
+		\label{fig:rivestimentoS1}
+	\end{centering}
+\end{figure}
+
+\begin{ese}
+	La mappa esponenziale
+	\[
+		\exp\colon \R \to S^1, t \mapsto e^{e\p\,i\,t} = (\cos 2\p\,t, \sin 2\p\,t),
+	\]
+	è un rivestimento di \(S^1\).
+
+	Dobbiamo mostrare che per ogni punto \(x\in S^1\) esiste un intorno \(U\) di \(x\) che sia ben rivestito, ovvero tale che la sua controimmagine \(\exp^{-1}(U)\) sia unione disgiunta di intervalli aperti \(V_n\subset \R\), su cui, la restrizione di \(\exp\), è un omeomorfismo da \(V_n\) a \(U\).
+
+	Per ogni punto \(x\in S^1\) sia \(r\in\R\) tale che \(exp(r)=-x\).
+	Consideriamo come intorno di \(x\) l'aperto \(U=S^1\setminus \{-x\}\).
+	Avremo che
+	\[
+		\exp^{-1}(U) = \bigsqcup_{n\in\N} (r+n,r+n+1).
+	\]
+	In particolare la restrizione \(\exp|_{V_n}\colon V_n \to U\) è una mappa certamente aperta e biiettiva, inoltre, essendo continua per definizione, risulta essere un omeomorfismo.
+
+	Osserviamo inoltre che \(\exp\) è un rivestimento di grado infinito.
+\end{ese}
+
+\begin{oss}
+	Un modo più intuitivo per comprendere questo rivestimento è considerare \(\exp\) come la composizione dell'elica cilindrica da \(\R\) in \(\R^3\) e la sua proiezione su \(S^1\):
+	\[
+		\begin{tikzcd}
+			& \R^3 \arrow{d}{\text{proiezione}}\\
+			\R \arrow{ur}{\text{elica}} \arrow{r}{\exp} & S^1
+		\end{tikzcd}
+	\]
+	dove l'elica \(\R\to \R^3 = \C \times \R, t \mapsto (e^{2\p\,i\,t},t)\) è un omeomorfismo sull'immagine.
+	Infatti è iniettivo per via dell'ultima coordinata, inoltre è aperta in quanto l'applicazione inversa
+	\[
+		(\cos 2\p\,t, \sin 2\p\,t, t) \mapsto t,
+	\]
+	è continua.
+
+	A questo punto è facile mostrare che ogni punto ha un intorno ben rivestito.
+\end{oss}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%PROPRIETA' DI SOLLEVAMENTO%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Proprietà di sollevamento}
+
+\begin{defn}{Sollevamento di una restrizione}{sollevamentoRestrizione}\index{Sollevamento!di una restrizione}
+	Sia \(p\colon E \to X\) un ricoprimento e sia \(f\colon Y \to X\) un'applicazione continua.
+	Un \emph{sollevamento} di \(f\) è un'applicazione continua \(\tilde{f}\colon Y \to E\) tale che \(p\circ \tilde{f}=f\):
+	\[
+		\begin{tikzcd}
+			& E \arrow{d}{p}\\
+			Y \arrow{ur}{\tilde{f}} \arrow{r}{f} & X
+		\end{tikzcd}
+	\]
+\end{defn}
+
+\begin{teor}{Sollevamento unico}{sollevamentoUnico}
+	Sia \(p\colon E \to X\) un rivestimento tale che \(p(e_0)=x_0\).
+	Supponiamo che \(f\colon Y \to X\) sia un'applicazione continua con \(Y\) connesso e tale che \(f(y_0)=x_0\).
+	Se esiste un sollevamento \(\tilde{f}\) di \(f\) tale che \(\tilde{f}(y_0)=e_0\) allora \(\tilde{f}\) è unica.
+\end{teor}
+
+\begin{proof}
+	Supponiamo che \(\tilde{\tilde{f}}\colon Y \to E\) sia un altro sollevamento di punto iniziale \(e_0\), cioè tale che
+	\[
+		\begin{cases}
+			f(y) = p\circ \tilde{\tilde{f}}(y) \\
+			\tilde{\tilde{f}}(y_0) = e_0
+		\end{cases}
+	\]
+	Definiamo i seguenti insiemi
+	\[
+		A = \Set{y\in Y | \tilde{f}(y) = \tilde{\tilde{f}}(y)} \qquad\text{e}\qquad B = \Set{y\in Y | \tilde{f}(y)\neq \tilde{\tilde{f}}(y)}.
+	\]
+	Chiaramente \(A\cup B = Y\) e \(A\cap B = \emptyset\).
+	Quindi, dal momento che \(Y\) è connesso, basta dimostrare che \(A\) e \(B\) sono aperti affinché \(A=Y\) ed ottenere quindi \(\tilde{f}=\tilde{\tilde{f}}\).\graffito{osserviamo che \(A\neq \emptyset\) in quanto \(y_0\in A\)}
+
+	Sia \(\bar{y}\in A\) e sia \(f(\bar{y})=\bar{x}\in X\).
+	Sia \(U\) un intorno ben rivestito di \(\bar{x}\).
+
+	Siccome \(\bar{y}\in A\), avremo
+	\[
+		\tilde{f}(\bar{y})=\tilde{\tilde{f}}(\bar{y}) \qquad\text{e}\qquad p\circ \tilde{f}(\bar{y})=p\circ \tilde{\tilde{f}}(\bar{y})=\bar{x},
+	\]
+	quindi \(\tilde{f}(\bar{y})\) e \(\tilde{\tilde{f}}(\bar{y})\) appartengono allo stesso \(V_i\).
+
+	Consideriamo l'omeomorfismo \(p|_{V_i}\colon V_i \to U\) e poniamo \(W=\tilde{f}^{-1}(V_i)\cap \tilde{\tilde{f}}^{-1}(V_i)\).
+	Avremo che \(\bar{y}\in W\) e \(W\) aperto in \(Y\) in quanto intersezione di due aperti.
+
+	Infine \(W\subset A\) in quanto \(p|_{V_i}\) è un omeomorfismo ed è in particolare iniettivo, quindi, per ogni \(y\in W\), si ha
+	\[
+		\begin{aligned}
+			p\big(\tilde{f}(y)\big) = p\circ \tilde{f}(y) = f(y) \\
+			p\big(\tilde{\tilde{f}}(y)\big) = p\circ \tilde{\tilde{f}}(y)=f(y)
+		\end{aligned}
+		\implies \tilde{f}(y) = \tilde{\tilde{f}}(y) \iff y\in A.
+	\]
+	Quindi ogni punto di \(A\) è interno, per cui \(A\) è aperto.
+
+	Analogamente mostriamo che \(B\) è aperto.
+	Sia \(\bar{y}\in B\), allora
+	\[
+		\tilde{f}(\bar{y}) \neq \tilde{\tilde{f}}(\bar{y}) \qquad\text{con}\qquad \tilde{f}(\bar{y})\in V_i \text{ e }\tilde{\tilde{f}}(\bar{y})\in V_j, i\neq j.
+	\]
+	Quindi \(W=\tilde{f}^{-1}(V_i)\cap \tilde{\tilde{f}}^{-1}(V_j)\) è un intorno aperto di \(\bar{y}\), in quanto intersezione di due aperti, ed è tutto contenuto in \(B\), infatti
+	\[
+		\begin{tikzcd}
+			& V_i\\
+			W \arrow{ur}{\tilde{f}} \arrow[swap]{dr}{\tilde{\tilde{f}}}\\
+			& V_j
+		\end{tikzcd}
+		\qquad\text{con}\qquad V_i \cap V_j = \emptyset.\qedhere
+	\]
+\end{proof}
+
+\begin{teor}{Sollevamento di archi}{sollevamentoArchi}
+	Sia \(p\colon E \to X\) un rivestimento tale che \(p(e_0)=x_0\).
+	Supponiamo che \(\a\colon [0,1] \to X, 0\mapsto x_0\) sia un arco di punto iniziale \(x_0\).
+	Allora esiste un unico arco \(\tilde{a}\subset E\) di punto iniziale \(e_0\) che solleva \(\a\):
+	\[
+		\begin{cases}
+			\a = p \circ \tilde{\a} \\
+			\tilde{\a}(0) = e_0
+		\end{cases}
+	\]
+\end{teor}
+
+\begin{proof}
+	L'unicità segue dal teorema precedente in quanto \([0,1]\) è connesso.
+	Dobbiamo mostrarne l'esistenza.
+
+	Consideriamo il ricoprimento aperto di \(X\) costituito dagli intorni ben rivestiti dei suoi punti.
+	Dal momento che \(\a\) è continua, possiamo costruire un ricoprimento aperto di \([0,1]\) a partire da quello di \(X\).
+	Ora \([0,1]\) è compatto per cui il nostro ricoprimento aperto ammette il numero di Lebesgue.
+	Ciò significa che preso \(n\) sufficientemente grande, possiamo prendere
+	\[
+		0 = t_0 < t_1 < \ldots < t_n=1,
+	\]
+	tali che l'immagine di \([t_i,t_{i+1}]\) tramite \(\a\) è contenuta in un intorno ben rivestito.
+
+	Supponiamo che \(U_0\) sia l'intorno ben rivestito di \(x_0\).
+	Sappiamo che \(\a(0)=x_0\), quindi \(\a\big([t_0,t_1]\big)\subset U_0\).
+	In particolare
+	\[
+		p^{-1}(U_0) = \bigsqcup_{i\in J} V_{0_i}, \qquad\text{dove }\exists!\, \bar{i}\in J:e_0\in V_{0_{\bar{i}}}.
+	\]
+	Ora \(p|_{V_{0_{\bar{i}}}} \colon V_{0_{\bar{i}}} \to U_0\) è un omeomorfismo, quindi esisterà un unico arco
+	\[
+		\tilde{\a}_0 \colon [t_0,t_1] \to V_{0_{\bar{i}}}, \qquad\text{tale che }p^{-1}\circ \a_0=\tilde{\a}_0,
+	\]
+	dove con \(\a_0\) indichiamo la restrizione di \(\a\) a \([t_0,t_1]\).
+
+	Sia \(e_1=\tilde{\a}_0(t_1)\subset E\) il punto finale di \(\tilde{\a}_0\) e sia \(U_1\) un intorno ben rivestito di \(x_1=p(e_1)\).
+	Nuovamente
+	\[
+		p^{-1}(U_1) = \bigsqcup_{i\in J} V_{1_i}, \qquad\text{dove }\exists!\, \bar{i} \in J : e_1 \in V_{1_{\bar{i}}}.
+	\]
+	Come prima definisco \(\tilde{\a}_1 = \p^{-1}\circ \a_1\).
+	Osserviamo che \(\tilde{\a}_1(t_1) = e_1 = \tilde{\a_0}(t_1)\).
+
+	Iterando ottengo quindi \(\tilde{\a}\colon [0,1] \to E\) continuo a tratti.
+	D'altronde, per il lemma delle funzioni continue a tratte, \(\tilde{\a}\) risulta continua in quanto
+	\[
+		\tilde{\a}_i (e_i) = \tilde{\a}_{i+1} (e_i),\,\fa i.
+	\]
+	Per cui \(\a\) è il sollevamento cercato.
+\end{proof}
+
+\begin{teor}{Sollevamento di omotopie}{sollevamentoOmotopie}
+	Sia \(p\colon E \to X\) un rivestimento tale che \(p(e_0)=x_0\).
+	Supponiamo che \(\a,\b\colon [0,1] \to X\) siano due archi omotopi di punto iniziale \(x_0\).
+	Allora i loro sollevamenti \(\tilde{\a}\) e \(\tilde{\b}\) sono ancora omotopi.
+\end{teor}
+
+\begin{proof}
+	Analoga alla precedente.
+\end{proof}
+
+\begin{oss}
+	In particolare \(\tilde{\a}\) e \(\tilde{\b}\) hanno anche gli stessi punti finali.
+\end{oss}

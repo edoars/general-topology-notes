@@ -1,0 +1,1035 @@
+%!TEX root = ../main.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 07/03/2016 - TERZA SETTIMANA (1)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Nuovi spazi topologici}
+%%%%%%%%%%%%
+%SOTTOSPAZI%
+%%%%%%%%%%%%
+\section{Sottospazi}
+
+\begin{defn}{Topologia indotta}{topologiaIndotta}\index{Topologia!indotta}
+	Sia \(X\) uno spazio topologico e sia \(B\) un sottoinsieme qualsiasi di \(X\).
+	La \emph{topologia indotta} su \(B\) dalla topologia su \(X\) è la seguente:
+	\[
+		U\text{ aperto di }B\iff\,\ex V\text{ aperto di } X:U=B\cap V.
+	\]
+\end{defn}
+
+\begin{defn}{Sottospazio topologico}{sottospazio}\index{Sottospazio topologico}
+	Sia \(X\) uno spazio topologico e sia \(B\) un sottoinsieme qualsiasi di \(X\).
+	\(B\) si definisce \emph{sottospazio} di \(X\) se dotato della topologia indotta.
+\end{defn}
+
+\begin{oss}
+	Un sottospazio è banalmente uno spazio topologico, infatti
+	\begin{itemize}
+		\item Se \(U_1,U_2\) sono aperti di \(B\) avremo che \(U_1=B\cap V_1,U_2=B\cap V_2\), dove \(V_1,V_2\) sono aperti di \(X\), per cui
+		      \[
+			      U_1\cup U_2=(B\cap V_1)\cup(B\cap V_2)=B\cap(V_1\cup V_2),
+		      \]
+		      dove \(V_1\cup V_2\) è un aperto di \(X\) in quanto unione di aperti.
+		      Per cui dalla definizione \(U_1\cap U_2\) è un aperto di \(B\).
+		\item Analogamente a prima avremo
+		      \[
+			      U_1\cap U_2=(B\cap V_1)\cap (B\cap V_2)=B\cap(V_1\cap V_2),
+		      \]
+		      dove \(V_1\cap V_2\) è un aperto di \(X\) in quanto intersezione di aperti.
+		\item Ovviamente \(B\) e \(\emptyset\) sono aperti di \(B\) in quanto
+		      \[
+			      B=B\cap X,
+		      \]
+		      dove \(X\) è ovviamente aperto, e
+		      \[
+			      \emptyset=B\cap \emptyset.
+		      \]
+	\end{itemize}
+\end{oss}
+
+\begin{oss}
+	Sia \((X,d)\) uno spazio metrico dotato della topologia indotta da \(d\) e sia \(B\) un sottoinsieme di \(X\).
+	Avremo che la distanza ristretta \(d_B\colon B\times B\to\R^{\ge 0}\) definisce una distanza su \(d\).
+	Allora \((B,d_B)\) è omeomorfo a \(B\) dotato della topologia di sottospazio.
+\end{oss}
+
+\begin{ese}
+	Consideriamo il sottoinsieme \(B=[-1,2]\cup(3,4)\subset\R\).
+	Si dimostri che \([-1,2]\) è aperto di \(B\), dotato della topologia di sottospazio.
+\end{ese}
+
+\begin{sol}
+	Per definizione dobbiamo scrivere \([-1,2]\) come intersezione di \(B\) e un aperto di \(\R\), quindi basta scrivere
+	\[
+		[-1,2]=B\cap(-2,3),
+	\]
+	dove \(-2,3\) è ovviamente un aperto di \(\R\).
+\end{sol}
+
+\begin{ese}
+	In \(\R\) si consideri la successione convergente \(C=\left\{\frac{1}{n}\right\}_{n\in\N}\).
+	Consideriamo \(C\) come sottospazio di \(\R\), si dica se:
+	\begin{itemize}
+		\item \(C\) è uno spazio topologico discreto.
+		\item L'origine è un elemento di \(C\).
+	\end{itemize}
+\end{ese}
+
+\begin{sol}
+	\begin{itemize}
+		\item Un generico elemento di \(C\) è del tipo \(\frac{1}{n}\), mi basta quindi dimostrare che esiste un aperto in \(C\) che contiene solamente \(\frac{1}{n}\).
+		      Mi basta quindi
+		      \[
+			      \left\{\frac{1}{n}\right\}=\left(\frac{1}{n}-\e,\frac{1}{n}+\e\right)\cap C,
+		      \]
+		      dove \(\e\) è un valore sufficientemente piccolo, in particolare
+		      \[
+			      \e<d\left(\frac{1}{n},\frac{1}{n+1}\right)=\frac{1}{n(n+1)}<\frac{1}{n}.
+		      \]
+		\item No, poichè \(0\neq \frac{1}{n},\,\fa n\in\N\).
+	\end{itemize}
+\end{sol}
+
+\begin{ese}
+	Consideriamo l'applicazione
+	\[
+		\exp\colon [0,2\p)\to S^1\subset \R^2\approx \C,\q\mapsto e^{i\,\q}=(\cos\q,\sin\q).
+	\]
+	Si dica se \(\exp\) costituisce un omeomorfismo.
+\end{ese}
+
+\begin{sol}
+	Per l'analisi sappiamo che \(\exp\) è continua, inoltre risulta iniettiva su \([0,2\p)\) in quanto funzione periodica di periodo pari proprio a \(2\p\).
+	Infine \(\exp\) è banalmente suriettiva su \(S^1\).
+
+	Resterebbe da verificare se è aperta nelle topologie di sottospazi \([0,2\p)\subset\R,S^1\subset\R^2\).
+	Ma si mostra facilmente che non lo è, infatti, consideriamo \([0,\p/2)\) che è aperto in \([0,2\p)\) in quanto \([0,\p/2)=[0,2\p)\cap(-1,\p/2)\).
+	Avremo che l'immagine \(\exp([0,\p/2))\) non è aperta in \(S^1\) in quanto il punto \((1,0)\) non appartiene all'interiore di \(S^1\).
+\end{sol}
+
+\begin{defn}{Embedding topologico}{embedding}\index{Embedding}
+	Sia \(X\) uno spazio topologico e sia \(A\) un sottoinsieme di \(X\).
+	Un \emph{embedding} topologico è un'applicazione continua e iniettiva
+	\[
+		f\colon A\hookrightarrow X,
+	\]
+	che è omeomorfismo sull'immagine \(f(A)\).
+\end{defn}
+
+\begin{oss}
+	Un'applicazione iniettiva è ovviamente biiettiva sull'immagine.
+\end{oss}
+
+\begin{teor}{Proprietà universale della topologia di sottospazi}{propUniversaleSottospazi}
+	Sia \(B\subset X\) un sottospazio topologico.
+	Sia \(Y\) uno spazio topologico qualsiasi.
+	Allora
+	\[
+		f\colon Y\to B,
+	\]
+	è continua se e soltanto se la composizione
+	\[
+		Y\overset{f}{\to}B\overset{i}{\hookrightarrow}X,
+	\]
+	è continua.
+\end{teor}
+
+\begin{proof}
+	\(f\) è continua se e soltanto se \(f^{-1}(U)\) è aperto in \(Y\) per ogni \(U\) aperto di \(B\).
+	Ma \(U\) è aperto in \(B\) se e solo se, per definizione, \(U=B\cap V\), dove \(V\) è un aperto di \(X\).
+	Quindi
+	\[
+		U=i^{-1}(V)\implies f^{-1}(U)=\big(i\circ f\big)^{-1}(V),
+	\]
+	ovvero \(f^{-1}(U)\) è un aperto di \(Y\) se e solo se \(i\circ f\) è continua
+\end{proof}
+
+\begin{oss}
+	La topologia di sottospazio è l'unica che soddisfa questa proprietà universale.%TODO
+\end{oss}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 09/03/2016 - TERZA SETTIMANA (2)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Preso \(B\subset X\) un sottospazio topologico di \(X\), valgono le seguenti proprietà:
+
+\begin{pr}\label{ssp:1}
+	L'inclusione
+	\[
+		i\colon B\hookrightarrow X,
+	\]
+	è un embedding.
+\end{pr}
+
+\begin{pr}\label{ssp:2}
+	Se \(f\colon X\to Y\) è continua, allora la restrizione
+	\[
+		f|_B\colon B\to Y,
+	\]
+	è continua.
+\end{pr}
+
+\begin{pr}\label{ssp:3}
+	Se \(f\colon X\to Y\) è continua, allora la restrizione sull'immagine
+	\[
+		f|_B\colon B\to f(B),
+	\]
+	è continua e suriettiva.
+\end{pr}
+
+\begin{pr}\label{ssp:4}
+	I chiusi di \(B\) sono precisamente le intersezioni con i chiusi di \(X\).
+\end{pr}
+
+\begin{pr}\label{ssp:5}
+	Se \(\mathcal{B}\) è una base di \(X\), allora
+	\[
+		\mathcal{B}_B=\Set{B\cap U:U\in\mathcal{B}},
+	\]
+	è base di \(B\).
+\end{pr}
+
+\begin{pr}\label{ssp:6}
+	Se \(X\) è uno spazio di Hausdorff, allora lo è anche \(B\).
+\end{pr}
+
+\begin{pr}\label{ssp:7}
+	Se \(X\) è a base numerabile, allora lo è anche \(B\).
+\end{pr}
+
+\begin{prop}{Grafico omeomorfo al dominio dell'applicazione}{graficoOmeoDominio}
+	Presa un'applicazione continua \(f\colon U\to\R^k,U\) aperto di \(\R^n\).
+	Allora il grafico
+	\[
+		\Gamma_f=\Set{(x,y)\in\R^n\times\R^k | x\in U,y=f(x)\in\R^k},
+	\]
+	è un sottospazio di \(R^{n+k}\) omeomorfo a \(U\) aperto di \(\R^n\).
+\end{prop}
+
+\begin{proof}
+	Per la proprietà \ref{ssp:3} l'applicazione \(\j_f\colon U\to\Gamma_f\) è continua e suriettiva.
+	D'altronde \(\j_f\) è anche iniettiva, in quanto mappa \(x\mapsto \big(x,y=f(x)\big)\), con inversa
+	\[
+		\j_f^{-1}\colon \Gamma_f\to U,(x,y)\mapsto x,
+	\]
+	che è continua in quanto restrizione dell'applicazione continua
+	\[
+		\R^{n+k}\to\R^n,(x,y)\mapsto x.\qedhere
+	\]
+\end{proof}
+
+\begin{ese}
+	Si dimostri che
+	\[
+		V=\Set{(x,y)\in\R^2 | y=\abs{x}},
+	\]
+	è omeomorfo a \(\R\).
+\end{ese}
+
+\begin{sol}
+	Per definizione avremo \(V=\Gamma_{\abs{x}}\), dove
+	\[
+		\abs{x}\colon\R\to\R, x\mapsto \begin{cases}
+			x  & x\ge 0 \\
+			-x & x<0
+		\end{cases}
+	\]
+	per la proposizione precedente \(V\) è omeomorfo al dominio di \(\abs{x}\) che nel nostro caso \(\R\).
+	Quindi
+	\[
+		V\approx \R.
+	\]
+\end{sol}
+
+\begin{exe}[per casa]
+	Si dimostri che un aperto di \(\R^n\) è omeomorfo ad una varietà topologica \(T_f\) di dimensione \(n\).
+\end{exe}
+
+\begin{oss}
+	Quindi uno spazio topologico che è localmente il grafico di una funzione continua, è localmente euclideo.
+\end{oss}
+
+\begin{prop}{Sfere come varietà topologiche}{sferaVarietaTop}
+	La sfera unitaria di dimensione \(n\)
+	\[
+		S^n=\Set{x\in\R^{n+1} | \norma{x}^2=1},
+	\]
+	è una varietà topologica di dimensione \(n\).
+\end{prop}
+
+\begin{proof}
+	Dal momento che \(\R^{n+1}\) è uno spazio di Hausdorff a base numerabile, per le proprietà \ref{ssp:6} e \ref{ssp:7}, lo è anche \(S^n\).
+	Per concludere resta da dimostrare che \(S^n\) è localmente euclideo, ma ciò segue dal fatto che \(S^n\) è localmente il grafico di un'applicazione \(U\subset\R^n\to S^n\).
+	Infatti, per definizione \(x=(x_1,\ldots,x_{n+1})\in S^n\) quando \(\norma{x}^2=1\), per cui
+	\[
+		\ex i\in\Set{1,\ldots,n+1}:x_i\neq 0,
+	\]
+	ovvero
+	\[
+		x_i=\sqrt{1-x_1^2- \ldots -\hat{x}_i^2- \ldots -x_{n+1}^2}=f(x_1,\ldots,\hat{x}_i^2,\ldots x_{n+1}),
+	\]
+	che è una funzione continua \(f\colon\R^n\to \R\).
+	Per cui, in un intorno di \(x\in S^n\), avremo che \(S^n\) è il grafico di \(f\).
+	Ovvero \(S^n\) è è localmente euclideo essendo localmente omeomorfo ad \(\R^n\) per la proposizione \ref{pr:graficoOmeoDominio}.
+\end{proof}
+
+\begin{ese}
+	Si dimostri che
+	\[
+		S^1=\Set{(x,y)\in\R^2 | x^2+y^2=1},
+	\]
+	è una varietà topologica di dimensione \(1\).
+\end{ese}
+
+\begin{sol}
+	Ripercorriamo la dimostrazione della proposizione precedente:
+	\(S^1\) è di Hausdorff e a base numerabile in quanto lo è \(\R^2\).
+	Inoltre è localmente euclideo, ovvero esiste un ricoprimento aperto \(\mathcal{A}=\Set{A}_{i\in I}\) tale che
+	\[
+		S^1=\bigcup_{i\in I}A_i \qquad\text{e}\qquad A_i\approx \R.
+	\]
+	Questo poichè, nel semicerchio superiore \(A_1\), \(S^1\) è il grafico di \(y=\sqrt{1-x^2}\) che è omeomorfo al dominio \((-1,1)\).
+	Analogamente, nel semicerchio inferiore \(A_2\), \(S^1\) è il grafico di \(y=-\sqrt{1-x^2}\).
+
+	Per includere in punti con \(y=0\) ci basta considerare il semicerchio destro \(A_3\) e sinistro \(A_4\), rispettivamente grafici di
+	\[
+		x=\sqrt{1-y^2}\qquad\text{e}\qquad x=-\sqrt{1-y^2}.
+	\]
+	Avremo quindi \(S^1=A_1\cup A_2\cup A_3\cup A_4\), pertanto \(S^1\) è localmente euclideo in quanto
+	\[
+		A_i\approx (-1,1)\approx \R.
+	\]
+\end{sol}
+
+\begin{prop}{Funzioni definite a tratti}{funzioniATratti}
+	Sia \(X\) uno spazio topologico che può essere scritto come unione finita di insiemi chiusi
+	\[
+		X=C_1 \cup \ldots \cup C_k.
+	\]
+	Allora, comunque preso \(i\), esiste un'applicazione continua \(f_i\colon C_i\to Y\) tale che
+	\[
+		f_i|_{C_i \cap C_j}=f_j|_{C_i \cap C_j},
+	\]
+	se e soltanto se esiste un'unica funzione continua \(f\colon X\to Y\), tale che
+	\[
+		f|_{C_i}=f_i.
+	\]
+\end{prop}
+
+\begin{ese}
+	Su \(\R=(-\infty,0]\cup [0,+\infty)\), consideriamo ad esempio
+	\[
+		\abs{x}\colon\R\to\R^+,x\mapsto \begin{cases}
+			x  & x \ge 0 \\
+			-x & x < 0
+		\end{cases}
+	\]
+	avremo quindi
+	\[
+		f_1\colon(-\infty,0]\to \R^+,x\mapsto -x \qquad\text{e}\qquad f_2\colon [0,+\infty)\to\R^+,x\mapsto x,
+	\]
+	con \(f_1(0)=f_2(0)=0\) e
+	\[
+		f|_{(-\infty,0]}=f_1 \qquad \qquad f|_{[0,+\infty)}=f_2.
+	\]
+\end{ese}
+%%%%%%%%%%%%%%%%
+%SPAZI PRODOTTO%
+%%%%%%%%%%%%%%%%
+\section{Spazi prodotto}
+
+\begin{defn}{Topologia prodotto}{topologiaProdotto}\index{Topologia!prodotto}
+	Dati \(n\) spazi topologici \(X_1, \ldots, X_n\), la \emph{topologia prodotto} sul prodotto cartesiano
+	\[
+		X_1 \times \ldots \times X_n
+	\]
+	è definita dalla seguente base
+	\[
+		\mathcal{B}=\Set{(U_1 \times \ldots \times U_n) | U_i\in T_i,\,\fa i\in\Set{1, \ldots, n}}.
+	\]
+\end{defn}
+
+\begin{oss}
+	Naturalmente è sufficiente considerare tutte le combinazioni di aperti delle rispettive basi.
+\end{oss}
+
+\begin{ese}
+	Consideriamo \(\R^2=\R \times \R\) con la topologia prodotto. La base di \(\R^2\) sarà dunque l'insieme di tutti i sottoinsiemi di \(\R^2\) che sono prodotto di aperti in \(\R\).
+	Quindi, per la caratterizzazione degli aperti in \(\R\), tali sottoinsiemi saranno tutti i prodotti
+	\[
+		(a,b) \times (c,d),
+	\]
+	di intervalli aperti di \(\R\).
+	Pertanto la base di \(\R^2\) è costituita dai rettangoli aperti, i quali avevamo osservato identificano la stessa base di \(\R^2\) definita dai dischi.
+\end{ese}
+
+\begin{defn}{Spazio prodotto}{spazioProdotto}\index{Spazio!prodotto}
+	Dati \(n\) spazi topologici \(X_1, \ldots, X_n\), si definisce \emph{spazio prodotto}, il prodotto cartesiano
+	\[
+		X_1 \times \ldots \times X_n,
+	\]
+	con la topologia prodotto.
+\end{defn}
+
+\begin{prop}{Proiezioni di spazi prodotto sono continue}{proiezioniContinue}
+	Sia \(X = X_1 \times \ldots \times X_n\) uno spazio prodotto.
+	Allora le proiezioni
+	\[
+		\p_i \colon X \to X_i, (x_1, \ldots, x_i, \ldots, x_n)\mapsto x_i,
+	\]
+	sono tutte continue, suriettive e aperte.
+\end{prop}
+
+\begin{proof}
+	Basta dimostrarlo per \(n=2\), infatti, se risultasse vero per \(X_1 \times X_2\) si potrebbe estendere ad \(X_1 \times X_2 \times X_3\) semplicemente ridefinendo \(Y_1 = X_1 \times X_2\), ovvero
+	\[
+		X_1 \times X_2 \times X_3 = (X_1 \times X_2) \times X_3 = Y_1 \times X_3.
+	\]
+	Dimostriamolo quindi per \(n=2\):
+	\begin{itemize}
+		\item La suriettività è vera per definizione.
+		\item Preso \(U_1\) aperto di \(X_1\), avremo che
+		      \[
+			      \p_1^{-1}(U_1)=U_1 \times X_2,
+		      \]
+		      che è un aperto del prodotto in quanto \(X_2\) è per definizione un aperto di \(X_2\), mentre \(U_1\) è aperto di \(X_1\) per ipotesi.
+		\item Per dimostrare che \(\p_i\) è aperto, è sufficiente mostrarlo per gli aperti della base, infatti
+		      \[
+			      \p_1(U_1 \times U_2) = U_1,
+		      \]
+		      che è aperto di \(X_1\), analogamente
+		      \[
+			      \p_2(U_1 \times U_2) = U_2,
+		      \]
+		      che è aperto di \(X_2\).\qedhere
+	\end{itemize}
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 14/03/2016 - QUARTA SETTIMANA (1)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{teor}{Proprietà universale della topologia prodotto}{propUniversaleProdotto}
+	Sia \(X_1 \times \ldots \times X_n\) un prodotto topologico e sia \(\p_i \colon X_1 \times \ldots \times X_n \to X_i\) la proiezione su ciascuna componente.
+	Allora un'applicazione
+	\[
+		f \colon Y \to X_1 \times \ldots \times X_n,
+	\]
+	è continua se e soltanto se \(\p_i \circ f\) è continua \(\fa i=1,\ldots,n\).
+\end{teor}
+
+\begin{proof}
+	Come abbiamo già osservato in precedenza, è sufficiente dimostrare una proposizione su spazi topologici nel caso \(n=2\).
+	Consideriamo quindi il caso \(X\times Z\) con \(X=X_1\) e \(Z=X_2 \times \ldots \times X_n\).
+
+	Per la continuità è sufficiente verificarla su una base, nel caso specifico della topologia prodotto su
+	\[
+		\mathcal{B} = \Set{U\times V | U\in T_X, V\in T_Z}.
+	\]
+	\graffito{\(\Leftarrow)\)}Per definizione \(f\) è continua se e soltanto se \(f^{-1}(U\times V)\) è aperta in \(Y\).
+	Ma, per ipotesi,
+	\[
+		\big( \p_X \circ f \big)^{-1}(U) = f^{-1}\big( \p_X^{-1}(U) \big) = f^{-1}(U\times Z),
+	\]
+	è un aperto di \(Y\).
+	Analogamente
+	\[
+		\big( \p_Z \circ f \big)^{-1}(V) = f^{-1}\big( \p_Z^{-1}(V) \big) = f^{-1}(X\times V),
+	\]
+	che è ancora un aperto di \(Y\).
+	Osserviamo infine che
+	\[
+		f^{-1}(U\times V) = f^{-1}(U\times Z) \cap f^{-1}(X\times V),
+	\]
+	che è quindi aperta in quanto intersezione di aperti.
+
+	\graffito{\(\Rightarrow)\)}Supponiamo che \(f\) sia continua, per cui ogni controimmagine di un elemento della base è aperto in \(Y\).
+	Siano \(U,V\) rispettivamente aperti di \(X\) e \(Z\), avremo
+	\begin{gather*}
+		\big( \p_X \circ f \big)^{-1}(U) = f^{-1}\big( \p_X^{-1}(U) \big) = f^{-1}(U\times Z),\\
+		\big( \p_Z \circ f \big)^{-1}(V) = f^{-1}\big( \p_Z^{-1}(V) \big) = f^{-1}(X\times V),
+	\end{gather*}
+	che sono entrambi aperti in \(Y\) in quanto controimmagini di elementi della base.
+\end{proof}
+
+\begin{cor}
+	Un'applicazione
+	\[
+		F\colon \R^n\to\R^n, \bar{x}=(x_1,\ldots,x_n) \mapsto \big( f_1(\bar{x}),\ldots,f_n(\bar{x}) \big),
+	\]
+	è continua se e soltanto se ogni sua componente \(f_i\) è continua.
+\end{cor}
+
+\begin{proof}
+	Segue banalmente dalla proprietà universale, infatti
+	\[
+		f_i = \p_i \circ f.\qedhere
+	\]
+\end{proof}
+
+\begin{prop}{Unicità della topologia prodotto}{unicitàTopProdotto}
+	Siano \(X_1,\ldots,X_n\) spazi topologici.
+	Allora la topologia prodotto su \(X_1\times \ldots \times X_n\) è l'unica che soddisfa la proprietà universale.
+\end{prop}
+
+\begin{proof}
+	%TODO P.64 PDF
+\end{proof}
+
+\begin{pr}\label{pr:prod1}
+	La topologia prodotto è associativa, ovvero
+	\[
+		X \times Y \times Z \approx (X\times Y) \times Z \approx X\times (Y\times Z).
+	\]
+\end{pr}
+
+\begin{pr}\label{pr:prod2}
+	Comunque preso \(y_0\in Y\), l'inclusione
+	\[
+		i\colon X \hookrightarrow X\times Y, x\mapsto(x,y_0),
+	\]
+	è un embedding.
+\end{pr}
+
+\begin{pr}\label{pr:prod3}
+	Se \(X,Y\) sono spazi di Hausdorff, allora
+	\[
+		X\times Y,
+	\]
+	è uno spazio di Hausdorff.
+\end{pr}
+
+\begin{pr}\label{pr:prod4}
+	Se \(X,Y\) sono spazi a base numerabile, allora
+	\[
+		X\times Y,
+	\]
+	è uno spazio a base numerabile.
+\end{pr}
+
+\begin{prop}{Somma e prodotto di applicazioni continue}{sommaProdottoContinue}
+	Siano \(f,g\colon X\to K\) applicazioni da uno spazio topologico in un gruppo (o campo) topologico, allora
+	\[
+		f+g \qquad\text{e}\qquad f\cdot g,
+	\]
+	sono applicazioni continue.
+\end{prop}
+
+\begin{proof}
+	\(K\) è uno spazio topologico, quindi per la proprietà universale, \(f,g\colon X\to K\) sono continue se e soltanto se
+	\[
+		X \to K\times K, x\mapsto \big( f(x),g(x) \big),
+	\]
+	è continua.
+	Inoltre
+	\begin{gather*}
+		+\colon K \times K \to K, (a,b) \mapsto a+b,\\
+		\cdot \colon K\times K \to K, (a,b) \mapsto a\,b,
+	\end{gather*}
+	sono applicazione continue.
+	Quindi \(f+g\) e \(f\cdot g\) sono continue in quanto composizione di applicazioni continue.
+\end{proof}
+
+\begin{prop}{Prodotto di varietà topologiche}{prodottoVarTopologiche}
+	Siano \(M\) e \(N\) due varietà topologiche rispettivamente di dimensione \(m\) e \(n\).
+	Allora \(M\times N\) è una varietà topologica di dimensione \(m+n\).
+\end{prop}
+
+\begin{proof}
+	Per le proprietà \ref{pr:prod3} e \ref{pr:prod4} sappiamo che \(M\times N\) è uno spazio di Hausdorff a base numerabile.
+
+	Resta da mostrare che è localmente omeomorfo ad \(\R^{m+n}\).
+	Consideriamo quindi la base
+	\[
+		\mathcal{B} = \Set{U\times V | U\in M, V\in N},
+	\]
+	sappiamo, per definizione di varietà topologica, che \(U\approx \R^m\) e \(V\approx \R^n\), quindi
+	\[
+		U\times V \approx \R^m \times \R^n \approx \R^{m+n}.\qedhere
+	\]
+\end{proof}
+
+\begin{ese}
+	Dimostriamo che la ciambella, o toro, è omeomorfa al prodotto topologico di due cerchi.%TODO FIG
+
+	Osserviamo che il toro corrisponde graficamente alla superficie di rotazione che si ottiene ruotando un cerchio di centro \((a,0)\) e raggio \(r<a\) attorno all'asse \(z\).
+
+	Costruiamo quindi un esempio numerico prendendo un cerchio di raggio \(r=1\) e centro \((2,0)\).
+	Avremo quindi le seguenti equazioni parametriche:
+	\[
+		(y-2)^2+z^2 = 1 : 	\begin{cases}
+			x = 2+\cos\q \\
+			y = \sin\q
+		\end{cases}
+	\]
+	%TODO
+\end{ese}
+%%%%%%%%%%%%%%%%%
+%SPAZI QUOZIENTE%
+%%%%%%%%%%%%%%%%%
+\section{Spazi quoziente}
+
+\begin{defn}{Topologia quoziente}{topologiaQuoziente}\index{Topologia!quoziente}
+	Sia \(\p\colon X \twoheadrightarrow Y\) un'applicazione suriettiva con \(X\) spazio topologico.
+	Si definisce la \emph{topologia quoziente} su \(Y\) come segue:
+	\[
+		V \text{ è aperto in } Y \iff \p^{-1}(V) \text{ è aperto in }X.
+	\]
+\end{defn}
+
+\begin{oss}
+	La stessa definizione vale anche per i chiusi.
+\end{oss}
+
+\begin{defn}{Spazio quoziente}{spazioQuoziente}\index{Spazio!quoziente}
+	Sia \(\p\colon X \twoheadrightarrow Y\) un'applicazione suriettiva con \(X\) spazio topologico.
+	\(Y\) si definisce \emph{spazio quoziente} se dotato della topologia di sottospazio.
+\end{defn}
+
+\begin{notz}
+	Per indicare che \(Y\) è uno spazio quoziente su \(X\) scriveremo
+	\[
+		Y = \frac{X}{\sim}
+	\]
+	Dove \(\sim\) indica la seguente relazione di equivalenza
+	\[
+		x_1 \sim x_2 \iff \p(x_1) = \p(x_2).
+	\]
+\end{notz}
+
+\begin{defn}{Fibra di un punto}{fibra}\index{Fibra}
+	Sia \(Y=X/\sim\) uno spazio quoziente e sia \(x_0\in Y\).
+	Definiamo \emph{fibra} di \(x_0\) l'insieme di tutti i punti di \(X\) che hanno come immagine \(x_0\), ovvero
+	\[
+		\p^{-1}(x_0).
+	\]
+\end{defn}
+
+\begin{oss}
+	Per definizione, se \(x_1 \sim x_2\) diremo che \(x_1,x_2\) appartengono alla stessa fibra.
+\end{oss}
+
+\begin{ese}
+	Consideriamo la proiezione \(\p\colon \R^2 \to \R,(x,y)\mapsto x\).
+	La fibra del generico punto \(x_0 \in \R\) è la retta verticale \((x_0,y)\).
+\end{ese}
+
+\begin{defn}{Applicazione quoziente}{applicazioneQuoziente}\index{Applicazione!quoziente}
+	Un'applicazione tra spazi topologici \(f\colon X \twoheadrightarrow Y\) suriettiva, si dice \emph{applicazione quoziente} se gode della proprietà della topologia quoziente.
+\end{defn}
+
+\begin{oss}
+	Un'applicazione quoziente è automaticamente continua.
+\end{oss}
+
+\begin{oss}
+	Un'applicazione quoziente \(f\colon X \twoheadrightarrow Y\) definisce una partizione di \(X\) in fibre, ovvero classi di equivalenza.
+\end{oss}
+
+\begin{ese}
+	Ogni proiezione è un'applicazione quoziente.
+\end{ese}
+
+\begin{defn}{Insieme saturo}{saturo}\index{Saturo}
+	Sia \(f\colon X \twoheadrightarrow Y\) un'applicazione quoziente.
+	\(U \subset X\) si dice \emph{saturo} se
+	\[
+		U = \p^{-1}\big(\p(U)\big).
+	\]
+\end{defn}
+
+\begin{oss}
+	Ogni fibra è un insieme saturo, mentre ogni saturo è insieme di fibre.
+\end{oss}
+
+\begin{ese}
+	Consideriamo nuovamente la proiezione \(\p\colon \R^2 \to \R, (x,y) \mapsto x\).
+	Gli insiemi saturi saranno "strisce verticali", ovvero unione di rette verticali.
+	Ad esempio
+	\[
+		\big([1,2] \cup \{3\} \cup [4,5]\big) \times \R,
+	\]
+	è un saturo di \(\R^2\), mentre il rettangolo \((-1,3] \times [-2,5]\) non lo è.
+\end{ese}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 16/03/2016 - QUARTA SETTIMANA (2)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{prop}{Caratterizzazione delle applicazioni quoziente}{carattApplQuoziente}
+	Un'applicazione continua e suriettiva \(\p\colon X \twoheadrightarrow Y\) è un'applicazione quoziente se e soltanto se le immagini di aperti saturi di \(X\) tramite \(\p\) sono aperti di \(Y\).
+\end{prop}
+
+\begin{proof}
+	\graffito{\(\Rightarrow)\)}Sia \(U\) un aperto saturo, dobbiamo mostrare che \(\p(U)\) è aperto in \(Y\).
+	Nella topologia quoziente questo è vero se e soltanto se \(\p^{-1}\big(\p(U)\big)\) è aperto in \(X\), ma per definizione di saturo \(\p^{-1}\big(\p(U)\big)=U\) che è aperto in \(X\) per ipotesi.
+
+	\graffito{\(\Leftarrow)\)}Viceversa, supponiamo che \(\p\) sia un'applicazione continua che manda aperti saturi in aperti, dobbiamo mostrare che \(\p\) è un'applicazione quoziente, ovvero che \(V\) è aperto di \(Y\) se e soltanto se \(\p^{-1}(V)\) è aperto di \(X\).
+	Per ipotesi \(\p\) è continua, quindi \(V\) aperto di \(Y\) implica \(\p^{-1}(V)\) aperto di \(X\).
+	Supponiamo quindi che \(\p^{-1}(V)\) sia un aperto di \(X\), avremo che \(\p^{-1}(V)\) è un aperto saturo, in quanto
+	\[
+		\p^{-1}\Big(\p\big(\p^{-1}(V)\big)\Big)=\p^{-1}(V).
+	\]
+	Per cui \(\p^{-1}(V)\) è un aperto di \(Y\) in quanto \(\p\) manda aperti saturi in aperti.
+\end{proof}
+
+\begin{ese}
+	Preso \(S^1 \subset \R^2\), che sappiamo essere un sottospazio topologico, vogliamo dimostrare che è anche uno spazio quoziente, definito dall'applicazione esponenziale
+	\[
+		\exp\colon [0,1] \to S^1\subset \R^2=\C, \q \mapsto 2^{2\p\,i\,\q}=\big(\cos(2\p\,\q),\sin(2\p\,\q)\big).
+	\]
+	Per la caratterizzazione dobbiamo dimostrare che \(V\) è un aperto di \(S^1\) se e soltanto se \(\exp^{-1}(V)\) è un aperto di \([0,1]\). Naturalmente basta dimostrarlo per una base di \(S^1\), ad esempio la famiglia degli archetti aperti.
+	\begin{itemize}
+		\item Supponiamo che \((1,0)\notin V\), siccome \(V\) è piccolo possiamo supporre
+		      \[
+			      \exp^{-1}(V) = (\q-\e,\q+\e),
+		      \]
+		      che è ovviamente aperto in \([0,1]\).
+		\item Viceversa, supponiamo che \((1,0)\in V\), in tal caso avremo, per via della non iniettività del punto \((1,0)\),
+		      \[
+			      \exp^{-1}(V) = [0,\e)\sqcup (1-\e,1],
+		      \]
+		      che è nuovamente un aperto di \([0,1]\).
+	\end{itemize}
+	Quindi
+	\[
+		S^1 = \frac{[0,1]}{0\sim 1}
+	\]
+	dove \(0\sim 1\) sta ad indicare una relazione di equivalenza che identifica i punti \(0\) ed \(1\).
+\end{ese}
+
+\begin{oss}
+	Avendo già osservato che la relazione di equivalenza identifica solo i punti \(0\) ed \(1\), la fibra del generico \(x_0\neq (1,0)\) sarà l'unico punto di \([0,1]\) avente \(x_0\) come immagine, mentre la fibra di \((1,0)\) sarà \(\{0,1\}\).
+\end{oss}
+
+\begin{oss}
+	\(\exp\) non è un'applicazione aperta, infatti \(\exp\big([0,\e)\big)\) non è un aperto di \(S^1\) in quanto \((1,0)\in\exp\big([0,\e)\big)\) che non è un suo punto interno.
+\end{oss}
+
+\begin{oss}
+	Tramite l'applicazione
+	\[
+		\exp\colon \R \to S^1,\q \mapsto e^{2\p\,i\,\q},
+	\]
+	si può dimostrare che vale
+	\[
+		S^1 = \frac{\R}{\Z}
+	\]
+	dove \(\Z\) indica una relazione di equivalenza che identifica tutti i punti di \(\R\) avente distanza reciproca intera, ovvero
+	\[
+		x \sim y \iff x-y \in \Z.
+	\]
+\end{oss}
+
+\begin{teor}{Proprietà universale della topologia quoziente}{propUniversaleQuozienti}
+	Sia \(\p\colon X \twoheadrightarrow Y\) un'applicazione quoziente.
+	Per ogni spazio topologico \(B\), un'applicazione \(f\colon Y \to B\) è continua se e soltanto se \(f\circ \p\) è continua.
+\end{teor}
+
+\begin{proof}
+	\graffito{\(\Rightarrow)\)}Supponiamo che \(f\) sia continua, \(\p\) è continua in quanto applicazione quoziente.
+	Quindi \(f\circ \p\) è continua in quanto composizione di applicazioni continue.
+
+	\graffito{\(\Leftarrow)\)}Sia \(V\) un aperto di \(B\).
+	Per la continuità di \(f\circ \p\) avremo che \(\big(f\circ \p\big)^{-1}(V)\) è aperto in \(X\), ma
+	\[
+		\big(f\circ \p\big)^{-1}(V) = \p^{-1}\big(f^{-1}(V)\big),
+	\]
+	e per definizione di applicazione quoziente \(\p^{-1}\big(f^{-1}(V)\big)\) è un aperto di \(X\) se e soltanto se \(f^{-1}(V)\) è un aperto di \(Y\), per cui \(f\) è continua.
+\end{proof}
+
+\begin{cor}[Passaggio al quoziente]
+	Sia \(\p\colon X \twoheadrightarrow Y\) un'applicazione quoziente e, per ogni spazio topologico \(B\), sia \(g\colon X \to B\) un'applicazione continua costante sulle fibre di \(\p\), ovvero tale che
+	\[
+		\fa p,q\in X:\p(p) = \p(q) \implies g(p)=g(q).
+	\]
+	Allora si dice che \(g\) passa al quoziente, cioè che esiste un'unica applicazione continua \(\bar{g}\colon Y \to B\) tale che \(g\circ \p = \bar{g}\), ovvero che il seguente diagramma commuta
+	\[
+		\begin{tikzcd}
+			X \arrow[swap, two heads]{d}{\p} \arrow{dr}{g}\\
+			Y \arrow[swap, dashed]{r}{\bar{g}} & B
+		\end{tikzcd}
+	\]
+\end{cor}
+
+\begin{proof}
+	Per ogni \(y\in Y\) definiamo \(\bar{g}(y) = g(p)\) per un qualsiasi \(p\in \p^{-1}(y)\).
+	Otteniamo così una ben definita applicazione in quanto, se \(p_1,p_2 \in \p^{-1}(y)\), avremo \(g(p_1)=g(p_2)=\bar{g}(y)\).
+	Dalle ipotesi su \(\bar{g}\) ne segue anche la sua unicità.
+	Infine la continuità di \(\bar{g}\) segue banalmente dalla proprietà universale, in quanto \(\bar{g}=g \circ \p\).
+\end{proof}
+
+\begin{oss}
+	Riassumendo, se \(\p\colon X \twoheadrightarrow Y\) è un'applicazione quoziente, esiste una corrispondenza biunivoca tra l'insieme della applicazione continue con dominio \(X\) e le applicazioni continue con dominio \(X\) che sono costanti sulle fibre di \(\p\).
+\end{oss}
+
+\begin{ese}
+	Mostriamo che \(\sin x\) è continua su \(S^1\).
+
+	Poniamo \(f\colon \R \to \R, x \mapsto \sin x\) che sappiamo essere una funzione continua per l'analisi, e consideriamo l'applicazione quoziente
+	\[
+		\exp\colon \R \to S^1, x \mapsto e^{i\,x}.
+	\]
+	Osserviamo che \(f\) è un'applicazione periodica di periodo \(2\p\), che si verifica facilmente essere costante sulle fibre di \(\exp\).
+	Infatti, presi \(p,q\in\R\) tali che \(\exp(p)=\exp(q)\), avremo
+	\[
+		\begin{split}
+			\exp(p)=\exp(q) & \iff (\cos p,\sin p) = (\cos q, \sin q)\\
+			& \iff 	\begin{cases}
+				\cos p = \cos q \\
+				\sin p = \sin q
+			\end{cases}\\
+			& \iff x-y = 2k\p,
+		\end{split}
+	\]
+	che corrispondono proprio alle fibre di \(\exp\).
+	Possiamo quindi definire
+	\[
+		\bar{f} \colon S^1 \to \R, \q \mapsto f\big(\exp^{-1}(\q)\big),
+	\]
+	che è ben definita e continua su \(S^1\) per il passaggio al quoziente.
+\end{ese}
+
+\begin{oss}
+	In generale le funzioni continue su archi \(\bar{f}\colon S^1 \to \R\) sono in corrispondenza biunivoca con le funzioni periodiche e continue \(f\colon \R \to \R\).
+\end{oss}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 21/03/2016 - QUINTA SETTIMANA (1)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%
+%AZIONI DI GRUPPI%
+%%%%%%%%%%%%%%%%%%
+\section{Azioni di gruppi}
+
+\begin{defn}{Gruppo topologico}{gruppoTopologico}\index{Gruppo topologico}
+	Uno spazio topologico \(G\) si definisce \emph{gruppo topologico} se è un gruppo ed è tale che l'applicazione di gruppo
+	\[
+		*\colon G\times G \to G, (g_1,g_2) \mapsto g_1*g_2,
+	\]
+	è continua e \(G\to G,g \mapsto g^{-1}\) è continua.
+\end{defn}
+
+\begin{ese}
+	Ogni gruppo finito dotato della topologia discreta è un gruppo topologico (ad esempio \(\Z,\Z^n\)).
+\end{ese}
+
+\begin{ese}
+	\((\R,+)\) con la topologia euclidea è un gruppo topologico, infatti
+	\[
+		+\colon \R\times \R \to \R, (x,y)\mapsto x+y,
+	\]
+	è continua per l'analisi\graffito{topologicamente la controimmagine di \(x+y\) è una retta}.
+	Ed analogamente
+	\[
+		\R\to\R, x\mapsto -x,
+	\]
+	è banalmente continua.
+\end{ese}
+
+\begin{ese}
+	\((\R^*,\cdot)\) con la topologia euclidea è un gruppo topologico, infatti
+	\[
+		\cdot\,\colon \R^*\times \R^* \to \R^*, (x,y)\mapsto x\,y,
+	\]
+	è continua per l'analisi o perchè la controimmagine di un punto \(u\) è \(\Set{(x,y) | x\,y = u}\), ovvero un'iperbole.
+	Per cui la controimmagine di un intervallo aperto è una superficie compresa fra due rami di iperboli senza il bordo che è chiaramente aperta.
+	Analogamente
+	\[
+		\R^* \to \R^*, x\mapsto \frac{1}{x},
+	\]
+	è continua in quanto \(0\notin \R^*\).
+\end{ese}
+
+\begin{prop}{Topologia su sottogruppo}{topologiaSottogruppo}
+	Ogni sottogruppo di un gruppo topologico è un gruppo topologico rispetto alla topologia di sottospazio.
+\end{prop}
+
+\begin{prop}{Topologia su prodotto di gruppo}{topologiaProdottoGruppi}
+	Ogni prodotto di un numero finito di gruppi topologici è un gruppo topologico rispetto alla topologia prodotto.
+\end{prop}
+
+\begin{ese}
+	\((\R^n,+)\) è un gruppo topologico in quanto prodotto di gruppi topologici.
+\end{ese}
+
+\begin{ese}
+	\(S^1 \subset \C^*\) è un gruppo topologico rispetto alla moltiplicazione complessa in quanto sottogruppo di un gruppo topologico.
+\end{ese}
+
+\begin{ese}
+	\(T^n = S^1 \times \ldots \times S^1\) è un gruppo topologico in quanto prodotto di gruppi topologici.\graffito{\(T^n\) è il toro \(n\)-dimensionale}
+\end{ese}
+
+\begin{ese}
+	\(GL_n(\R)\) è un gruppo topologico, infatti
+	\[
+		GL_n(\R)\subset M_N(\R) \approx \R^{n^2},
+	\]
+	con la topologia euclidea.
+\end{ese}
+
+\begin{oss}
+	\(GL_n(\R)\) è un aperto di \(M_n(\R)\), infatti
+	\[
+		\det\colon M_n(\R) \to \R, A \mapsto \det(A),
+	\]
+	è continua in quanto funzione polinomiale.
+	Da cui \(GL_n(\R)=\det^{-1}\big(\R\setminus\{0\}\big)\) è aperto in \(M_n(\R)\) in quanto \(\det\) è continua e \(\R\setminus\{0\}\) è aperto in \(\R\).
+\end{oss}
+
+\begin{defn}{Traslazione sinistra}{traslazioneSinistra}\index{Traslazione}
+	Sia \((G,\cdot)\) un gruppo topologico.
+	Si definisce \emph{traslazione sinistra} rispetto a \(g\in G\), l'applicazione
+	\[
+		L_g \colon G\to G, g'\mapsto g\,g'.
+	\]
+\end{defn}
+
+\begin{oss}
+	Analogamente si definisce la traslazione destra come
+	\[
+		R_g \colon G \to G, g'\mapsto g' g.
+	\]
+\end{oss}
+
+\begin{oss}
+	\(R_g,L_g\) sono banalmente continue.
+\end{oss}
+
+\begin{defn}{Azione di un gruppo su uno spazio topologico}{azioneDiGruppo}\index{Azione di gruppo}
+	Sia \(G\) un gruppo e sia \(X\) uno spazio topologico.
+	Un'\emph{azione a sinistra} di \(G\) su \(X\) è un'applicazione
+	\[
+		*\colon G \times X \to X, (g,x) \mapsto g*x,
+	\]
+	tale che
+	\begin{itemize}
+		\item \(g_1(g_2*x)=(g_1 g_2)*x,\,\fa x\in X, g_1,g_2 \in G\);
+		\item \(1_G * x=x,\,\fa x \in X\).
+	\end{itemize}
+\end{defn}
+
+\begin{oss}
+	Analogamente si definisce un'azione a destra.
+\end{oss}
+
+\begin{notz}
+	Da questo momento, con la dicitura azione e traslazione, faremo riferimento alla definizione "sinistra" di queste.
+\end{notz}
+
+\begin{defn}{Azione continua}{azioneContinua}
+	Sia \(G\) un gruppo e sia \(X\) uno spazio topologico.
+	Un'azione \(*\) di \(G\) su \(X\) si definisce continua se l'applicazione \(*\) è continua.
+\end{defn}
+
+\begin{oss}
+	Se l'azione è continua, fissato \(g\in G\), l'applicazione
+	\[
+		X \to X, x\mapsto g*x,
+	\]
+	è un omeomorfismo di \(X\) in sé stesso, infatti:
+	\begin{itemize}
+		\item esiste l'inversa \(X\to X,x\mapsto g^{-1}*x\);
+		\item è continua in quanto è la restrizione di \(G\times X \to X\), che è continua, tramite \(\{g\}\times X \to X\);
+		\item l'inversa è continua perché è la restrizione tramite \(\{g^{-1}\} \times X \to X\).
+	\end{itemize}
+\end{oss}
+
+\begin{defn}{Orbita di un elemento}{orbita}\index{Orbita}
+	Sia \(*\) un'azione di un gruppo \(G\) su uno spazio topologico \(X\).
+	Preso \(x\in X\), si definisce \emph{orbita} di \(x\) l'insieme degli elementi di \(X\) che si ottengo come azione di \(G\) su \(x\), ovvero
+	\[
+		G*x = \Set{g*x | g\in G}.
+	\]
+\end{defn}
+
+\begin{defn}{Azione transitiva}{azioneTransitiva}\index{Azione di gruppo!transitiva}
+	Sia \(*\) un'azione di un gruppo \(G\) su uno spazio topologico \(X\).
+	\(*\) si dice \emph{transitiva} se esiste un'unica orbita, ovvero se
+	\[
+		\fa x \neq y \in X \,\ex g:g*x = y.
+	\]
+\end{defn}
+
+\begin{defn}{Azione libera}{azioneLibera}\index{Azione di gruppo!libera}
+	Sia \(*\) un'azione di un gruppo \(G\) su uno spazio topologico \(X\).
+	\(*\) si dice \emph{libera} se
+	\[
+		g*x = x \implies g = 1_G.
+	\]
+\end{defn}
+
+\begin{ese}
+	Consideriamo l'azione di \(GL_n(\R)\) su \(R^n\) tramite
+	\[
+		A\,\bar{x} = \bar{y},\qquad\text{con } \bar{x}\in\R^n,A \in GL_n(\R).
+	\]
+	Tale azione non sarà né libera né transitiva, infatti
+	\[
+		\begin{pmatrix}
+			1 & 0 \\
+			0 & 2
+		\end{pmatrix}
+		\begin{pmatrix}
+			1 \\
+			0
+		\end{pmatrix}
+		=
+		\begin{pmatrix}
+			1 \\
+			0
+		\end{pmatrix}
+		,\qquad\text{con }
+		\begin{pmatrix}
+			1 & 0 \\
+			0 & 2
+		\end{pmatrix}
+		\neq 1_{GL_n(\R)},
+	\]
+	mentre \(\{0\},\R^n\setminus \{0\}\) sono due orbite distinte.
+\end{ese}
+
+\begin{ese}
+	L'azione di \(O_n(\R)\) su \(\R^n\) non è transitiva in quanto le orbite sono tutte sfere centrate nell'origine, infatti le matrici ortogonali mantengono le distanze.
+\end{ese}
+
+\begin{ese}
+	Consideriamo l'azione di \((\R^*,\cdot)\) su \(\R^{n+1}\) tramite
+	\[
+		\R^* \times \R^{n+1} \to \R^{n+1}, (\l,v) \mapsto \l\,v.
+	\]
+	Le orbite di questa azione sono \(\{0\}\) e \(r\setminus\{0\}\), dove \(r\) è un sottospazio di dimensione uno, ovvero una retta.
+\end{ese}
+
+\begin{defn}{Spazio delle orbite}{spazioOrbite}\index{Spazio delle orbite}
+	Sia \(*\) un azione di un gruppo \(G\) su uno spazio topologico \(X\).
+	Si definisce \emph{spazio delle orbite} l'insieme di tutte le orbite dell'azione.
+\end{defn}
+
+\begin{ese}
+	Rifacendosi all'ultimo esempio dell'azione di \(\R^*\) su \(\R^{n+1}\), lo spazio delle orbite è lo spazio proiettivo reale \(\mathbb{P}_n\) di dimensione \(n\).
+\end{ese}
+
+\begin{ese}
+	Consideriamo l'azione di \(\Z\) su \(\R\) tramite
+	\[
+		\Z \times \R \to \R, (n,x)\mapsto n+x.
+	\]
+	Dal momento che ogni orbita di tale azione è costituita da tutti i punti che hanno distanza intera, abbiamo già osservato che tale relazione di equivalenza costituisce un quoziente in \(S^1\).
+	Quindi \(\R/\Z\) è omeomorfo a \(S^1\) per l'unicità dello spazio quoziente.
+\end{ese}
+
+\begin{ese}
+	Consideriamo l'azione di \(\Z^2\) su \(\R^2\) tramite
+	\[
+		\Z^2 \times \R^2 \to \R^2, \big( (n,m),(x,y) \big)\mapsto (n+x,m+y).
+	\]
+	Le orbite saranno costituite da tutte le rette parallele del piano, per cui lo spazio delle orbite sarà
+	\[
+		S^1 \times S^1 = T^2.
+	\]
+\end{ese}

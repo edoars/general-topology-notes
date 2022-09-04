@@ -1,0 +1,365 @@
+%!TEX root = ../main.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 25/02/2016 - PRIMA SETTIMANA (3)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Applicazioni continue}
+%%%%%%%%%%%%%%
+%INTRODUZIONE%
+%%%%%%%%%%%%%%
+\section{Introduzione}
+
+\begin{defn}{Applicazione continua tra spazi topologici}{applContinuaSpTop}\index{Applicazione continua!tra spazi topologici}
+	Siano \((X,\Tau)\) e \((Y,\mathrm{S})\) due spazi topologici.
+	Un'applicazione \(f\colon X\to Y\) si definisce \emph{continua} se la controimmagine di ogni aperto di \(Y\) è un aperto di \(X\), ovvero se
+	\[
+		f^{-1}(A)\in \Tau,\,\fa A\in\mathrm{S}.
+	\]
+\end{defn}
+
+\begin{oss}
+	\'E sufficiente verificare la condizione di continuità per gli elementi di una base \(\mathcal{B}\) di \(\mathrm{S}\).
+\end{oss}
+
+\begin{lem}\label{lm:cont1}
+	Siano \(X,Y\) spazi topologici.
+	Allora ogni applicazione costante
+	\[
+		f\colon X\to Y,x\mapsto y_0,
+	\]
+	è continua.
+\end{lem}
+
+\begin{proof}
+	Sia \(f\colon X\to Y,x\mapsto y_0\) un'applicazione costante e sia \(U\in Y\) aperto, consideriamo quindi due casi:
+	\begin{itemize}
+		\item se \(y_0\in U\) allora \(f^{-1}(U)=X\), che è un aperto di \(X\);
+		\item se \(y_0\notin U\) allora \(f^{-1}(U)=\emptyset\), che è un aperto di \(X\).
+	\end{itemize}
+	Per cui \(f^{-1}(U)\) è un aperto di \(X\) comunque preso \(U\) aperto in \(Y\), ovvero \(f\) è continua.
+\end{proof}
+
+\begin{lem}\label{lm:cont2}
+	Sia \(X\) uno spazio topologico.
+	Allora l'identità
+	\[
+		\mathrm{id}_X\colon X\to X,x\mapsto x,
+	\]
+	è continua.
+\end{lem}
+
+\begin{proof}
+	Sia \(\mathrm{id}_x\colon X\to X,x\mapsto x\) l'applicazione identità e sia \(U\) aperto in \(X\), allora
+	\[
+		\mathrm{id}^{-1}(U)=U,
+	\]
+	che è aperto, per cui \(\mathrm{id}_X\) è continua.
+\end{proof}
+
+\begin{lem}\label{lm:cont3}
+	Siano \(X,Y\) due spazi topologici e sia \(f\colon X\to Y\) un'applicazione continua.
+	Allora per ogni \(A\) aperto in \(X\), anche la restrizione
+	\[
+		f|_A\colon A\to Y,
+	\]
+	è continua.
+\end{lem}
+
+\begin{proof}
+	Sia \(U\) un aperto di \(Y\) e sia \(V=f^{-1}(U)\), per la continuità di \(f\) avremo che \(V\) è un aperto di \(X\).
+	Dobbiamo verificare che \(f|_A\) è continua, ma
+	\[
+		f^{-1}|_A(U)=V\cap A,
+	\]
+	che è un aperto in quanto intersezione di aperti, per cui \(f|_A\) è continua.
+\end{proof}
+
+\begin{lem}\label{lm:cont4}
+	Siano \(X,Y\) e \(Z\) spazi topologici e supponiamo che \(f\colon X\to Y\) e \(g\colon Y\to Z\) siano applicazioni continue.
+	Allora
+	\[
+		g\circ f\colon X\to Z,
+	\]
+	è continua.
+\end{lem}
+
+\begin{proof}
+	Preso \(A\) un aperto di \(Z\), dal momento che
+	\[
+		(g\circ f)^{-1}(A)=f^{-1}\big(g^{-1}(A)\big),
+	\]
+	avremo, \(g\) continua implica che \(g^{-1}(A)\) è un aperto in \(Y\).
+	Infine \(f\) continua implica che \(f^{-1}\big(g^{-1}(A)\big)\) è un aperto in \(X\), da cui la continuità di \(g\circ f\).
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%PROPRIETA' LOCALI E GLOBALI%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Proprietà locali e globali}
+
+\begin{defn}{Proprietà locale}{propLocale}\index{Proprietà!locale}
+	Sia \(X\) uno spazio topologico.
+	Diremo che una \emph{proprietà topologica} \(\mathcal{P}\) è \emph{locale} se \(\mathcal{P}\) vale in un intorno di ciascun punto \(x\in X\).
+\end{defn}
+
+\begin{ese}
+	La continuità è una proprietà locale, come mostreremo nella prossima proposizione.
+\end{ese}
+
+\begin{prop}{Caratterizzazione della continuità tramite intorni}{caratContIntorni}
+	Siano \(X\) ed \(Y\) due spazi topologici.
+	Allora un'applicazione \(f\colon X\to Y\) è continua se e soltanto se ogni \(x\in X\) possiede un intorno su cui la restrizione di \(f\) è continua.
+\end{prop}
+
+\begin{proof}
+	\graffito{\(\Rightarrow)\)}Per il lemma \ref{lm:cont3}, se \(f\) è continua, la restrizione di \(f\) è continua su ogni intorno di \(x\in X\).
+
+	\graffito{\(\Leftarrow)\)}Supponiamo che per ogni \(x\in X\), esista un intorno \(U_x\) di \(x\), tale che la restrizione \(f|_{U_x}\colon U_x\to Y\) è continua.
+	Sia \(A\) un aperto di \(Y\), per ipotesi \(f^{-1}|_{U_x}(A)\) è un aperto di \(U_x\), ma per definizione \(U_x\subset X\), per cui \(f^{-1}|_{U_x}(A)\) è un aperto di \(X\).
+	Quindi abbiamo che
+	\[
+		f^{-1}|_{U_x}(A)=f^{-1}(A)\cap U_x,
+	\]
+	che è un aperto di \(X\).
+	Infine
+	\[
+		f^{-1}(A)=\bigcup_{x\in X}f^{-1}|_{U_x}(A)=\bigcup_{x\in X}\big(f^{-1}(A)\cap U_x\big),
+	\]
+	ma \(f^{-1}(A)\cap U_x\) è un aperto di \(X\), per cui
+	\[
+		\bigcup_{x\in X}\big(f^{-1}(A)\cap U_x\big),
+	\]
+	è un aperto di \(X\).
+\end{proof}
+
+\begin{oss}
+	Dal teorema discende che per verifcare \(f\colon X\to Y\) continua, è sufficiente verificarlo in un opportuno intorno di ciascun punto \(x\in X\).
+
+	Ad esempio possiamo prendere \(U_x\) come elemento di una base, oppure, se \((X,d)\) è metrico, basta verificare la continuità sui dischi.
+\end{oss}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 29/02/2016 - SECONDA SETTIMANA (1)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%
+%OMEOMORFISMI%
+%%%%%%%%%%%%%%
+\section{Omeomorfismi}
+
+\begin{defn}{Omeomorfismo}{omeomorfismo}\index{Omeomorfismo}
+	Un \emph{omeomorfismo} tra spazi topologici \(X\) ed \(Y\), è un'applicazione
+	\[
+		\j\colon X\to Y,
+	\]
+	tale che:
+	\begin{itemize}
+		\item \(\j\) è continua;
+		\item \(\j\) è biiettiva;
+		\item \(\j^{-1}\) è continua.
+	\end{itemize}
+\end{defn}
+
+\begin{ese}
+	In ogni spazio topologico \(X\), l'applicazione identità
+	\[
+		id_X\colon X\to X,x\mapsto x,
+	\]
+	è un omeomorfismo.
+\end{ese}
+
+\begin{defn}{Gruppo degli omeomorfismi}{gruppoOmeomorfismi}
+	L'insieme degli omeomorfismi su di uno spazio topologico \(X\),
+	\[
+		Hom(X)=\Set{\j\colon X\to X | \j\text{ è un omeomorfismo}},
+	\]
+	è un gruppo rispetto alla composizione, detto \emph{gruppo degli omeomorfismi}.
+\end{defn}
+
+\begin{oss}
+	L'operazione di gruppo è ben definita, in quanto la composizione di applicazioni continue è anch'essa continua.
+\end{oss}
+
+\begin{defn}{Spazi omeomorfi}{spaziOmeomorfi}
+	Diciamo che due spazi topologici \(X\) ed \(Y\), sono \emph{omeomorfi} se esiste un omeomorfismo
+	\[
+		\j\colon X\to Y.
+	\]
+\end{defn}
+
+\begin{notz}
+	Due spazi omeomorfi si indicano con
+	\[
+		X\approx Y.
+	\]
+\end{notz}
+
+\begin{oss}
+	Essere omeomorfi è una relazione di equivalenza fra spazi topologici.
+\end{oss}
+
+\begin{defn}{Proprietà topologiche}{propTopologiche}\index{Proprietà topologiche}
+	Si definiscono \emph{proprietà topologiche}, quelle proprietà di uno spazio topologico che vengono conservate dagli omeomorfismi.
+\end{defn}
+
+\begin{ese}
+	La connessione e la compattezza sono esempi di proprietà topologiche.
+\end{ese}
+
+\begin{exe}
+	Si mostri che ogni palla aperta \(B_r(x_0)\) di \(\R^n\), è omeomorfa al disco standard di centro l'origine e raggio \(1:B_1(\bar{0})\).
+\end{exe}
+
+\begin{sol}
+	\'E sufficiente comporre la traslazione \(x\mapsto x+x_0\) con l'omotetia \(x\mapsto r\,x\).
+	Entrambe sono banalmente omeomorfismi, per cui \(B_r(x_0)\approx B_1(\bar{0})\), tramite
+	\[
+		\j\colon x\mapsto r\,x+x_0.
+	\]
+\end{sol}
+
+\begin{exe}
+	Si mostri che un intervallo aperto e limitato di \(\R\), è omeomorfo a tutto \(\R\).
+\end{exe}
+
+\begin{sol}
+	Per ogni intervallo aperto è sufficiente esibire un omeomorfismo appropriato, ad esempio, per l'intervallo \((-\frac{\p}{2},\frac{\p}{2})\), possiamo considerare
+	\[
+		\tan:(-\frac{\p}{2},\frac{\p}{2})\to\R,\q\mapsto\tan\q.
+	\]
+\end{sol}
+
+\begin{oss}
+	Dal precedente esercizio deduciamo che la limitatezza non è una proprietà topologica.
+\end{oss}
+
+\begin{oss}
+	In generale ogni palla aperta di \(\R^n\) è omeomorfa ad \(\R^n\), ad esempio
+	\[
+		F\colon B_1(\bar{0})\to\R^n,x\mapsto\frac{x}{1-\norma{x}^2},
+	\]
+	è un omeomorfismo.
+\end{oss}
+
+\begin{exe}
+	Si mostri che la sfera unitaria \(S^2=\Set{\bar{x}\in\R^3 | \norma{\bar{x}}=1}\), è omeomorfa al cubo di lato unitario \(C=\Set{(x,y,z)\in\R^3 | \max\{\abs{x},\abs{y},\abs{z}\}=1}\).
+\end{exe}
+
+\begin{sol}
+	\'E sufficiente usare il seguente omeomorfismo
+	\[
+		\j\colon C\to S,(x,y,z)\mapsto\frac{(x,y,z)}{\sqrt{x^2+y^2+z^2}}.
+	\]
+\end{sol}
+
+\begin{oss}
+	In generale vale anche in \(\R^n\) tra il bordo di un aperto convesso e la sfera unitaria, tramite
+	\[
+		\vec{x}\mapsto\frac{\vec{x}}{\norma{\vec{x}}}.
+	\]
+\end{oss}
+
+\begin{oss}
+	Dal precedente esercizio deduciamo che avere spigoli non è una proprietà topologica.
+\end{oss}
+
+\begin{defn}{Applicazione aperta}{applAperta}\index{Applicazione!aperta}
+	Un'applicazione \(f\colon X\to Y\) tra spazi topologici si dice \emph{aperta} se manda aperti in aperti, ovvero
+	\[
+		f(A)\in \Tau_Y,\,\fa A\in \Tau_X.
+	\]
+\end{defn}
+
+\begin{oss}
+	Dalla definizione discende che un'applicazione continua e biiettiva, è un omeomorfismo se e soltanto se è aperta.
+\end{oss}
+
+\begin{ese}
+	Mostriamo che la terza proprietà degli omeomorfismi deve sempre essere verificata: consideriamo l'esponenziale complesso
+	\[
+		\exp\colon [0,1)\to S^1\subset\C=\R^2,\q\mapsto\exp^{2\p\,i\,\q}.
+	\]
+	\(\exp\) è banalmente biiettiva, inoltre è continua poichè le due componenti sono continue rispetto alla variabile \(\q\).
+	D'altronde \(\exp\) non è un omeomorfismo, in quanto \(\exp^{-1}\) non è continua.
+	Infatti, preso \(\e<1\), si dimostra che \([0,\e)\) è un aperto di \([0,1)\), ma \(\exp([0,\e))\), non è un aperto di \(S^1\).
+\end{ese}
+
+\begin{defn}{Omeomorfismo locale}{omeomorfismoLocale}\index{Omeomorfismo!locale}
+	Un'applicazione \(f\colon X\to Y\) tra spazi topologici si definisce un \emph{omeomorfismo locale} se, comunque preso \(x\in X\), esiste un intorno \(U\) di \(x\) aperto in \(X\), tale che
+	\[
+		f|_U\colon U\to f(U),
+	\]
+	è un omeomorfismo.
+\end{defn}
+
+\begin{ese}
+	Consideriamo
+	\[
+		\exp\colon \R\to S^1,\q\mapsto e^{2\p\,i\,\q},
+	\]
+	che è banalmente suriettivo ma non iniettivo.
+	Si dimostra facilmente che su intervalli aperti di ampiezza minore di \(1\), si ha l'iniettività di \(\exp\).
+	Quindi \(\exp\) è un omeomorfismo locale.
+\end{ese}
+
+\begin{ese}
+	L'applicazione
+	\[
+		f\colon\R\to\R,x\mapsto x^2,
+	\]
+	non è un omeomorfismo locale, in quanto non è iniettiva in nessun intorno dell'origine.
+\end{ese}
+
+\begin{prop}{Omeomorfismo locale è aperta}{omeomorfismoLocaleAperto}
+	Sia \(f\colon X\to Y\) un omeomorfismo locale.
+	Allora \(f\) è un'applicazione aperta.
+\end{prop}
+
+\begin{proof}
+	Sia \(A\) un aperto di \(X\).
+	Per ogni \(x\in A\) definiamo \(U_x\) l'intorno aperto di \(x\) tale che
+	\[
+		f|_{U_x}\colon U_x \to f(U_x),
+	\]
+	è un omeomorfismo.
+
+	Ora \(A\) aperto in \(X\) implica che \(U_x\cap A\) è aperto in \(U_x\).
+	Quindi \(f|_{U_x}(U_x\cap A)\) è aperto in \(f(U_x)\) e pertanto sarà aperto anche in \(Y\).
+	Infine
+	\[
+		A = \bigcup_{x\in A} U_x \cap A \implies f(A) = \bigcup_{x\in A} f(U_x \cap A),
+	\]
+	ovvero \(f(A)\) è aperto \(Y\) in quanto unione di aperti.
+\end{proof}
+
+\begin{prop}{Omeomorfismo è un omeomorfismo locale}{omeomorfismoOmeoLocale}
+	Sia \(f\colon X\to Y\) un omeomorfismo.
+	Allora \(f\) è un omeomorfismo locale.
+\end{prop}
+
+\begin{proof}
+	Segue banalmente dalla definizione di omeomorfismo.
+\end{proof}
+
+\begin{prop}{Omeomorfismo locale biiettivo è un omeomorfismo}{omeomorfismoLocaleBiiettivo}
+	Sia \(f\colon X\to Y\) un omeomorfismo locale.
+	Allora \(f\) è un omeomorfismo se e soltanto se \(f\) è biiettiva.
+\end{prop}
+
+\begin{proof}
+	Poichè abbiamo dimostrato che ogni omeomorfismo locale è aperto, supponendo che sia biiettivo, resta da dimostrare che è continuo.
+	Sia quindi \(V\) un aperto di \(Y\), vogliamo dimostrare che \(f^{-1}(V)\) è aperto in \(X\).
+
+	Se \(f^{-1}(V)=\emptyset\) la tesi è banale, supponiamo quindi che \(f^{-1}(V)\neq \emptyset\).
+	Prendiamo \(x\in f^{-1}(V)\), per la definizione di omeomorfismo locale, esisterà un intorno aperto \(U_x\) di \(x\) tale che
+	\[
+		f|_{U_x}\colon U_x \to f(U_x),
+	\]
+	è un omemorfismo.
+	In particolare \(\big(f|_{U_x}\big)^{-1}(V)=f^{-1}(V)\cap U_x\) è aperto in \(U_x\), e quindi lo è anche in \(X\).
+	Quindi
+	\[
+		f^{-1}(V) = \bigcup_{x\in f^{-1}(V)} f^{-1}(V)\cap U_x,
+	\]
+	è aperto in \(X\) in quanto unione di aperti.
+\end{proof}

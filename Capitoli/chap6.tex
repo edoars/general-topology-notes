@@ -1,0 +1,1001 @@
+%!TEX root = ../main.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 02/05/2016 - DECIMA SETTIMANA (1)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Topologia algebrica}
+
+La topologia algebrica introduce strumenti avanzati che ci permettono di stabilire quando due spazi sono omeomorfi.
+
+Fino a questo momento ci siamo sempre limitati a valutare proprietà topologiche come la connessione e la compattezza per affermare che due spazi non sono omeomorfi.
+Questa strategia non esaurisce tutti i possibili casi, ecco perché sfrutteremo la topologia algebrica per introdurre nuovi invarianti topologici.
+
+Uno dei primi problemi che ci porremo è quello di dimostrare che non esiste un omeomorfismo da \(\R^2\) in \(\R^2\setminus\{0\}\), in questo caso infatti non possiamo usare né la connessione né la compattezza, in quanto entrambi hanno questa proprietà topologica e sono entrambi 2-varietà.
+
+L'idea fondamentale sarà quella di usare dei "cappi", ovvero curve chiuse di base un punto.
+Tale curve saranno sempre deformabili con continuità in un punto, nel caso di \(\R^2\), ma non sarà possibile farlo in \(\R^2\setminus\{0\}\) quando il cappio conterrà l'origine.
+%%%%%%%%%%
+%OMOTOPIE%
+%%%%%%%%%%
+\section{Omotopie}
+
+\begin{defn}{Cappio}{cappio}\index{Cappio}
+	Fissato \(x_0\in X\), un \emph{cappio}, o \emph{laccio}, di base \(x_0\) è un'applicazione continua
+	\[
+		f\colon [0,1] \to X \qquad\text{tale che}\qquad f(0)= x_0 = f(1).
+	\]
+\end{defn}
+
+\begin{oss}
+	In particolare un cappio è una curva chiusa.
+\end{oss}
+
+\begin{defn}{Famiglia di cappi}{famigliaCappi}
+	Fissato \(x_0\in X\), definiamo la famiglia dei cappi di base \(x_0\) come
+	\[
+		\mathcal{C}_{x_0} = \Set{f\colon [0,1] \to X | f\text{ continua e }f(0)=x_0=f(1)}.
+	\]
+\end{defn}
+
+\begin{defn}{Composizione di cappi}{composizioneCappi}
+	Siano \(f,g \in \mathcal{C}_{x_0}\).
+	La composizione \(f * g\) dei cappi \(f,g\) è un cappio di base \(x_0\) definito come
+	\[
+		f*g = 	\begin{cases}
+			f(s)    & s\in[0,1/2] \\
+			g(2s-1) & s\in[1/2,1]
+		\end{cases}
+	\]
+\end{defn}
+
+\begin{oss}
+	La definizione è ben posta, infatti
+	\[
+		f*g(0) = f(0) = x_0 \qquad\text{e}\qquad f*g(1) = g(2-1) = g(1) = x_0.
+	\]
+	Inoltre \(f*g\) è continua in quanto è continua in ogni tratto e assume gli stessi valori nelle intersezioni.
+	Infatti \(f(2s)\) e \(g(2s-1)\) sono continue in quanto composizione di applicazioni continue.
+	Infine
+	\begin{gather*}
+		\lim_{s\to 1/2^-} f*g(s) = \lim_{s\to 1/2^-} f(2s) = f(1) = x_0,\\
+		\lim_{s\to 1/2^+} f*g(s) = \lim_{s\to 1/s^+} g(2s-1) = g(0) = x_0.
+	\end{gather*}
+\end{oss}
+
+\begin{defn}{Traccia di una curva}{traccia}\index{Traccia}
+	Si definisce \emph{traccia} \(\Gamma\) di una curva \(f\) come l'insieme dei punti che appartengo all'immagine di \(f\).
+\end{defn}
+
+\begin{ese}
+	Se consideriamo \(f,g\in \mathcal{C}_{x_0}\) avremo
+	\[
+		\Gamma_{f*g} = \Gamma_f \cup \Gamma_g.
+	\]
+\end{ese}
+
+\begin{ese}
+	Se consideriamo un generico cappio \(f\in \mathcal{C}_{x_0}\) e un omeomorfismo \(\j\colon [0,1] \to [0,1]\), allora
+	\[
+		\Gamma_f = \Gamma_{f\circ \j}.
+	\]
+\end{ese}
+
+\begin{defn}{Cappio costante}{cappioCostante}
+	Si definisce \emph{cappio costante} di base \(x_0\) come l'applicazione costante
+	\[
+		e_{x_0}\colon [0,1] \to X, s \mapsto x_0.
+	\]
+\end{defn}
+
+\begin{oss}
+	Per definizione \(\Gamma_{e_{x_0}} = \{x_0\}\).
+\end{oss}
+
+\begin{defn}{Cappio inverso}
+	Preso un cappio \(f\in \mathcal{C}_{x_0}\) si definisce il \emph{cappio inverso} di \(f\) come l'applicazione continua che percorre \(f\) nel senso inverso,
+	\[
+		f^{-1}\colon [0,1] \to X, s \mapsto f(1-s).
+	\]
+\end{defn}
+
+\begin{oss}
+	Per definizione \(\Gamma_{f^{-1}} = \Gamma_f\).
+\end{oss}
+
+\begin{oss}
+	Purtroppo \(f*f^{-1} \neq e_{x_0}\), infatti \(\Gamma_{f*f^{-1}} = \Gamma_f\).
+	In seguito dovremmo quindi introdurre una relazione di equivalenza.
+\end{oss}
+
+\begin{prop}{Cappi definiti su \(S^1\)}{cappiS1}
+	Fissato \(x_0\in X\), la famiglia dei cappi di base \(x_0\) coincide con l'insieme delle applicazione continue definite su \(S^1\) di base \(x_0\), ovvero
+	\[
+		\mathcal{C}_{x_0} = \Set{f\colon S^1 \to X | f \text{ continua e }1\mapsto x_0} \qquad\text{con }1\in \C.
+	\]
+\end{prop}
+
+\begin{proof}
+	Segue dalla condizione \(f(0)=f(1)=x_0\).
+	Infatti componendo con l'omeomorfismo esponenziale
+	\[
+		\exp \colon \frac{[0,1]}{0\sim 1} \to S^1 \subset \C \cong \R^2, s\mapsto e^{2\p\,i\,s} = (\cos 2\p\,s, \sin 2\p\,s),
+	\]
+	otteniamo immediatamente la tesi.
+	Infatti \(\Gamma_f = \Gamma_{f\circ \exp}\).
+\end{proof}
+
+\begin{defn}{Omotopia}{omotopia}\index{Omotopia}
+	Due cappi \(f,g\colon [0,1] \to X\) di base \(x_0\) si dicono \emph{omotopi}, se esiste un'applicazione continua
+	\[
+		F\colon [0,1] \times [0,1] \to X, (s,t) \mapsto F(s,t),
+	\]
+	detta \emph{omotopia}, o \emph{deformazione}, tale che
+	\[
+		F(s,0) = f(s), F(s,1) = g(s) \qquad\text{e}\qquad F(0,t) = x_0 = F(1,t),\,\fa t.
+	\]
+\end{defn}
+
+\begin{oss}
+	Le prime due condizioni ci dicono che \(F\) "deforma" il laccio \(f(s)\) nel laccio \(g(s)\) tramite il parametro \(t\).
+
+	La seconda ci dice che la base \(x_0\) viene lasciata fissa.
+\end{oss}
+
+\begin{oss}
+	Per ogni \(t_0\in [0,1]\) fissato, \(F(s,t_0)\) è un cappio di base \(x_0\).
+\end{oss}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 04/05/2016 - DECIMA SETTIMANA (2)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{prop}{L'omotopia è una relazione di equivalenza}{omotopiaRelazioneEquivalenza}
+	L'omotopia è una relazione di equivalenza su \(\mathcal{C}_{x_0}\), ovvero
+	\[
+		f \simeq g \iff \ex F(s,t) \colon [0,1]\times [0,1] \to X \text{ omotopia fra \(f\) e \(g\)}.
+	\]
+\end{prop}
+
+\begin{proof}
+	Verifichiamo le proprietà delle relazioni di equivalenza:
+	\begin{itemize}
+		\item \(f \simeq f\) poiché \(F(s,t) = f(s),\,\fa t\) è un'omotopia di \(f\) in se stesso.
+		\item \(f \simeq g \implies g \simeq f\) poiché se \(F(s,t)\) è un'omotopia da \(f\) in \(g\), allora \(G(s,t) = F(s,1-t)\) è un'omotopia da \(g\) in \(f\).
+		\item \(f \simeq_F g, g \simeq_G h \implies f \simeq_H h\) in quanto
+		      \[
+			      H(s,t) = 	\begin{cases}
+				      F(s,2t)   & 0\le t \le 1/2  \\
+				      G(s,2t-1) & 1/2\le  t \le 1
+			      \end{cases}
+		      \]
+		      è un'omotopia da \(f\) in \(h\).
+	\end{itemize}
+\end{proof}
+
+\begin{ese}
+	In \(\R^2\setminus\{0\}\) se consideriamo i lacci in figura \ref{fig:lacci} si ha \(f \simeq g \not\simeq h\).
+\end{ese}
+
+\begin{figure}[tp]
+	\begin{centering}
+		\includegraphics[height = 75mm]{lacci.pdf}
+		\caption{Lacci in \(\R^2\setminus\{0\}\) di base \((1,0)\).}
+		\label{fig:lacci}
+	\end{centering}
+\end{figure}
+
+\begin{teor}{Omotopie fondamentali}{omotopieFondamentali}
+	Sia \(e_{x_0}\colon [0,1] \to X, s\mapsto x_0\) il cappio costante di base \(x_0\) e siano \(f,g,h \in \mathcal{C}_{x_0}\).
+	Allora valgono le seguenti omotopie:
+	\begin{itemize}
+		\item \(f*f^{-1} \simeq e_{x_0} \simeq f^{-1}*f\);
+		\item \((f*g) * h \simeq f * (g*h)\);
+		\item \(e_{x_0} * f \simeq f * e_{x_0} \simeq f\).
+	\end{itemize}
+\end{teor}
+
+\begin{proof}
+	Mostriamo il primo punto, gli altri due si dimostrano in modo analogo.
+
+	Definiamo l'omotopia \(H\) in modo che per ogni tempo \(t\), \(H\) percorra \(f(t)\) a doppia velocità fintanto che \(s\in[0,t/2]\);
+	per \(s\in[t/2,1-t/2]\) resti ferma in \(f(t)\); infine per \(s\in[1-t/2,1]\) percorra \(f(t)\) in senso contrario al doppio della velocità.
+	Formalmente
+	\[
+		H(s,t) = 	\begin{cases}
+			f(2s)   & 0\le s \le t/2      \\
+			f(t)    & t/2 \le s \le 1-t/2 \\
+			f(2-2s) & 1-t/2 \le s \le 1
+		\end{cases}
+	\]
+	è facile verificare che \(H(s,t)\) è un omotopia.
+	Infatti è continua per il lemma di incollamento e valgono
+	\begin{gather*}
+		H(s,0) = f(0),\,\fa s \implies H(s,0) = e_{x_0};\\
+		H(s,1) = 	\begin{cases}
+			f(2s)      & 0\le s \le 1/2  \\
+			f(1) = x_0 & s=1/2           \\
+			f(2-2s)    & 1/2 \le s \le 1
+		\end{cases}
+		\implies H(s,1) = f*f^{-1}(s);
+	\end{gather*}
+	e infine
+	\[
+		H(0,t) = f(0) = x_0 \qquad\text{e}\qquad H(1,t) = f(1) = x_0.\qedhere
+	\]
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%
+%GRUPPO FONDAMENTALE%
+%%%%%%%%%%%%%%%%%%%%%
+\section{Gruppo fondamentale}
+
+\begin{defn}{Gruppo fondamentale}{gruppoFondamentale}\index{Gruppo fondamentale}
+	L'insieme quoziente \(\mathcal{C}_{x_0}/\simeq\) dei cappi di base \(x_0\), dotato della relazione di omotopia è un gruppo, detto \emph{fondamentale} o \emph{di omotopia} di \(X\) in \(x_0\), che si denota con
+	\[
+		\p_1(X,x_0) = \left( \frac{\mathcal{C}_{x_0}}{\simeq},* \right).
+	\]
+\end{defn}
+
+\begin{oss}
+	Questa definizione è ben posta in quanto il teorema precedente ci garantisce che \(*\) è compatibile con \(\simeq\) e pertanto tale operazione "scende" al quoziente.
+\end{oss}
+
+\begin{prop}{Isomorfismo tra gruppi fondamentali}{isomorfismoGruppiFondamentali}
+	Siano \(\p_1(X,x_0)\) e \(\p_1(X,x_1)\) due gruppi fondamentali di \(X\).
+	Se esiste un cammino \(\g\colon I \to X, 0 \mapsto x_0, 1 \mapsto x_1\), allora i due gruppi fondamentali sono isomorfi.
+\end{prop}
+
+\begin{proof}
+	Basta considerare l'omomorfismo
+	\[
+		\hat{\g}\colon \p_1(X,x_1) \to \p_1(X,x_0), f \mapsto \g * f * \g^{-1},
+	\]
+	il quale è in particolare un isomorfismo in quanto \(\hat{\g}(g) = \g^{-1} * g * \g\).
+\end{proof}
+
+\begin{cor}
+	Se \(X\) è arco connesso, esiste un isomorfismo non canonico tra \(\p_1(X,x_0)\) e \(\p_1(X,x_1)\) per ogni coppia \(x_0,x_1\in X\).
+\end{cor}
+
+\begin{oss}
+	L'isomorfismo è non canonico in quanto dipende dalla scelta del cammino \(\g\).
+\end{oss}
+
+\begin{notz}
+	Quando \(X\) è arco connesso, i gruppi fondamentali non vengono più distinti e si scrive \(\p(X)\).
+\end{notz}
+
+\begin{oss}
+	Se \(x_0,x_1\) appartenessero ad arco componenti distinte, non vi sarebbe alcuna relazione tra \(\p_1(X,x_0)\) e \(\p_1(X,x_1)\).
+	Per questa ragione considereremo sempre spazi arco connessi.
+\end{oss}
+
+\begin{defn}{Spazio semplicemente connesso}{spazioSemplicementeConnesso}\index{Spazio!semplicemente connesso}\index{Connessione!semplice}
+	Uno spazio topologico \(X\) si dice \emph{semplicemente connesso} se esiste \(x_0\in X\) tale che
+	\[
+		\p_1(X,x_0) = \{[1]\},
+	\]
+	ovvero il gruppo fondamentale in \(x_0\) è banale.
+\end{defn}
+
+\begin{oss}
+	Naturalmente se tale \(x_0\) esiste, questa proprietà vale per ogni \(x\in X\).
+\end{oss}
+
+\begin{ese}
+	Per ogni \(n\ge 1\), \(\R^n\) è semplicemente connesso.
+	Infatti preso \(x_0 = \bar{0}\), avremo che per ogni cappio \(f(s)\) di base \(\bar{0}\),
+	\[
+		F(s,t) = t\,f(s),
+	\]
+	è un'omotopia tra \(f(s)\) e \(e_{\bar{0}}\).
+	Infatti tale applicazione è ovviamente continua e vale
+	\[
+		F(s,0) = \bar{0}, F(s,1) = f(s) \qquad\text{e}\qquad F(0,t)= t\,f(0)=\bar{0} = t\,f(1) = F(1,t),\,\fa t.
+	\]
+	Tale omotopia si chiama "straight homotopy".
+\end{ese}
+
+\begin{oss}
+	Se cambio punto base \(x_0\in \R^n\) posso considerare
+	\[
+		F(s,t) = t\,f(s) + (1-t)x_0,
+	\]
+	ovvero tale che fissato \(s=s_0\), \(F(s_0,t)\) percorre il segmento da \(f(s_0)\) a \(x_0\).
+\end{oss}
+
+\begin{oss}
+	Se togliamo un punto, ad esempio \(X=\R^n \setminus \{0\}\), allora \(F\) non è più un'omotopia, in quanto vi sarebbe sempre un segmento passante per l'origine che non appartiene ad \(X\).
+\end{oss}
+
+\begin{pr}
+	Ogni sottoinsieme convesso \(C\subset \R^n\) è semplicemente connesso.
+\end{pr}
+
+\begin{pr}
+	Ogni insieme stellato \(S\subset \R^n\) è semplicemente connesso.
+\end{pr}
+
+\begin{defn}{Cappio contraibile}{cappioContraibile}\index{Cappio!contraibile}
+	Un cappio \(f\colon I \to X\) di base \(x_0\), si definisce \emph{contraibile} se è omotopo a \(e_{x_0}\).
+\end{defn}
+
+\begin{prop}{Caratterizzazione dei cappi contraibili}{caratterizzazioneCappiContraibili}
+	Sia \(f\colon S^1 \to X\) un cappio di base \(x_0\).
+	Allora \(f\) è contraibile se e soltanto se \(f\) si estende ad un'applicazione continua \(F\colon D \to X\), dove
+	\[
+		D = \Set{x\in \C | \abs{x} \le 1},
+	\]
+	ovvero tale che \(F|_{\pd D} = f\).
+\end{prop}
+
+\begin{proof}
+	\graffito{\(\Leftarrow)\)}Supponiamo che \(f\) si estenda su \(D\).
+	Consideriamo l'omotopia
+	\[
+		F\colon S^1 \times I \to X, (\bar{x}, t) \mapsto f(t\,\bar{x}).
+	\]
+	Pertanto \(D\approx \frac{S^1 \times I}{t=0}\).
+
+	\graffito{\(\Rightarrow)\)}Se \(f\) è contraibile, poniamo
+	\[
+		F(x) =  \begin{cases}
+			G \left( \frac{x}{\norma{x}},\norma{x} \right) & \text{se }x\neq\bar{0}\in\C \\
+			x_0                                            & \text{se }x = \bar{0}\in\C
+		\end{cases}
+	\]
+	che è ben definita in quanto \(\frac{x}{\norma{x}}\in S^1\) e \(0<\norma{x}\le 1\).
+\end{proof}
+
+\begin{ese}
+	Sul toro posso "sfilare" soltanto lacci che si trovano sul bordo di un disco topologico in \(T^2\).
+\end{ese}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 09/05/2016 - UNDICESIMA SETTIMANA (1)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{prop}{Omomorfismo indotto da applicazioni continue}{omoIndottoApplContinue}
+	Siano \(X,Y\) sue spazi topologici arco connessi.
+	Allora ogni applicazione continua \(\j\colon X \to Y, x_0 \mapsto y_0\) definisce un omomorfismo (di gruppi) sui gruppi fondamentali,
+	\[
+		\j_* \colon \p_1(X,x_0) \to \p_1(Y,y_0), [f] \mapsto [\j\circ f].
+	\]
+\end{prop}
+
+\begin{proof}
+	Se \(f\) è un cappio di base \(x_0\in X\), allora
+	\[
+		\j \circ f\colon I \to Y, 0\mapsto \j\big(f(0)\big) = y_0, 1\mapsto \j\big(f(1)\big)=y_0,
+	\]
+	è continua ed è un cappio di base \(y_0\in Y\).
+	Pertanto la composizione con \(\j\) manda \(\mathcal{C}_{x_0}\) in \(\mathcal{C}_{y_0}\).
+
+	Osserviamo che \(\j_*\) è ben definita sulle classi di equivalenza, infatti se
+	\[
+		F\colon I \times I \to X, (s,t) \mapsto F(s,t),
+	\]
+	è un'omotopia in \(X\), allora
+	\[
+		\j \circ F \colon I\times I \to X \to Y, (s,t) \mapsto \j\circ F(s,t),
+	\]
+	è un'omotopia in \(Y\).
+	Pertanto \(\j_*\colon \p_1(X,x_0) \to \p_1(Y,y_0) = \frac{\mathcal{C}_{y_0}}{\sim}\) è ben definita.
+
+	Infine \(\j_*\) rispetta il prodotto fra cappi che ricordiamo essere
+	\[
+		f*g(s) = 	\begin{cases}
+			f(2s)   & s\in[0,1/2] \\
+			g(2s-1) & s\in[1/2,1]
+		\end{cases}
+	\]
+	da cui, tramite \(\j_*\), avremo
+	\[
+		(\j\circ f)*(\j\circ g) = 	\begin{cases}
+			\j\circ f(2s)   & s\in[0,1/2] \\
+			\j\circ g(2s-1) & s\in[1/2,1]
+		\end{cases}
+	\]
+\end{proof}
+
+\begin{teor}{Proprietà funtoriale del gruppo fondamentale}{propFuntorialeGruppoFond}
+	Supponiamo che \(X \xrightarrow{\j} Y \xrightarrow{\y} Z\) siano applicazioni continue fra spazi topologici arco connessi.
+	Allora \((\y\circ \j)_* = \y_* \circ \j_*\).
+	Ovvero il seguente diagramma commuta
+	\[
+		\begin{tikzcd}
+			\p_1(X) \arrow{r}{\j_*} \arrow[swap]{rd}{(\y\circ \j)_*} & \p_1(Y) \arrow{d}{\y_*}\\
+			& \p_1(Z)
+		\end{tikzcd}
+	\]
+\end{teor}
+
+\begin{proof}
+	Segue banalmente dalla proposizione precedente, infatti, per definizione
+	\[
+		\j_* \colon \p_1(X) \to \p_1(Y), [f]\mapsto [\j\circ f] \qquad\text{e}\qquad \y_* \colon \p_1(Y) \to \p_1(Z), [g]\mapsto [\y\circ g],
+	\]
+	analogamente, dal momento che \(\y\circ \j\) è un'applicazione continua da \(X\) in \(Z\), resta definita
+	\[
+		(\y\circ \j)_* \colon \p_1(X) \to \p_1(Z), [f] \mapsto [\y\circ \j\circ f].
+	\]
+	D'altronde, presa \([f]\in \p_1(X)\), avremo
+	\[
+		\y_* \circ \j_* ([f]) = \y_*([\j\circ f]) = [\y\circ \j\circ f],
+	\]
+	da cui la tesi.
+\end{proof}
+
+\begin{cor}
+	Se \(\j\colon X \to Y,x_0 \mapsto y_0\) è un omeomorfismo fra spazi topologici, allora
+	\[
+		\j_*\colon \p_1(X,x_0) \to \p_1(Y,y_0),
+	\]
+	è un isomorfismo di gruppi.
+\end{cor}
+
+\begin{proof}
+	\(\j\) è un omeomorfismo, pertanto ammette inversa \(\j^{-1}\) continua.
+	Quindi \(X \xrightarrow{\j} Y \xrightarrow{\j^{-1}} X\).
+	Per il teorema avremo
+	\begin{itemize}
+		\item \(\j_* \circ (\j^{-1})_* = (\j\circ \j^{-1})_* = id_{\p_1(Y)}\), ovvero \(\j_*\) è suriettiva;
+		\item \((\j^{-1})_* \circ \j_* = (\j^{-1}\circ \j)_* = id_{\p_1(X)}\), ovvero \(\j_*\) è iniettiva.
+	\end{itemize}
+	Quindi \(\j_*\) è un isomorfismo di gruppi con inversa \((\j^{-1})_*\).
+\end{proof}
+
+\begin{oss}
+	Da questo corollario segue immediatamente che se \(\p_1(X) \not\simeq \p_1(Y)\) allora non può esistere alcun omeomorfismo fra \(X\) ed \(Y\).
+	Pertanto il gruppo fondamentale è un invariante topologico.
+\end{oss}
+
+\begin{prop}{Prodotto finito di gruppi fondamentali}{prodFinitoGruppiFond}
+	Il gruppo fondamentale di un prodotto finito di spazi topologici \(X_1 \times \ldots  \times X_n\) è il prodotto dei gruppi fondamentali.
+\end{prop}
+
+\begin{proof}
+	Mostriamolo per due spazi \(X \times Y\), il caso generale segue per induzione.
+
+	Siano \(x\in X\) e \(y \in Y\) con \(X,Y\) spazi topologici arco connessi.
+	Sappiamo quindi che \(X\times Y\) è arco connesso.
+
+	Consideriamo le proiezioni canoniche
+	\[
+		p_1 \colon X \times Y \to X, (x,y) \mapsto x \qquad\text{e}\qquad p_2 \colon X \times Y \to Y, (x,y) \mapsto y,
+	\]
+	che, in quanto continue, inducono gli omomorfismi
+	\[
+		p_{1_*}\colon \p_1 \big(X \times Y, (x,y)\big) \to \p_1(X,x) \qquad\text{e}\qquad \p_{2_*} \colon \p_1\big(X \times Y, (x,y)\big) \to \p_1(Y,y).
+	\]
+	Definiamo quindi
+	\[
+		\tilde{p} \colon \p_1(X \times Y) \to \p_1(X) \times \p_1(Y), [f] \mapsto\big(p_{1_*}([f]),p_{2_*}([f])\big).
+	\]
+	Per ottenere la tesi dobbiamo dimostrare che \(\tilde{p}\) è un isomorfismo.
+	\begin{itemize}
+		\item \(\tilde{p}\) è certamente è un omomorfismo in quanto prodotto di omomorfismi.
+		\item \(\tilde{p}\) è suriettiva in quanto se \([f]\in \p_1(X)\) e \([g]\in \p_1(Y)\), possiamo definire un laccio in \(X\times Y\) prendendo
+		      \[
+			      F\colon I \to X \times Y, s \mapsto \big(f(s),g(s)\big).
+		      \]
+		      Tale laccio è ben definito in quanto \(0,1\mapsto (x_0,y_0)\).
+		      Inoltre \(\big(f(s),g(s)\big) = \big(p_1\circ F(s), p_2 \circ F(s)\big)\), ovvero ogni laccio nel prodotto viene scritto come prodotto di due lacci nei rispettivi spazi.
+		\item \(\tilde{p}\) è iniettivo %TODO
+	\end{itemize}
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%
+%CATEGORIE E FUNTORI%
+%%%%%%%%%%%%%%%%%%%%%
+\section{Categorie e funtori}
+
+In questo paragrafo introdurremo alcuni concetti della teoria delle categorie, un potente strumento che ci permette di unificare molti argomenti visti fino a questo momento.
+
+\begin{defn}{Categoria}{categoria}\index{Categoria}
+	Una \emph{categoria} \(C\) è un oggetto che consiste di
+	\begin{itemize}
+		\item una classe (non necessariamente un insieme) di \emph{oggetti};
+		\item un insieme di morfismi, dette \emph{frecce}, \(Hom_C(X,Y)\) per ogni coppia di oggetti \(X,Y\);
+		\item una funzione \(Hom_C(X,Y) \times Hom_C(Y,Z) \to Hom_C(X,Z), (f,g) \mapsto g\circ f\) per ogni tripla di oggetti \(X,Y\) e \(Z\).
+	\end{itemize}
+\end{defn}
+
+\begin{ese}
+	Si denota con \emph{Top} la categoria di tutti gli spazi topologici.
+	Gli oggetti di Top sono gli spazi topologici e le sue frecce sono le applicazioni continue.
+\end{ese}
+
+\begin{ese}
+	Si denota con \emph{Grp} la categoria di tutti i gruppi.
+	Gli oggetti di Grp sono i gruppi e le sue frecce sono gli omomorfismi.
+\end{ese}
+
+\begin{defn}{Funtore}{funtore}\index{Funtore}
+	Siano \(C,D\) due categorie.
+	Un funtore \(F\) tra \(C\) e \(D\) è una mappa fra categorie che conserva le strutture.
+
+	Ovvero \(F\) assegna ad ogni oggetto \(X\) in \(C\), un oggetto \(F(X)\) in \(D\).
+	Inoltre induce per ogni freccia \(f\in Hom_C(X,Y)\) una freccia \(F(f)\in Hom_D\big(F(X),F(Y)\big)\).
+\end{defn}
+
+\begin{oss}
+	Tramite un funtore le composizioni e le identità vengono mantenute,
+	\[
+		F(g\circ f) = F(g) \circ F(f) \qquad\text{e}\qquad F(id_X) = id_{F(X)}.
+	\]
+\end{oss}
+
+\begin{notz}
+	Quando il funtore è ben definito si usa la notazione \(g_*\) per indicare \(F(g)\).
+\end{notz}
+
+\begin{ese}
+	Il gruppo fondamentale \(\p_1\) è un funtore fra le categorie Top e Grp,
+	\[
+		\p_1 \colon Top \to Grp, X \mapsto \p_1(X),
+	\]
+	inoltre ogni freccia \(X \xrightarrow{f} Y\) di Top viene mandata in una freccia \(\p_1(X) \xrightarrow{f_*} \p_1(Y)\) di Grp.
+\end{ese}
+
+\begin{oss}
+	Abbiamo già osservato come \(\p_1\) goda delle proprietà funtoriali.
+	In particolare \(\p_1\) manda spazi topologici omeomorfi in gruppi fondamentali isomorfi.
+\end{oss}
+
+Una domanda che può sorgere spontanea riguarda la suriettività di \(\p_1\).
+La risposta in breve è sì, nonostante la costruzione esplicita di ogni gruppo possa essere particolarmente patologica.
+
+Un fatto molto interessante è che ogni gruppo \(G\) finitamente generato è il gruppo fondamentale di una varietà topologica di dimensione 4.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 11/05/2016 - UNDICESIMA SETTIMANA (2)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%
+%RETRATTI%
+%%%%%%%%%%
+\section{Retratti}
+
+\begin{defn}{Retratto}{retratto}\index{Retratto}
+	Un sottospazio \(A\subset X\) si dice \emph{retratto} di \(X\), se esiste un'applicazione continua, detta \emph{retrazione},
+	\[
+		r\colon X \to A \qquad\text{tale che}\qquad r(a)=a,\,\fa a\in A.
+	\]
+\end{defn}
+
+\begin{oss}
+	Equivalentemente, se consideriamo l'iniezione di \(A\) in \(X\) e successivamente la sua retrazione
+	\[
+		A \overset{i}{\hookrightarrow} X \xrightarrow{r} A,
+	\]
+	si deve avere \(r\circ i = id_A\) e si dice che \(r\) "estende" \(id_A\).
+\end{oss}
+
+\begin{oss}
+	Ogni applicazione continua \(f\colon A \to Y\) si estende a tutto \(X\) tramite la retrazione
+	\[
+		\begin{tikzcd}
+			X \arrow{r}{r} \arrow[bend right,swap]{rr}{g} & A \arrow{r}{f} & Y,
+		\end{tikzcd}
+	\]
+	con \(f = g|_A\)
+\end{oss}
+
+\begin{ese}
+	\(S^{n-1}\) è un retratto di \(\R^n\setminus\{\bar{0}\}\).
+	Infatti
+	\[
+		r \colon \R^n\setminus\{\bar{0}\} \to S^{n-1}, x \mapsto \frac{x}{\norma{x}},
+	\]
+	è una retrazione.
+\end{ese}
+
+\begin{prop}{Omomorfismo indotto dall'iniezione di un retratto}{omomorfismoIniezioneRetratto}
+	Sia \(A\subset X\) retratto.
+	Allora l'omomorfismo indotto dall'iniezione \(i\colon A \hookrightarrow X\),
+	\[
+		i_* \colon \p_1(A,a) \to \p_1(X,a),
+	\]
+	è iniettivo.
+\end{prop}
+
+\begin{proof}
+	Dal momento che \(r\) è una retrazione di \(A\), sappiamo che \(r \circ i = id_A\), da cui
+	\[
+		r_* \circ i_* = (r \circ i)_* = (id_A)_* = id_{\p_1(A)},
+	\]
+	ovvero \(r_* \circ i_*\) è l'identità su \(\p_1(A)\).
+	Da cui segue immediatamente che \(i_*\) è iniettiva.
+\end{proof}
+
+\begin{oss}
+	In generale
+	\[
+		r_* \circ i_* = id_{\p_1(A)} \implies 	\begin{cases}
+			\Ker i_* = \{1\}  \\
+			\im r_* = \p_1(A) \\
+			\im i_* \cap \Ker r_* = \{1\}
+		\end{cases}
+	\]
+	vale per qualsiasi isomorfismo.
+\end{oss}
+
+\begin{teor}{Gruppo fondamentale di \(S^1\)}{gruppoFondamentaleS1}
+	Il gruppo fondamentale di \(S^1\) è isomorfo a \(\Z\).
+\end{teor}
+
+\begin{proof}
+	Lo dimostreremo in seguito con la teoria dei rivestimenti.
+\end{proof}
+
+\begin{cor}
+	\(S^1\) non è un retratto del disco \(D=\Set{(x,y) | x^2+y^2 \le 1}\) né di \(\R^2\).
+\end{cor}
+
+\begin{proof}
+	Se \(r\colon D \to S^1\) fosse una retrazione, allora \(i_* \colon \p_1(S^1) \to \p_1(D)\) sarebbe iniettiva.
+	Ma ciò porta ad una contraddizione in quanto \(\p_1(S^1) \cong \Z\) e \(\p_1(D) \cong \{1\}\).
+
+	Lo stesso ragionamento dimostra che \(S^1\) non è un retratto di \(\R^2\).
+\end{proof}
+
+\begin{oss}
+	D'altronde gli unici lacci \(f\colon S^1 \to X\) che si estendono a \(g\colon D \to X\) sono i lacci omotopi al laccio costante.
+\end{oss}
+
+\begin{oss}
+	Si può dimostrare, ma non tramite i gruppi fondamentali, che \(S^{n-1}\) non è mai un retratto di \(D^n\).
+\end{oss}
+
+\begin{pr}
+	Un retratto di uno spazio di Hausdorff è chiuso.
+\end{pr}
+
+\begin{proof}
+	Supponiamo che \(A\) sia un retratto di \(X\) tramite \(r\).
+
+	Consideriamo \(\r \colon X \to X\times X, x \mapsto\big(x,r(x)\big)\).
+	Ricordiamo che \(X\) di Hausdorff implica \(\Delta\subset X\times X\) chiuso, dove con \(\Delta\) indichiamo l'insieme diagonale di \(X\).
+	Ora
+	\[
+		x \in \r^{-1}(\Delta) \iff \big(x,r(x)\big) \in \Delta \implies r(x)=x \implies x \in A.
+	\]
+	Pertanto \(A\) è chiuso in quanto \(A=\r^{-1}(\Delta)\).
+\end{proof}
+
+\begin{pr}
+	Un retratto di uno spazio connesso è connesso.
+\end{pr}
+
+\begin{proof}
+	Supponiamo che \(A\) sia un retratto di \(X\) tramite \(r\).
+
+	\(r\) è per definizione continua, quindi \(r(X)\) è connesso.
+	D'altronde \(r\) è suriettivo, quindi \(r(X)=A\).
+\end{proof}
+
+\begin{pr}
+	Un retratto di uno spazio compatto è compatto.
+\end{pr}
+
+\begin{proof}
+	Analoga alla dimostrazione precedente.
+\end{proof}
+
+\begin{pr}
+	Un retratto di uno spazio semplicemente connesso è semplicemente connesso.
+\end{pr}
+
+\begin{proof}
+	Supponiamo che \(A\) sia un retratto di \(X\) tramite \(r\).
+
+	Per definizione \(X\) è semplicemente connesse se e soltanto se \(\p_1(X,x_0)\) è banale.
+	Ora \(r\colon X \to A\) è una retrazione e sappiamo che l'omomorfismo indotto dall'iniezione di \(A\) in \(X\) è iniettivo, quindi
+	\[
+		\p_1(A,a) \hookrightarrow \p_1(X,x_0) \implies \p_1(A,a) = \{1\}.
+	\]
+\end{proof}
+
+\begin{pr}
+	Sia \(B\) un retratto di \(X\) e \(A\) un retratto di \(B\) con \(A\subset B \subset X\).
+	Allora \(A\) è retratto di \(X\).
+\end{pr}
+
+\begin{proof}
+	\(A\) è un retratto di \(B\), quindi esiste \(r_A\colon B \to A\) tale che \(r(a)=a,\,\fa a \in A\).
+	Analogamente \(B\) è un retratto di \(X\), quindi esiste \(r_B \colon X \to B\) tale che \(r_B(b)=b,\,\fa b\in B\).
+
+	Consideriamo quindi \(r_a \circ r_b\colon X \to A\), avremo che
+	\[
+		r_a \circ r_b(a) = r_a\big(r_b(a)\big) = r_a(a) = a,\,\fa a \in A,
+	\]
+	dove \(r_b(a)=a\) in quanto \(A\subset B\).
+	Quindi \(A\) è un retratto di \(X\).
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%
+%EQUIVALENZA OMOTOPICA%
+%%%%%%%%%%%%%%%%%%%%%%%
+\section{Equivalenza omotopica}
+
+\begin{defn}{Omotopia di applicazioni continue}{omotopiaApplicazioniContinue}\index{Omotopia!di applicazioni continue}
+	Siano \(f,g\colon X \to Y\) applicazioni continue tra spazi topologici.
+	\(f\) e \(g\) si dicono \emph{omotope} se e esiste un'applicazione continua, detta omotopia,
+	\[
+		H\colon X \times I \to Y, (x,t) \mapsto H(x,t),
+	\]
+	tale che
+	\[
+		H(x,0) = f(x) \qquad\text{e}\qquad H(x,1) = g(x).
+	\]
+\end{defn}
+
+\begin{notz}
+	Scriviamo \(f \simeq_H g\) e diciamo che \(H\) "deforma" \(f\) in \(g\).
+\end{notz}
+
+\begin{defn}{Equivalenza omotopica}{equivalenzaOmotopica}\index{Equivalenza omotopica}
+	Due spazi topologici \(X\) e \(Y\) si dicono \emph{omotopicamente equivalenti} se  esistono due applicazioni continue
+	\[
+		\j \colon X \to Y \qquad\text{e}\qquad \y \colon Y \to X,
+	\]
+	tali che
+	\[
+		\y \circ \j \simeq id_X \qquad\text{e}\qquad \j\circ \y \simeq id_Y.
+	\]
+\end{defn}
+
+\begin{oss}
+	Moralmente \(\y \simeq \j^{-1}\), ma in generale questa scrittura non è rigorosa in quanto \(\j\) potrebbe non essere biiettivo.
+\end{oss}
+
+\begin{oss}
+	L'equivalenza omotopica è una relazione di equivalenza.
+\end{oss}
+
+\begin{pr}
+	Ogni omeomorfismo è un'equivalenza omeotopica.
+\end{pr}
+
+\begin{defn}{Retratto di deformazione}{retrattoDeformazione}\index{Retratto!di deformazione}
+	Un retratto \(A\subset X\) si dice \emph{retratto di deformazione} se \(i\circ r\colon X \xrightarrow{r} A \overset{i}{\hookrightarrow} X\) è omotopicamente equivalente a \(id_X\)
+\end{defn}
+
+\begin{ese}
+	Abbiamo precedentemente mostrato che \(S^{n-1}\) è un retratto di \(\R^n\setminus\{\bar{0}\}\).
+	Tramite
+	\[
+		H\colon \R^n\setminus\{\bar{0}\} \times I \to \R^n\setminus\{\bar{0}\}, (x,t) \mapsto (1-t)x + t \frac{x}{\norma{x}},
+	\]
+	si dimostra che si tratta di un retratto di deformazione.
+
+	Una rappresentazione geometrica dell'azione di \(H\) può essere osservata nella figura \ref{fig:retrDef}.
+\end{ese}
+
+\begin{figure}[tp]
+	\begin{centering}
+		\includegraphics[height = 75mm]{retrDef.pdf}
+		\caption{Il retratto di deformazione di \(\R^n \setminus\{\bar{0}\}\) in \(S^{n-1}\).}
+		\label{fig:retrDef}
+	\end{centering}
+\end{figure}
+
+\begin{prop}{Isomorfismo indotto dall'iniezione di un retratto di deformazione}{isoIndottoIniezRetrattoDef}
+	Sia \(A\subset X\) retratto di deformazione.
+	Allora l'omomorfismo indotto dall'iniezione \(i\colon A \hookrightarrow X\),
+	\[
+		i_* \colon \p_1(A,a) \to \p_1(X,a),
+	\]
+	è un isomorfismo.
+\end{prop}
+
+\begin{proof}
+	Dalla proposizione \ref{pr:omomorfismoIniezioneRetratto} sappiamo già che \(i_*\) è iniettivo, d'altronde
+	\[
+		i_* \circ r_* = (i\circ r)_* \simeq (id_X)_* = id_{\p_1(X)},
+	\]
+	ovvero \(i_*\) è anche suriettivo, per cui \(i_*\) è biiettivo.
+\end{proof}
+
+\begin{ese}
+	Sappiamo che \(S^1\) è un retratto di deformazione di \(\R^2\setminus \{\bar{0}\}\), quindi, per la proposizione precedente, i gruppi fondamentali di tali spazi sono isomorfi.
+	In particolare sappiamo che \(\p_1(S^1) \cong \Z\), pertanto
+	\[
+		\p_1\big(\R^2\setminus\{\bar{0}\}\big) \cong \Z.
+	\]
+\end{ese}
+
+\begin{defn}{Spazio contraibile}{spazioContraibile}\index{Spazio!contraibile}
+	Uno spazio topologico \(X\) si dice \emph{contraibile} se è omotopicamente equivalente a un suo punto.
+
+	Ovvero se esite \(x_0\in X\) e \(H\colon X \times I \to X, (x,t) \mapsto H(x,t)\), tale che
+	\[
+		H(x,0) = x_0 \qquad\text{e}\qquad H(x,1) = x,\,\fa x \in X.
+	\]
+\end{defn}
+
+\begin{oss}
+	In altre parole se e soltanto se \(id_X \simeq (\text{cost})_{x_0}\).
+\end{oss}
+
+\begin{oss}
+	Se \(X\) è contraibile allora \(\p_1(X,x_0) = \{1\}\) in quanto ogni cappio è omotopo a quello costante.
+\end{oss}
+
+\begin{ese}
+	\(\R^n\) è contraibile tramite \(H(x,t) = t\,x\), che è infatti un'omotopia fra \(id_{\R^n}\) e il cappio costante nell'origine.
+\end{ese}
+
+\begin{ese}
+	Con lo stesso argomento si mostra che \(C\subset \R^n\) convesso è contraibile.
+	Infatti è sufficiente traslare \(C\) in modo che \(\bar{0}\in C\).
+\end{ese}
+
+\begin{oss}
+	Vale analogamente per \(S\subset \R^n\) stellato, dove al posto di \(\bar{0}\) considereremo il "centro" \(x_0\) di \(S\).
+\end{oss}
+
+\begin{ese}
+	Abbiamo già visto che \(\R^n\setminus\{\bar{0}\} \simeq S^{n-1}\).
+	In particolare \(\R^2\setminus\{\bar{0}\}\) non sarà contraibile.
+\end{ese}
+
+\begin{oss}
+	Per \(n\ge 3\) si può dimostrare, con altri strumenti, che \(\R^n\setminus\{\bar{0}\}\) non è a sua volta contraibile.
+
+	In generale vale lo stesso per \(\R^n \setminus \{x_0\}\) con \(x_0\in \R^n\).
+\end{oss}
+
+\begin{ese}
+	\(S^n \setminus \{x_0\}\) è contraibile.
+	Infatti dopo una rotazione di \(S^n \subset \R^{n+1}\) possiamo assumere che \(x_0 = N = (0,0,\ldots,1)\).
+	A questo punto possiamo sfruttare la proiezione stereografica
+	\[
+		\j_N \colon S^n \setminus\{N\} \to \R^n,
+	\]
+	definita in modo che \(\j_n\) mandi \(x\) nell'unica intersezione tra il segmento \(\overline{N\,x}\) e il piano \(x_{n+1}=0\).
+	Si può infatti mostrare che \(\j_N\) è un omeomorfismo tra \(S^n\setminus\{N\}\) e \(\R^n\), quest'ultimo uno spazio contraibile.
+\end{ese}
+
+\begin{teor}{Invarianza omotopica del gruppo fondamentale}{invarianzaOmotopicaGruppoFondamentale}
+	Due spazi topologici \(X\) e \(Y\), omotopicamente equivalenti, hanno gruppi fondamentali isomorfi.
+\end{teor}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 16/05/2016 - DODICESIMA SETTIMANA (1)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%
+%TEOREMA DI VAN KAMPEN%
+%%%%%%%%%%%%%%%%%%%%%%%
+\section{Teorema di Van Kampen}
+
+\begin{teor}{di Van Kampen (versione debole)}{teorVanKampern}\index{Teorema!di Van Kampen}
+	Sia \(X\) uno spazio topologico tale che
+	\begin{itemize}
+		\item \(X=U\cup V\) con \(U,V\) aperti in \(X\).
+		\item \(U\cap V\neq \emptyset\) è connessa per archi.
+	\end{itemize}
+	Se \(x_0\in U\cap V\) è fissato ed entrambe le inclusioni
+	\[
+		i\colon U \hookrightarrow X \qquad\text{e}\qquad j\colon V \hookrightarrow X,
+	\]
+	inducono omomorfismi banali \(i_*\) e \(j_*\) di gruppi fondamentali, allora \(X\) è semplicemente connesso.
+\end{teor}
+
+\begin{proof}
+	Sia \(f\colon [0,1] \to X\) un cappio di base \(x_0\), vogliamo dimostrare che \(f \simeq e_{x_0}\).
+
+	Considerando le componenti connesse di \(f(t) \cap U\) possiamo trovare una partizione
+	\[
+		0 = t_0 < t_1 < \ldots < t_n=1,
+	\]
+	tale che \(f\big([t_{i-1},t_i]\big)\) è tutto contenuto in \(U\) e \(f\big([t_i,t_{i+1}]\big)\) è tutto contenuto in \(V\), per ogni \(i=1,3,\ldots\) dispari.
+
+	La dimostrazione procede per induzione sul numero di partizioni \(n\).
+	La strategia è mostrare che il laccio può essere percorso su ogni partizione che sarà omotopicamente equivalente al laccio costante, ricomponendo il laccio in questo modo si giunge alla tesi.
+	\begin{itemize}
+		\item \(n=1:\) Per costruzione \(f\big([0,1]\big)\subset U\), ovvero tutto il cappio \(f\) è contenuto in \(U\).
+		      Quindi l'omomorfismo \(i_*\) manda, per ipotesi, \([f]\) in \([e_{x_0}]\) in quanto \(f\in \p_1(U,x_0)\).
+		      Pertanto \(f\) è contraibile in \(X\).
+		\item \(n=2\) (figura \ref{fig:vanKampen}): Abbiamo \(f(t_1),x_0\in U \cap V\).
+		      Siccome \(U\cap V\) per ipotesi è connesso per archi, esiste un cammino \(g\) da \(f(t_1)\) a \(x_0\).
+
+		      La composizione \(f\big([0,t_1]\big)*g\) è un laccio tutto contenuto in \(U\).
+		      Ma \(i_*\colon \p_1(U,x_0) \to \p_1(X,x_0)\) è banale, quindi
+		      \[
+			      f\big([0,t_1]\big)*g \simeq e_{x_0} \implies f\big([0,t_1]\big) \simeq g^{-1}.
+		      \]
+		      Per cui \(f=f\big([0,t_1]\big)*f\big([t_1,1]\big)\simeq g^{-1}*f\big([t_1,1]\big)\), il quale è tutto contenuto in \(V\).
+		      D'altronde anche \(j_*\colon \p_1(V,x_0)\to\p_1(X,x_0)\) è banale, quindi
+		      \[
+			      f \simeq g^{-1}*f\big([t_1,1]\big) \simeq e_{x_0},
+		      \]
+		      ovvero \(f\) è contraibile in \(X\).
+		\item \(n\ge 3:\) Come nel caso \(n=2\) scegliamo \(f(t_{n-1})\in U\cap V\), che è connesso per archi.
+		      Sia quindi \(g\) un cammino da \(f(t_{n-1})\) a \(x_0\).
+		      Quindi \(g^{-1}*f\big([t_{n-1},t_n]\big)\subset V\).
+
+		      Per ipotesi induttiva \(f\big([0,t_{n-1}]\big)*g\) è contraibile, cioè \(g^{-1} \simeq f\big([0,t_{n-1}]\big)\).
+		      Quindi
+		      \[
+			      f = f\big([0,t_{n-1}]\big)*f\big([t_{n-1},t_n]\big) \simeq g^{-1}*f\big([t_{n-1},t_n]\big),
+		      \]
+		      quest'ultimo tutto contenuto in \(V\).
+		      Nuovamente \(j_*\colon \p_1(V,x_0)\to\p_1(X,x_0)\) è banale, per cui
+		      \[
+			      g^{-1}*f\big([t_{n-1},t_n]\big) \simeq e_{x_0} \implies f \simeq e_{x_0}.
+		      \]
+		      Ovvero \(f\) è contraibile in \(X\).
+	\end{itemize}
+	Dal momento che ciò vale per ogni \(f\in \p_1(X,x_0)\) segue immediatamente che \(X\) è semplicemente connesso.
+\end{proof}
+
+\begin{figure}[tp]
+	\begin{centering}
+		\includegraphics[height = 75mm]{vanKampen.pdf}
+		\caption{La prova del teorema per \(n=2\).}
+		\label{fig:vanKampen}
+	\end{centering}
+\end{figure}
+
+\begin{cor}
+	Il gruppo fondamentale di \(S^n\) è banale quando \(n\ge 2\).
+\end{cor}
+
+\begin{proof}
+	Mostriamo che per \(n\ge 2,S^n\) è semplicemente connesso.
+	Siano
+	\[
+		U=S^n\setminus N,N=(0,\ldots,0,1) \qquad\text{e}\qquad V=S^n\setminus S, S=(0,\ldots,0,-1).
+	\]
+	Dove \(U\cap V\) è connesso per archi se \(n\ge 2\).
+	Infatti sappiamo che, tramite la proiezione stereografica, \(S^n\setminus\{x_0\}\) è omeomorfo ad \(\R^n\).
+	In particolare \(U\cap V \approx \R^n\setminus\{0\}\) se e soltanto se \(n\ge 2\).
+
+	D'altronde \(U\approx \R^n\) che è contraibile, per cui \(\p(U)\) è banale.
+	In particolare \(i_* \colon \p_1(U) \to \p_1(S^n)\) è certamente banale.
+	Lo stesso vale per \(V\), quindi \(j_*\colon \p_1(V) \to \p_1(S^n)\) è banale.
+
+	Le ipotesi del teorema sono soddisfatte, quindi \(\p_1(S^n)=\{1\}\) se \(n\ge 2\).
+\end{proof}
+
+\begin{oss}
+	La dimostrazione non è valida per \(n=1\) in quanto \(U\cap V \approx \R\setminus\{0\}\) che non è semplicemente connesso.
+\end{oss}
+
+\begin{oss}
+	Proponiamo di seguito una pseudo-dimostrazione che \(S^2\) è semplicemente connesso:
+
+	Sia \(f(t)\subset S^2\) un cappio e sia \(y\in S^2\setminus\{f(t)\}\).
+	Quindi \(y\not\in \im f(t)\).
+	Dopo una rotazione possiamo supporre che \(y=N=(0,1)\).
+
+	Consideriamo quindi \(\p_N \colon S^2\setminus N \to \R^2\) la proiezione stereografica.
+	Avremo che \(f(t)\) viene mappato in un cappio di \(\R^2\) che sarà pertanto contraibile.
+	Quindi \(f(t)\) è contraibile e pertanto \(S^2\) è semplicemente connesso.
+
+	Questa "dimostrazione" risulta errata in quanto potremmo costruire un cappio in \(S^2\) che sia suriettivo e che quindi non ci permetterebbe di utilizzare l'omeomorfismo con \(\R^2\).
+\end{oss}
+
+\begin{teor}{Invarianza del dominio}{invarianzaDominio}
+	Supponiamo che \(\R^n\) sia omeomorfo ad \(\R^m\).
+	Allora \(n=m\).
+\end{teor}
+
+\begin{proof}
+	Dimostriamo il caso \(m=2\), per dimensioni superiori sono richiesti altri invarianti topologici, come ad esempio la coomologia.
+
+	Se per assurdo \(n>2\) ed esistesse un omeomorfismo \(\j\colon \R^n \to \R^2,p\mapsto \j(p)\), allora
+	\[
+		\R^n\setminus\{p\} \to \R^2\setminus\{\j(p)\},
+	\]
+	sarebbe ancora un omeomorfismo.
+	In particolare si avrebbe
+	\[
+		\begin{tikzcd}
+			\p_1\big(\R^n\setminus\{p\}\big) \arrow[phantom]{r}{\cong} \arrow[phantom]{d}{\cong} & \p_1\big(\R^2\setminus\{\j(p)\}\big) \arrow[phantom]{d}{\cong}\\
+			\p_1(S^{n-1}) = \{1\} & \Z
+		\end{tikzcd}
+	\]
+	ovvero \(\{1\}\cong \Z\) che è ovviamente assurdo.
+\end{proof}

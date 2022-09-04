@@ -1,0 +1,957 @@
+%!TEX root = ../main.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 23/03/2016 - QUINTA SETTIMANA (2)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Connessione e compattezza}
+%%%%%%%%%%%%%%%%
+%SPAZI CONNESSI%
+%%%%%%%%%%%%%%%%
+\section{Spazi connessi}\index{Connessione}
+
+\begin{defn}{Spazio sconnesso}{spazioSconnesso}\index{Spazio!sconnesso}
+	Uno spazio topologico \(X\) si dice \emph{sconnesso} se esistono \(U,V\) aperti di \(X\) tali che
+	\[
+		U \cap V = \emptyset \qquad\text{e}\qquad U \cup V = X.
+	\]
+\end{defn}
+
+\begin{notz}
+	Le coppie \(U,V\) di aperti disgiunti tali che \(X=U \cup V\) si dicono \emph{coppie separatrici}.
+\end{notz}
+
+\begin{defn}{Spazio connesso}{spazioConnesso}\index{Spazio!connesso}
+	Uno spazio topologico \(X\) si dice \emph{connesso} se non è sconnesso, ovvero se per ogni coppia di aperti di \(X\) tali che \(X=U\cup V\), si ha \(U \cap V \neq \emptyset\).
+\end{defn}
+
+\begin{ese}
+	Se considero lo spazio topologico \(X\) costituito da due intervalli disgiunti \(U\) e \(V\) sulla retta reale, segue per definizione che \(X= U\cup V\) è sconnesso.
+\end{ese}
+
+\begin{ese}
+	\(\R\setminus \{0\}\) è sconnesso in quanto
+	\[
+		\R\setminus\{0\} = (-\infty,0) \cup (0,+\infty).
+	\]
+\end{ese}
+
+\begin{defn}{Sottospazio connesso}{sottospazioConnesso}\index{Sottospazio!connesso}
+	Sia \(X\) uno spazio topologico e sia \(A\subseteq X\).
+	\(A\) si dice connesso se è connesso rispetto alla topologia di sottospazio.
+\end{defn}
+
+\begin{oss}
+	Se \(A\) è connesso, dati \(U,V\) aperti disgiunti di \(X\) e tali che \(A\subset U \cup V\), si ha
+	\[
+		A \subset U \qquad\text{oppure}\qquad A \subset V.
+	\]
+	Altrimenti se \(A\) avesse sia punti in \(U\) che in \(V\), si avrebbe che \(U\cap A, V\cap A\) è una coppia separatrice per \(A\).
+\end{oss}
+
+\begin{prop}{Caratterizzazione della connessione}{carattConnessione}
+	Uno spazio topologico \(X\) è connesso se e soltanto se gli unici sottoinsiemi di \(X\) che risultano sia aperti che chiusi sono \(X\) e \(\emptyset\).
+\end{prop}
+
+\begin{proof}
+	\graffito{\(\Rightarrow)\)}Supponiamo che \(X\) sia connesso e supponiamo che \(A\subset X\) risulti sia aperto che chiuso, in particolare avremo \(\setc{A}\) aperto.
+	Quindi \(A,\setc{A}\) sono due aperti di \(X\) tali che \(X=A\cup\setc{A}\) e \(A\cap\setc{A}=\emptyset\).
+	Da ciò segue che \(A=\emptyset\) oppure \(\setc{A}=\emptyset\), poiché altrimenti \(X\) risulterebbe sconnesso.
+
+	\graffito{\(\Leftarrow)\)}Supponiamo che gli unici sottoinsiemi di \(X\) contemporaneamente aperti e chiusi siano \(X\) e \(\emptyset\).
+	Prendiamo \(U,V\) aperti di \(X\), distinti da \(X\) e \(\emptyset\), tali che \(X=U\cup V\). Se per assurdo fosse \(U\cap V=\emptyset\) si avrebbe \(U=\setc{V}\), ovvero \(U,V\) contemporaneamente aperti e chiusi.
+	Ciò è assurdo per ipotesi, per cui \(U\cap V\neq\emptyset\), ovvero \(X\) è connesso.
+\end{proof}
+
+\begin{teor}{fondamentale degli spazi connessi}{teorFondamentaleConnessi}
+	Siano \(X,Y\) due spazi topologici con \(X\) connesso.
+	Sia \(f\colon X\to Y\) un'applicazione continua, allora \(f(X)\) è connesso.
+\end{teor}
+
+\begin{proof}
+	Supponiamo per assurdo che \(f(X)\) sia sconnesso, per definizione esistono due aperti \(U,V\) di \(Y\) tali che
+	\[
+		U \cap V = \emptyset \qquad\text{e}\qquad U \cup V \supset f(X).
+	\]
+	Siano \(A=f^{-1}\big( U \cap f(X) \big)\) e \(B=f^{-1}\big( V \cap f(X) \big)\).
+	Per la continuità di \(f\) sappiamo che \(A,B\) sono aperti di \(X\), inoltre avremo
+	\[
+		A \cup B = X \qquad\text{e}\qquad A \cap B = \emptyset,
+	\]
+	ovvero \(X\) è sconnesso.
+	Ma ciò è assurdo per ipotesi, quindi \(f(X)\) è connesso.
+\end{proof}
+
+\begin{oss}
+	Dal teorema segue che la connessione è una proprietà topologica.
+\end{oss}
+
+\begin{pr}\label{pr:conn1}
+	Sia \(X\) uno spazio topologico e sia \(A\subset X\) connesso.
+	Allora \(\overline{A}\) è connesso.
+\end{pr}
+
+\begin{proof}
+	Supponiamo che esistano \(U,V\) aperti di \(X\) tali che \(U\cap V = \emptyset\) e \(U \cup V \supset \overline{A}\).
+	Per definizione di chiusura \(\overline{A}\supset A\), per cui \(U\cup V \supset A\).
+	Ma \(A\) è connesso, per cui \(A\subset U\) oppure \(A\subset V\).
+	Supponiamo ad esempio \(A\subset U\), per le proprietà della chiusura avremo \(\overline{A}\subset U\), ovvero \(\overline{A}\) connesso.
+\end{proof}
+
+\begin{pr}\label{pr:conn2}
+	Sia \(X\) uno spazio topologico e sia \(\{B_\a\}_{\a\in A}\) una famiglia di sottoinsiemi di \(X\) connessi.
+	Se esiste \(P\in B_\a,\,\fa \a \in A\), allora
+	\[
+		\bigcup_{\a \in A}B_\a
+	\]
+	è connesso.
+\end{pr}
+
+\begin{proof}
+	Supponiamo che \(U,V\) siano due aperti di \(X\) tali che
+	\[
+		U \cap V = \emptyset \qquad\text{e}\qquad U \cup V \supset \bigcup_{\a \in A}B_\a.
+	\]
+	Per ipotesi \(P\in B_\a,\,\fa \a \in A\), per cui \(P\in U\) oppure \(P\in V\).
+	Sappiamo che \(U\cup V\supset B_\a\), ma in particolare \(B_\a\) sono connessi, quindi \(B_\a\subset U\) oppure \(B_\a \subset V\).
+	Supponiamo \(P\in U\), avremo che \(U \cap B_\a \neq \emptyset,\,\fa \a \in A\), per cui \(B_\a \subset U,\,\fa \a \in A\).
+	Ovvero
+	\[
+		\bigcup_{\a \in A}B_\a \subset U,
+	\]
+	da cui la tesi.
+\end{proof}
+
+\begin{pr}\label{pr:conn3}
+	Il prodotto di un numero finito di spazi topologici connessi è connesso.
+\end{pr}
+
+\begin{proof}
+	Siano \(X_1,\ldots,X_n\) spazi topologici connessi, affinché \(X_1 \times \ldots \times X_n\) sia connesso, ci basta dimostrare che il prodotto di due spazi è connesso.
+
+	Siano quindi \(X,Y\) due spazi connessi, vogliamo dimostrare che \(X\times Y\) è connesso.
+	Consideriamo \(U,V\) aperti di \(X\times Y\) tali che \(U \cap V = \emptyset\) e \(X\times Y=U\cup V\).
+	Sia inoltre \((x_0,y_0)\in U\).
+	Ora \(\{x_0\}\times Y\) è connesso per il teorema fondamentale, in quanto
+	\[
+		f\colon Y \to \{x_0\}\times Y, y \mapsto (x_0,y),
+	\]
+	è ovviamente continua e suriettiva e \(Y\) è connesso. Per cui \(U\supset \{x_0\}\times Y\).
+
+	Analogamente \(X\times\{y\}\) è connesso per ogni \(y\in Y\), quindi \(U\supset X \times \{y\}\), perché abbiamo dimostrato che \((x_0,y)\in X\times \{y\}\).
+	Ma ciò vale per ogni \(y\in Y\), quindi
+	\[
+		U \supset \bigcup_{y\in Y} X\times \{y\} = X \times Y,
+	\]
+	quindi \(U= X\times Y\), ovvero \(X\times Y\) è connesso.
+\end{proof}
+
+\begin{pr}\label{pr:conn4}
+	Il quoziente di uno spazio connesso è connesso.
+\end{pr}
+
+\begin{proof}
+	Sia \(\p\colon X \to Y\) la mappa quoziente su \(Y\).
+	\(\p\) è per definizione continua e suriettiva, quindi \(f(X)=Y\) è connesso per il teorema fondamentale.
+\end{proof}
+
+\begin{prop}{Sottospazi connessi in \(\R\)}{sottospaziConnessiR}
+	Un sottoinsieme di \(\R\) è connesso se e soltanto se è un intervallo.
+\end{prop}
+
+\begin{proof}
+	\graffito{\(\Leftarrow)\)}Sia \(J\subset \R\) un intervallo.
+	Supponiamo per assurdo che \(J\) sia sconnesso, siano quindi \(U,V\) aperti disgiunti di \(\R\) tali che \(U\cup V \supset J\).
+	Siano inoltre \(a\in U\cap J\) e \(b\in V\cap J\) e supponiamo che \(a<b\).
+	Sicuramente \([a,b]\subset J\).
+	Ora \(U,V\) sono aperti, quindi esiste \(\e>0\) tale che
+	\[
+		[a,a+\e)\subset U \qquad\text{e}\qquad (b-\e,b]\subset V
+	\]
+	Sia \(c = \sup \big( U\cap [a,b] \big)\), segue
+	\[
+		a+\e \le c \le b-\e,
+	\]
+	ovvero \(c\in J\).
+	Ma \(U\cup V\supset J\), quindi \(j\in U\) oppure \(j\in V\).
+	Se \(c\in U\) esisterebbe \(\d>0\) tale che \((c-\d,c+\d)\subset U\) ma ciò è assurdo per la definizione di estremo superiore.
+	Analogamente se \(c\in V\) esisterebbe \(\d>0\) tale che \((c-\d,c+\d)\subset V\) che è nuovamente assurdo per la definizione di estremo superiore.
+	Per cui \(J\) è connesso.
+
+	\graffito{\(\Rightarrow)\)}Supponiamo che \(J\subset \R\) non sia un intervallo.
+	Quindi esiste \(c\notin J\) tale che esistono \(a,b\in J\) con \(a<c<b\).
+	Consideriamo \(U=(-\infty,c),V=(c,+\infty)\) aperti di \(\R\), per definizione avremo
+	\[
+		U\cap V = \emptyset \qquad\text{e}\qquad U\cup V \supset J,
+	\]
+	con \(J\not\subset U\) e \(J\not\subset V\), per cui \(J\) è sconnesso.
+\end{proof}
+
+\begin{ese}
+	I rettangoli in \(\R^2\) sono connessi poiché sono il prodotto \(I\times J\) di intervalli, connessi in \(\R\).
+\end{ese}
+
+\begin{ese}
+	I dischi in \(\R^2\) sono connessi poiché sono omeomorfi ai rettangoli.
+\end{ese}
+
+\begin{ese}
+	\(S^1\) è connesso poiché è il quoziente di un connesso, abbiamo infatti dimostrato che
+	\[
+		S^1 = \frac{\R}{\Z}.
+	\]
+\end{ese}
+
+\begin{ese}
+	\(S^n,T^n\), le palle e i cuboidi sono connessi in \(R^n\).
+\end{ese}
+%%%%%%%%%%%%%%%%%%%%%%%
+%CONNESSIONE PER ARCHI%
+%%%%%%%%%%%%%%%%%%%%%%%
+\section{Connessione per archi}
+
+\begin{defn}{Arco fra due punti}{arco}\index{Arco}
+	Sia \(X\) uno spazio topologico e siano \(P,Q\in X\).
+	Un \emph{arco}, o \emph{cammino}, da \(P\) a \(Q\) è una mappa continua
+	\[
+		\g\colon [0,1]\to X \qquad\text{tale che }\qquad \g(0)=P\text{ e }\g(1)=Q.
+	\]
+\end{defn}
+
+\begin{notz}
+	\(P\) e \(Q\) si dicono rispettivamente punto iniziale e punto finale del cammino.
+\end{notz}
+
+\begin{defn}{Spazio connesso per archi}{connessionePerArchi}\index{Connessione!per archi}
+	Uno spazio topologico \(X\) si dice \emph{connesso per archi} se, dati \(P,Q\in X\), esiste un arco da \(P\) in \(Q\).
+\end{defn}
+
+\begin{prop}{Connessione per archi implica connessione}{connessionePerArchiConnessione}
+	Sia \(X\) uno spazi topologico connesso per archi.
+	Allora \(X\) è connesso.
+\end{prop}
+
+\begin{proof}
+	Supponiamo per assurdo che \(U,V\) siano una coppia separatrice per \(X\).
+	Prendiamo \(P\in U\) e \(Q\in V\). Dal momento che \(X\) è connesso per archi esisterà
+	\[
+		\g\colon [0,1] \to X \qquad\text{tale che}\qquad \g(0)=P\text{ e }\g(1)=Q.
+	\]
+	Per la continuità di \(\g\) sappiamo che \(\g^{-1}(U),\g^{-1}(V)\) sono aperti non vuoti disgiunti.
+	Inoltre si avrebbe
+	\[
+		\g^{-1}(U) \cup \g^{-1}(V) = [0,1],
+	\]
+	ma ciò è assurdo in quanto \([0,1]\) è un intervallo, ed è pertanto connesso.
+\end{proof}
+
+\begin{ese}\index{Seno topologico}
+	Il viceversa è falso.
+	Consideriamo ad esempio il seno topologico \(X=A\cup B\), mostrato in figura \ref{fig:senoTop}, con
+	\[
+		A=\Set{(x,y) | x=0, y\in[-1,1]}\qquad\text{e}\qquad B=\Set{(x,y) | x\in(0,1],y=\sin \frac{1}{x}}.
+	\]
+	Dal momento che \(\sin \frac{1}{x}\) è continua, per la proposizione \ref{pr:graficoOmeoDominio}, \(B\approx (0,1]\).
+	Quindi \(B\) è connesso e pertanto lo è anche \(\overline{B}\).
+	Ma \(\overline{B}=X\), infatti se prendiamo \(P_0=(0,y_0)\in A\) possiamo costruire una successione di elementi di \(B\) che converge a \(P_0\)\graffito{intuitivamente prenderemo la successione di punti di ordinata \(y_0\)}.
+	Sia \(\q\) il primo valore di \(x<1\) tale che \(\sin \q=y_0\).
+	Definiamo quindi la successione \(\frac{1}{x_k} = \q+2k\,\p\).
+	Tale successione tende ovviamente a \(0\), inoltre \(\sin \frac{1}{x_k}=\sin(\q+2k\,p)=y_0\).
+	Quindi \(X\) è connesso.
+
+	Mostriamo infine che \(X\) non è connesso per archi.
+	Supponiamo per assurdo che esista \(f\colon [0,1]\to X\) con \(0\mapsto p,1\mapsto q\) per ogni \(p,q\in X\).
+	Prendiamo ad esempio \(p=\left( \frac{1}{\p},0 \right)\) e \(q=\left( 0,\frac{1}{2} \right)\).
+	Allora, per ogni \(t\neq 0,1\), avremo
+	\[
+		f(t) = \left( a(t),\sin \frac{1}{a(t)} \right),
+	\]
+	con \(a(t)\colon [01,]\to(0,1]\) continua.
+	Questo poiché \(f\) è continua e pertanto lo è ogni sua componente, in particolare lo sarà la prima che è proprio \(a(t)\).
+	Quindi
+	\[
+		f(1) = \left(0,\frac{1}{2}\right) \implies \lim_{t\to 1} a(t) = 0.
+	\]
+	D'altronde non esiste
+	\[
+		\lim_{t\to 1} \sin \frac{1}{a(t)},
+	\]
+	ma ciò è assurdo in quanto \(\sin \frac{1}{a(t)}\) è continua e vale \(\sin \frac{1}{a(t)}=\frac{1}{2}\).
+\end{ese}
+
+\begin{figure}[tp]
+	\begin{centering}
+		\includegraphics[height = 75mm]{senoTop.pdf}
+		\caption{Il seno topologico.}
+		\label{fig:senoTop}
+	\end{centering}
+\end{figure}
+
+\begin{teor}{del Valore medio}{teoremaValoreMedio}\index{Teorema!del valore medio}
+	Sia \(X\) uno spazio topologico connesso e sia \(f\colon X\to \R\) una funzione continua.
+	Se \(p,q\in X\) allora \(f\) assume tutti i valori compresi tra \(f(p)\) e \(f(q)\).
+\end{teor}
+
+\begin{proof}
+	L'immagine \(f(X)\) è connessa, essendo contenuta in \(\R\) è necessariamente un intervallo, da cui la tesi.
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 04/04/2016 - SETTIMA SETTIMANA (1)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%
+%COMPONENTI CONNESSI%
+%%%%%%%%%%%%%%%%%%%%%
+\section{Componenti connesse}
+
+\begin{defn}{Relazione di connessione}{relazioneConnessione}\index{Relazione di connessione}
+	Sia \(X\) uno spazio topologico.
+	Diremo che \(p,q\in X\) sono in \emph{relazione di connessione} \(\sim\) se e soltanto se esiste \(A\subseteq X\) tale che \(A\) è connesso e \(p,q\in A\).
+\end{defn}
+
+\begin{oss}
+	La relazione di connessione è una relazione di equivalenza, infatti:
+	\begin{itemize}
+		\item \(p\sim p\) in quanto \(\{p\}\) è ovviamente connesso.
+		\item \(p\sim q\implies q\sim p\) è banalmente vero.
+		\item \(p\sim q, q\sim r \implies p\sim r\) poiché l'unione di due connessi non disgiunti è connessa.
+	\end{itemize}
+\end{oss}
+
+\begin{defn}{Componenti connesse}{componentiConnesse}\index{Componenti connesse}
+	Sia \(X\) uno spazio topologico.
+	Le classi di equivalenza indotte dalla relazione di connessione si definiscono \emph{componenti connesse}.
+\end{defn}
+
+\begin{notz}
+	Uno spazio topologico i cui gli insiemi dei singoli punti costituiscono tutte le componenti connesse si dice \emph{totalmente sconnesso}.
+\end{notz}
+
+\begin{ese}
+	\(X=B_1((-2,2))\cup B_1((2,-2))\) dotato della topologia indotta di \(\R^2\) ha due componenti connesse individuate proprio dalle due palle.
+\end{ese}
+
+\begin{ese}
+	\(\R\setminus\{a\neq b\}\) ha tre componenti connesse, nello specifico:
+	\[
+		\R\setminus\{a\neq b\} = (-\infty,a)\cup (a,b) \cup (b,+\infty).
+	\]
+\end{ese}
+
+\begin{ese}
+	\(X=S^1\setminus\{a\neq b\}\) ha due componenti connesse.
+	Infatti \(X\) risulta essere unione di due archi che sono omeomorfi a due intervalli di \(\R\).
+\end{ese}
+
+\begin{ese}
+	\(\Q\subset\R\) è totalmente sconnesso.
+	Infatti, comunque presi \(q<r\in\Q\) esisterà sempre \(x\in \R\setminus \Q\) tale che \(q<x<r\).
+	Per cui
+	\[
+		p\in (-\infty,x) \cap \Q \qquad\text{e}\qquad q\in (x,+\infty)\cap \Q,
+	\]
+	che è una coppia separatrice di \(\Q\) che contiene separatamente i due punti, per cui \(p,q\) non possono appartenere alla stessa componente connessa.
+	Dal momento che ciò vale per ogni coppia di punti in \(\Q\) se ne deduce che \(\Q\) è totalmente sconnesso.
+\end{ese}
+
+\begin{prop}{Componenti connesse sono connessi massimali}{componentiConnesseMassimali}
+	Sia \(X\) uno spazio topologico.
+	Le componenti connesse di \(X\) coincidono esattamente con i sottoinsiemi connessi massimali.
+\end{prop}
+
+\begin{proof}
+	Preso \(q\in X\), sia \(A\) la componente connessa che contiene \(q\) e sia \(B\) l'unione di tutti i connessi che contengono \(q\).
+	Per la proposizione \ref{pr:conn2} \(B\) è connesso.
+	In particolare risulta essere un connesso massimale, infatti se \(C\) è un connesso che contiene \(B\), si avrebbe \(q\in C\); ma per definizione \(B\) è unione di tutti i connessi che contengono \(q\), per cui \(B\supseteq C\).
+
+	Mostriamo quindi che \(A=B\).
+	Preso \(p\in B\) si avrebbe \(p\sim q\) in quanto \(B\) è un connesso che li contiene entrambi; in particolare \(p,q\) appartengono alla stessa componente connessa, quindi \(p\in A\).
+	Viceversa, preso \(p\in A\), \(p\) apparterrà ad un qualche aperto che contiene \(q\); dal momento che \(B\) è l'unione di tutti questi aperti, \(p\in B\).
+\end{proof}
+
+\begin{pr}\label{pr:compConn1}
+	Ogni componente connesso è un sottoinsieme chiuso di \(X\).
+\end{pr}
+
+\begin{proof}
+	Dalla proposizione \ref{pr:conn1}, \(A\) connesso implica \(\overline{A}\) connesso.
+	Ma per la proposizione precedente \(A\) è massimale e \(A\subseteq \overline{A}\), quindi \(A=\overline{A}\).
+\end{proof}
+
+\begin{oss}
+	In generale è falso che le componenti connesse siano anche aperte.
+	Infatti \(\Q\) ha come componenti connesse gli insiemi dei suoi punti, che sono chiusi ma non aperti.
+\end{oss}
+
+\begin{cor}
+	Se \(X\) ha un numero finito di componenti connesse, allora ogni componente connessa è sia chiusa che aperta.
+\end{cor}
+
+\begin{proof}
+	Sappiamo che ogni componente connessa è chiusa, per cui il complementare di ciascuna sarà chiusa poiché unione finita di chiusi.
+	Ovvero ogni componente connessa è anche aperta.
+\end{proof}
+
+\begin{pr}\label{pr:compConn2}
+	Ogni sottoinsieme connesso di \(X\) è contenuto in un'unica componente connessa.
+\end{pr}
+
+\begin{proof}
+	Sia \(A\subset X\) connesso. Siccome le componenti connesse costituiscono una partizione di \(X\), esisterà una componente connessa \(B\) che interseca \(A\).
+	Per la proposizione \ref{pr:conn2} \(A\cup B\) è connesso, quindi, per la massimalità di \(B\), \(A\cup B=B\).
+	Ovvero \(A\subset B\).
+\end{proof}
+
+\begin{defn}{Relazione di connessione per archi}{relazioneConnessioneArchi}\index{Relazione di connessione!per archi}
+	Sia \(X\) uno spazio topologico.
+	Diremo che \(p,q\in X\) sono in \emph{relazione di connessione per archi} \(\r\) se e soltanto se esiste un arco \(f\colon [0,1]\to X\) continuo tale che \(0\mapsto p,1\mapsto q\).
+\end{defn}
+
+\begin{oss}
+	La relazione di connessione per archi è una relazione di equivalenza, infatti:
+	\begin{itemize}
+		\item \(p\r p\) perché posso considerare l'applicazione costante \(f\colon [0,1]\to X,t\mapsto p\) che è banalmente continua.
+		\item \(p\r q\implies q\r p\) perché se \(f(t)\) è l'arco da \(p\) in \(q\), allora \(f(1-t)\) è l'arco da \(q\) in \(p\).
+		\item \(p\r q, q\r r\implies p\r r\) in quanto se \(f(t)\) è l'arco da \(p\) in \(q\) e \(g(t)\) è quello da \(q\) in \(r\), ci basta prendere
+		      \[
+			      \begin{cases}
+				      f(2t)   & \text{se }t\in \left[ 0,\frac{1}{2} \right] \\
+				      g(2t-1) & \text{se }t\in \left[ \frac{1}{2},1 \right]
+			      \end{cases}
+		      \]
+		      che è un arco da \(p\) in \(r\).
+	\end{itemize}
+\end{oss}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 06/04/2016 - SETTIMA SETTIMANA (2)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{pr}\label{pr:compConn3}
+	Ogni componente connessa per archi è contenuta in un'unica componente connessa.
+\end{pr}
+
+\begin{pr}\label{pr:compConn4}
+	Ogni componente connessa è unione disgiunta di componenti connesse per archi.
+\end{pr}
+
+\begin{pr}\label{pr:compConn5}
+	Se \(A\subset X\) è connessa per archi allora \(A\) è contenuta in un'unica componente arco connessa.
+\end{pr}
+
+\begin{ese}
+	Consideriamo nuovamente il seno del topologo \(X=A\cup B\) con
+	\[
+		A=\Set{(0,y) | \abs{y} \le 1} \qquad\text{e}\qquad B=\Set{\left(x,\sin \frac{1}{x}\right) | x\in (0,1)}.
+	\]
+	Abbiamo già osservato che \(X\) è connesso ma non esiste nessun arco da \(x\in B\) a \(y\in A\).
+	D'altronde \(A\approx [-1,1]\) e \(B\approx (0,1)\), pertanto sia \(A\) che \(B\) sono arco connessi.
+\end{ese}
+
+\begin{oss}
+	In generale, a differenza della connessione, non vale \(C\) arco connesso \(\implies \overline{C}\) arco connesso.
+	Infatti la \(B\subset X\), con \(X\) il seno del topologo, è arco connesso, ma \(\overline{B}=X\) non lo è.
+\end{oss}
+
+\begin{defn}{Spazio localmente connesso}{localmenteConnesso}\index{Spazio!localmente connesso}
+	Uno spazio topologico \(X\) si dice \emph{localmente connesso} se ha una base di aperti connessi.
+\end{defn}
+
+\begin{oss}
+	Equivalentemente si può dire che ogni \(x\in X\) ha un intorno aperto \(U_x\) connesso.
+\end{oss}
+
+\begin{defn}{Spazio localmente connesso per archi}{localmenteConnessoArchi}
+	Uno spazio topologico \(X\) si dice \emph{localmente connesso per archi} se ha una base di aperti arco connessi.
+\end{defn}
+
+\begin{ese}
+	Il seno del topologo è connesso ma non è localmente connesso.
+\end{ese}
+
+\begin{ese}
+	L'unione disgiunta di due dischi chiusi è localmente connesso ma non è connesso.
+\end{ese}
+
+\begin{ese}
+	Sia \(Y=X\cup C\) con \(X\) il seno del topologo e \(C\) una curva che raccorda \(\left( 2\p,\sin \frac{1}{2\p} \right)\) a \((0,-1)\).
+	\(Y\) è connesso per archi, ma non è né localmente connesso né localmente connesso per archi.
+\end{ese}
+
+\begin{pr}\label{pr:compConn6}
+	Se \(X\) è localmente connesso allora ogni componente connessa è aperta.
+\end{pr}
+
+\begin{proof}
+	Sia \(A\) la componente connessa di \(x\in X\).
+	Siccome \(X\) è localmente connessa esisterà un intorno aperto \(U\) di \(x\) che è connesso.
+	Per massimalità avremo \(U\subset A\), ovvero \(x\) è un punto interno di \(A\), cioè \(A\) è aperto.
+\end{proof}
+
+\begin{pr}\label{pr:compConn7}
+	Se \(X\) è localmente connesso per archi allora ogni componente arco connessa è aperta.
+\end{pr}
+
+\begin{proof}
+	Analoga alla dimostrazione precedente.
+\end{proof}
+
+\begin{pr}\label{pr:compConn8}
+	Se \(X\) è localmente connesso per archi allora le componenti arco connesse coincidono con le componenti connesse.
+\end{pr}
+
+\begin{proof}
+	Sia \(x\in X\) e siano \(A\) la componente connessa di \(x\) e \(B\) la sua componente connessa per archi.
+	Dalla proprietà \ref{pr:compConn3} sappiamo che \(B\subset A\).
+	Ora \(X\) in particolare è localmente connessa e pertanto \(A\) è aperta.
+	Per la proprietà \ref{pr:compConn4} possiamo scrivere \(A\) come unione disgiunta di componenti connesse per archi, ognuna delle quali è aperta in \(X\) e di conseguenza anche in \(A\).
+	Se per assurdo \(B\) non fosse l'unica arco componente in \(A\), allora \(\{B,A\setminus B\}\) sarebbe una coppia separatrice per \(A\) che è assurdo in quanto \(A\) è connesso.
+	Questo prova che \(A=B\).
+\end{proof}
+
+\begin{oss}
+	In particolare se \(X\) è localmente connesso per archi, \(X\) è connesso se e soltanto se \(X\) è connesso per archi.
+	Infatti se \(X\) è connesso avrà una sola componente connessa, che per la proprietà è equivalente a dire che \(X\) ha un'unica arco componente, ovvero \(X\) è connesso per archi.
+\end{oss}
+
+\begin{prop}{Varietà localmente connessa per archi}{varietàArcoConnessa}
+	Ogni varietà topologica \(M\) è localmente connessa per archi.
+\end{prop}
+
+\begin{proof}
+	Segue dal fatto che \(M\) è localmente omeomorfa ad \(\R^n\) che è connesso per archi.
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 18/04/2016 - OTTAVA SETTIMANA (1)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%
+%SPAZI COMPATTI%
+%%%%%%%%%%%%%%%%
+\section{Spazi compatti}\index{Compattezza}
+
+\begin{defn}{Sottoricoprimento}{sottoricoprimento}\index{Sottoricoprimento}
+	Sia \(X\) uno spazio topologico e sia \(\mathcal{U}\) un ricoprimento aperto di \(X\).
+	Un \emph{sottoricoprimento} di \(\mathcal{U}\) è una sottocollezione \(\mathcal{U}'=\{U_{i_k}\}_{i_k \in I'}\), con \(I'\subset I\), tale che
+	\[
+		\bigcup_{i_k \in I'}U_{i_k} = X.
+	\]
+\end{defn}
+
+\begin{defn}{Spazio compatto}{spazioCompatto}\index{Spazio!compatto}
+	Uno spazio topologico \(X\) è \emph{compatto} se ogni ricoprimento aperto \(\mathcal{U}\) di \(X\) ammette un sottoricoprimento finito, ovvero
+	\[
+		X = U_{i_1} \cup U_{i_2} \cup \ldots \cup U_{i_k},
+	\]
+	con \(i_1,\ldots,i_k \in I'\).
+\end{defn}
+
+\begin{defn}{Sottoinsieme compatto}{sottoinsiemeCompatto}\index{Sottoinsieme!compatto}
+	Un sottoinsieme \(K\) di uno spazio topologico \(X\) si dice \emph{compatto} se \(K\) è uno spazio topologico compatto nella topologia di sottospazio.
+\end{defn}
+
+\begin{oss}
+	Analogamente \(K\subset X\) è compatto se e soltanto se ogni famiglia di aperti che contiene \(K\) ammette una sottofamiglia finita che lo contiene ancora.
+\end{oss}
+
+\begin{notz}
+	Una famiglia di aperti che contiene \(K\) sarà chiamata ricoprimento aperto di \(K\).
+\end{notz}
+
+\begin{oss}
+	\(\R\) non è uno spazio topologico compatto.
+	Infatti \(\mathcal{U}=\{(-n,n)\}_{n\in \N}\) è un ricoprimento di \(\R\) ma ogni sottocollezione finita è del tipo
+	\[
+		\bigcup_{k=1,\ldots,M} U_{i_k} = (-M,M)\subset \R.
+	\]
+\end{oss}
+
+\begin{prop}{Immagine continua di un compatto}{immagineContinuaCompatto}
+	Sia \(f\colon X\to Y\) un'applicazione continua da \(X\) compatto.
+	Allora \(f(X)\) è un sottoinsieme compatto di \(Y\).
+\end{prop}
+
+\begin{proof}
+	Sia \(\mathcal{U}=\{U_i\}_{i\in I}\) un qualsiasi ricoprimento aperto di \(f(X)\).
+	Per definizione \(U_i\) sono aperti in \(X\), per cui \(\mathcal{V}=\{f^{-1}(U_i)\}_{i\in I}\) è una collezione di aperti di \(X\).
+	Inoltre vale
+	\[
+		X = \bigcup_{i\in I}f^{-1}(U_i).
+	\]
+	Ora \(X\) compatto ci dice \(X=f^{-1}(U_1)\cup \ldots \cup f^{-1}(U_n)\), per cui
+	\[
+		f(X) = U_1 \cup \ldots \cup U_n.\qedhere
+	\]
+\end{proof}
+
+\begin{oss}
+	La compattezza è quindi una proprietà topologica.
+\end{oss}
+
+\begin{pr}\label{pr:spaziCompatti1}
+	Ogni sottoinsieme chiuso di uno spazio compatto è compatto.
+\end{pr}
+
+\begin{proof}
+	Sia \(\mathcal{U}\) un ricoprimento aperto di \(C\).
+	Dal momento che \(C\) è chiuso, \(X\setminus C\) sarà aperto.
+	Quindi \(\mathcal{U}\cup (X\setminus C)\) è un ricoprimento aperto di \(X\).
+	Ma \(X\) è compatto, quindi esisterà un ricoprimento finito:
+	\[
+		X = U_1 \cup \ldots \cup U_k \cup (X\setminus C).
+	\]
+	In particolare risulta \(C\subseteq U_1 \cup \ldots \cup U_k\), ovvero \(C\) è compatto.
+\end{proof}
+
+\begin{pr}\label{pr:spaziCompatti2}
+	Se \(X\) è uno spazio di Hausdorff allora gli insieme compatti e disgiunti possono essere separati da insiemi aperti.
+	Ovvero se \(A,B\) sono compatti e disgiunti di \(X\), allora esiste una coppia di aperti \(U,V\) disgiunti in \(X\) tali che
+	\[
+		A\subset U,B \subset V \qquad\text{e}\qquad U\cap V = \emptyset.
+	\]
+\end{pr}
+
+\begin{proof}
+	Consideriamo il caso in cui \(B=\{q\}\) è un singleton.
+	\(X\) è di Hausdorff, quindi per ogni \(p\in A\) esiste una coppia di intorni aperti \(U_p\) di \(p\) e \(V_q\) di \(q\) che sono disgiunti.
+	La famiglia \(\Set{U_p | p\in A}\) è un ricoprimento di \(A\), pertanto avrà un sottoricoprimento finito \(\{U_{p_1},\ldots,U_{p_k}\}\).
+	Definiamo \(\mathbb{U} = U_{p_1}\cup \ldots \cup U_{p_k}\) e \(\mathbb{V} = V_{p_1} \cap \ldots \cap V_{p_k}\).
+	Quindi per definizione \(\mathbb{U}\) e \(\mathbb{V}\) sono aperti disgiunti tali che \(A\subset \mathbb{U}\) e \(q\in \mathbb{V}\).
+
+	Consideriamo quindi il caso generale in cui \(B\) è un generico compatto.
+	Per quanto mostrato sopra, per ogni punto \(q\in B\) esiste una coppia di aperti disgiunti \(\mathbb{U},\mathbb{V}\) tali che \(A\subset \mathbb{U}\) e \(q\in \mathbb{V}\).
+	Per la compattezza di \(B\) esiste un sottoricoprimento finito \(\{\mathbb{V}_{q_1},\ldots,\mathbb{V}_{q_s}\}\) di \(B\).
+	Quindi per ottenere la tesi basta considerare \(\mathcal{U} = \mathbb{U}_{q_1} \cap \ldots \cap \mathbb{U}_{q_s}\) e \(\mathcal{V} = \mathbb{V}_{q_1} \cup \ldots \cup \mathbb{V}_{q_s}\).
+\end{proof}
+
+\begin{pr}\label{pr:spaziCompatti3}
+	Ogni insieme compatto in uno spazio di Hausdorff è chiuso.
+\end{pr}
+
+\begin{proof}
+	Sia \(X\) uno spazio di Hausdorff e supponiamo \(K\subset X\) compatto.
+	Preso \(q\in X\setminus K\), per la proposizione precedente, esiste una coppia di aperti disgiunti \(U,V\) tali che \(K\subset U\) e \(q\in V\).
+	In particolare \(V\) è un intorno di \(q\) disgiunto da \(K\).
+	Quindi ogni punto che non appartiene a \(K\) appartiene al suo esteriore, ovvero \(K\) è chiuso.
+\end{proof}
+
+\begin{pr}\label{pr:spaziCompatti4}
+	Il prodotto finito di spazi compatti è compatto.
+\end{pr}
+
+\begin{proof}
+	Per induzione è sufficiente mostrare che il prodotto di due spazio compatti \(X,Y\) è compatto.
+	Sia \(\mathcal{U}\) un ricoprimento aperto di \(X\times Y\).
+	Preso \(x\in X\) sappiamo che la sua fibra rispetto alla proiezione \(\p\colon X\times Y \to X, (x,y)\mapsto x\) è \(\{x\}\times Y \approx Y\).
+	Per la compattezza di \(Y\) esisterà quindi un sottoricoprimento finito di \(\mathcal{U}\) che contiene \(\{x\}\times Y\), supponiamo \(\{U_1,\ldots,U_n\}\).
+	Ora \(\p\) è aperta, quindi \(V_x=\p(U_1 \cap \ldots \cap U_n)\) è un aperto di \(X\) che contiene \(x\in X\), ovvero \(V_x\) è un intorno di \(X\).
+	In particolare \(\{V_x\}_{x\in X}\) è un ricoprimento aperto di \(X\), quindi
+	\[
+		X = V_{x_1} \cup \ldots \cup V_{x_s} \implies X \times Y = (V_{x_1} \times Y ) \cup \ldots \cup (V_{x_s} \times Y),
+	\]
+	per cui posso selezionare un sottoricoprimento finito.
+\end{proof}
+
+\begin{pr}\label{pr:spaziCompatti5}
+	Ogni spazio quoziente di un compatto è compatto.
+\end{pr}
+
+\begin{proof}
+	Per definizione un'applicazione quoziente \(\p\colon X \to \frac{X}{\sim}\) è continua è suriettiva.
+	Sappiamo che l'immagine continua di compatti è compatta, quindi \(\p(X)=\frac{X}{\sim}\) è compatto.
+\end{proof}
+
+\begin{teor}{di Tychonoff}{teoremaTychonoff}\index{Teorema!di Tychonoff}
+	Il prodotto di un numero qualsiasi di spazi compatti è compatto.
+\end{teor}
+
+\begin{proof}
+	Non fornita.
+\end{proof}
+
+\begin{defn}{Limitatezza negli spazi metrici}{limitatezzaSpaziMetrici}\index{Insieme!limitato}
+	Un sottospazio \(S\) di uno spazio metrico \(X\) si dice \emph{limitato} se vale una delle seguenti proprietà equivalenti:
+	\begin{itemize}
+		\item Esiste \(M>0\) tale che per ogni \(x,y\in S\) si ha \(d(x,y)<M\).
+		\item Per ogni \(x\in S\) esiste \(R>0\) tale che \(S\subset B_R(x)\).
+		\item \(S\) è contenuto in qualche disco.
+	\end{itemize}
+\end{defn}
+
+\begin{prop}{Compattezza negli spazi metrici}{compattoSpazioMetrico}
+	Sia \(X\) uno spazio metrico e sia \(K\subset X\) compatto.
+	Allora \(K\) è chiuso e limitato.
+\end{prop}
+
+\begin{proof}
+	\(X\) è di Hausdorff in quanto spazio metrico.
+	Per la proprietà \ref{pr:spaziCompatti3} \(K\) è chiuso.
+	Resta da mostrare che \(K\) è limitato.
+	Per ogni \(p\in K\) siano \(B_r(p)\) dischi di centro \(p\) con raggio arbitrario.
+	In particolare
+	\[
+		K \subset \bigcup_{r>0} B_r(p).
+	\]
+	Ma \(K\) è compatto, quindi \(K\subset B_{r_1}(p) \cup \ldots \cup B_{r_n}(p)\), ovvero \(K\subset B_{r_n}(p)\).
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 19/04/2016 - OTTAVA SETTIMANA (2)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{ese}
+	Sia \(X\) uno spazio compatto e sia \(\{F_n\}_{n\in\N}\) una collezione discendente di chiusi, ovvero tale che
+	\[
+		F_n = \overline{F}_n, \qquad F_{n+1}\subset F_n, \qquad F_n \neq \emptyset.
+	\]
+	Dimostriamo che l'intersezione \(\bigcap F_n\) è non vuota.
+
+	Per definizione i complementari \(\setc{F_n}\) sono aperti.
+	Supponiamo per assurdo che \(\bigcap F_n=\emptyset\), per cui
+	\[
+		\setc{\emptyset} = X = \setc{\left( \bigcap_{n\in\N} F_n \right)} = \bigcup_{n\in\N} \setc{F_n}.
+	\]
+	Quindi \(\{\setc{F_n}\}\) è un ricoprimento aperto di \(X\).
+	Per compattezza posso estrarre un sottoricoprimento finito, ovvero
+	\[
+		X = \setc{F_{n_1}} \cup \ldots \cup \setc{F_{n_k}},
+	\]
+	ma ciò è vero se e soltanto se
+	\[
+		\emptyset = F_{n_1} \cap \ldots \cap F_{n_k} \iff F_{n_k} = \emptyset,
+	\]
+	che è assurdo per ipotesi.
+\end{ese}
+
+\begin{lem}
+	Il sottoinsieme \([0,1]\) è compatto in \(\R\) con la topologica euclidea.
+\end{lem}
+
+\begin{proof}
+	Sia \(\mathcal{U}=\{U_i\}_{i\in I}\) un ricoprimento aperto di \([0,1]\).
+	Quindi \(U_i\) sono aperti in \(\R\) e \(\bigcup U_i \supseteq [0,1]\).
+	Supponiamo per assurdo che \(\mathcal{U}\) non abbia sottoricoprimenti finiti.
+	Dividiamo quindi \([0,1]=[0,1/2]\cup [1/2,1]\), segue che \(\mathcal{U}\) è un ricoprimento aperto di \([0,1/2]\) e \([1/2,1]\).
+	Dal momento che non esistono sottoricoprimenti finiti di \([0,1]\), necessariamente non esisteranno per almeno uno dei due sottoinsiemi in cui lo abbiamo diviso.
+	Supponiamo, senza perdita di generalità, che non esista per \([0,1/2]\).
+
+	Iterando questo procedimento si ottiene una scomposizione di \([0,1]\) come intervalli di lunghezza \(\frac{1}{2^n}\) di cui almeno uno non ammette sottoricoprimenti finiti.
+	Abbiamo quindi costruito una catena di intervalli chiusi \(C_n\) tali che
+	\[
+		[0,1] \supset C_0 \supset C_1 \supset \ldots \supset C_n \supset \ldots \qquad\text{e}\qquad \abs{C_n} = \frac{1}{2^n},
+	\]
+	e che non ammettono sottoricoprimenti finiti.
+
+	Possiamo costruire adesso una successione di Cauchy \(\{p_n\}_{n\in\N}\) tale che \(p_i\in C_i\).
+	Siccome \(p_n\in [0,1]\) che è chiuso, avremo
+	\[
+		p_n \to L \in [0,1] \subseteq \bigcup_{i\in I} U_i,
+	\]
+	ovvero esisterà \(\bar{i}\in I\) tale che \(L \in U_{\bar{i}}\).
+	Per definizione di convergenza \(\{p_n\}\) appartiene definitivamente ad \(U_{\bar{i}}\), ovvero
+	\[
+		\ex \e>0 : (L-\e,L+\e) \subset U_{\bar{i}}.
+	\]
+	Quindi, per \(n>M\) con \(\frac{1}{2^M}<\e\) si ha \(C_n \subset (L-\e,L+\e)\), ovvero \(C_n \subset U_{\bar{i}}\).
+	Ma ciò è assurdo poiché altrimenti \(C_n\) ammetterebbe un sottoricoprimento finito di \(\mathcal{U}\).
+\end{proof}
+
+\begin{teor}{di Heine-Borel}{teorHeineBorel}\index{Teorema!di Heine-Borel}
+	I sottoinsiemi compatti di \(\R^n\) sono tutti e soli i chiusi e limitati.
+\end{teor}
+
+\begin{proof}
+	\graffito{\(\Rightarrow)\)}Vero in quanto abbiamo mostrato che un compatto in uno spazio metrico è chiuso e limitato.
+
+	\graffito{\(\Leftarrow)\)}Mostriamolo prima nel caso \(n=1\).
+	Per il lemma precedente sappiamo che \([0,1]\) è un compatto di \(\R\).
+	Ripetendo la stessa dimostrazione si dimostra facilmente che tutti gli intervalli del tipo \([a,b],a,b\in\R\) sono chiusi e limitati.
+	Resta da dimostrare che l'unione disgiunta e finita di intervalli chiusi e limitati sono compatti in \(\R\).
+
+	Sia \(K\subset\R\) chiuso e limitato. Per la limitatezza sarà necessariamente contenuto in un intervallo del tipo \([a,b]\).
+	Se \(\mathcal{U}\) è un ricoprimento aperto di \(K\), certamente \(\mathcal{U}\cup (\R\setminus K)\) è un ricoprimento aperto di \([a,b].\)\graffito{sfruttiamo il fatto che \(K\) è chiuso per dire che \(\mathcal{U}\cup(\R\setminus K)\) è aperto}
+	Dal momento che \([a,b]\) è compatto avremo che esiste un sottoricoprimento finito
+	\[
+		U_1 \cup \ldots \cup U_k \cup (\R \setminus K) \supseteq [a,b].
+	\]
+	Ne segue che \(\Set{U_1,\ldots,U_k}\) è un sottoricoprimento finito di \(K\).
+
+	L'estensione al caso \(n\) qualsiasi segue banalmente dal fatto che gli \(n\)-cubi chiusi e limitati sono compatti in quanto prodotto di compatti.
+	D'altronde il generico chiuso e limitato sarà sempre contenuto in un \(n\)-cubo chiuso \(C_r(\bar{0})\), per cui ripetendo la stessa dimostrazione del caso \(n=1\) si giunge alla tesi.
+\end{proof}
+
+\begin{oss}
+	Il teorema di Heine-Borel non vale in ogni spazio metrico.
+	Ad esempio su \(X=(0,+\infty)\) con la distanza euclidea, l'intervallo \(C=(0,1]\) è chiuso e limitato in \(X\) ma non è compatto.
+	Infatti \(\mathcal{U}=\{(1/n,1]\}\) è un ricoprimento aperto di \(C\) che non ammette sottoricoprimenti finiti, in quanto
+	\[
+		U_1 \cup \ldots \cup U_n = \left(\frac{1}{n},1\right] \not\supset C.
+	\]
+\end{oss}
+
+\begin{cor}
+	\(K\subset \R\) è compatto e connesso se e soltanto se \(K=[a,b],a,b\in\R\).
+\end{cor}
+
+\begin{teor}{di Massimo e minimo}{teorMinMax}
+	Sia \(f\colon X\to \R\) una funzione continua su \(X\) compatto.
+	Allora \(f\) ammette massimo e minimo.
+\end{teor}
+
+\begin{proof}
+	Sappiamo che l'immagine continua di un compatto è compatta.
+	Quindi \(f(X)\) è unione finita di intervalli chiusi e limitati, in quanto questi ultimi costituiscono tutti i compatti di \(\R\).
+	Ovvero
+	\[
+		f(X) = [a_1,b_1] \cup \ldots \cup [a_n,b_n],
+	\]
+	con \(a_1<b_1<a_2<\ldots<b_n\).
+	Ne segue che \(a_1 = \min f\) e \(b_n = \max f\).
+\end{proof}
+
+\begin{prop}{Componenti connesse di un compatto}{componentiConnesseCompatto}
+	Sia \(X\) uno spazio compatto.
+	Allora \(X\) ha un numero finito di componenti connesse.
+\end{prop}
+
+\begin{proof}
+	Non fornita.
+\end{proof}
+
+\begin{defn}{Diametro di un sottoinsieme}{diametro}\index{Diametro}
+	Sia \(X\) uno spazio metrico e sia \(S\subset X\) un suo sottoinsieme.
+	Si definisce diametro di \(S\) la più grande distanza fra due suoi punti:
+	\[
+		\diam S = \sup\set{d(x,y) | x,y\in S}.
+	\]
+\end{defn}
+
+\begin{defn}{Numero di Lebesgue}{numeroLebesgue}\index{Numero di Lebesgue}
+	Sia \(\mathcal{U}\) un ricoprimento aperto di uno spazio metrico \(X\).
+	Un numero \(\d>0\) si dice \emph{numero di Lebesgue} di \(\mathcal{U}\) se ogni sottoinsieme \(S\subset X\) con \(\diam S<\d\) è contenuto in un aperto di \(\mathcal{U}\).
+\end{defn}
+
+\begin{prop}{Numero di Lebesgue negli spazi compatti}{numeroLebesgueCompatti}
+	Sia \(X\) uno spazio metrico compatto.
+	Allora ogni ricoprimento aperto \(\mathcal{U}\) ha un numero di Lebesgue.
+\end{prop}
+
+\begin{proof}
+	Sia \(\mathcal{U}\) un ricoprimento aperto di \(X\).
+	Per ogni \(x\in X\) esisterà \(U\in \mathcal{U}\) tale che \(x\in U\).
+	Dal momento che \(U\) è aperto esisterà qualche \(r(x)>0\) tale che \(\overline{B}_{2r(x)}(x)\subset U\).
+
+	Al variare di \(x\in X\) avremo che \(\Set{B_{r(x)}(x) | x\in X}\) è un ricoprimento aperto di \(X\).
+	Per compattezza
+	\[
+		X = B_{r(x_1)}(x_1) \cup \ldots \cup B_{r(x_k)}(x_k).
+	\]
+	Vogliamo mostrare che \(\d = \min \Set{r_1,\ldots,r_k}\) è il numero di Lebesgue di \(\mathcal{U}\).
+	Sia quindi \(S\subset X\) con \(\diam S < \d\).
+	Allora per ogni \(y\in S\) esisterà \(x_i\) tale che \(y\in B_{r(x_i)}(x_i)\) con \(i\in \{1,\ldots,k\}\).
+	Per cui
+	\[
+		S \subset \overline{B}_{2r(x_i)}(x_i) \subset U \in \mathcal{U},
+	\]
+	infatti per ogni \(z\in S\) avremo
+	\[
+		d(z,x_i) \le d(z,y) + d(y,x_i) \le \d + r(x_i) \le 2r(x_i),
+	\]
+	ovvero \(z\in \overline{B}_{2r(x_i)}(x_i)\).
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%COMPATTEZZA PER SUCCESSIONI E PER PUNTI LIMITE%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Compattezza per successionI e per punti limite}
+
+\begin{defn}{Spazio punto limite compatto}{spazioPuntoLimiteCompatto}\index{Spazio!punto limite compatto}
+	Uno spazio topologico \(X\) si dice \emph{punto limite compatto} se ogni sottoinsieme infinito di \(X\) ammette un punto limite.
+\end{defn}
+
+\begin{ese}
+	\(\Z\subset \R\) è un sottoinsieme discreto infinito, quindi \(\R\) non è punto limite compatto.
+\end{ese}
+
+\begin{defn}{Spazio compatto per successioni}{spazioCompattoSuccessioni}\index{Spazio!compatto per successioni}
+	Uno spazio topologico \(X\) si dice \emph{compatto per successioni} se ogni successione \(\{x_n\}_{n\in\N}\) ammette una sottosuccessione convergente.
+\end{defn}
+
+\begin{prop}{Spazio compatto è punto limite compatto}{compattoPuntoLimiteCompatto}
+	Sia \(X\) uno spazio compatto.
+	Allora \(X\) è punto limite compatto.
+\end{prop}
+
+\begin{proof}
+	Non fornita.
+\end{proof}
+
+\begin{lem}
+	Se \(X\) è uno spazio di Hausdorff e a base numerabile, allora la compattezza coincide con la compattezza per successioni e con la nozione di punto limite compatto.
+\end{lem}
+
+\begin{prop}{Spazio metrico compatto è completo}{spazioMetricoCompattoCompleto}
+	Sia \(X\) uno spazio metrico compatto.
+	Allora \(X\) è uno spazio metrico completo.
+\end{prop}
+
+\begin{oss}
+	\(\R\) è completo ma non è compatto.
+\end{oss}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 27/04/2016 - NONA SETTIMANA (1)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%
+%CLOSED MAP LEMMA%
+%%%%%%%%%%%%%%%%%%
+\section{Closed map lemma}
+
+\begin{teor}{Closed map lemma}{closedMapLemma}\index{Closed map lemma}
+	Sia \(F\colon X \to Y\) un'applicazione continua da \(X\) compatto in \(Y\) di Hausdorff.
+	Allora
+	\begin{enumerate}
+		\item \(F\) è chiusa.
+		\item Se \(F\) è suriettiva allora è un'applicazione quoziente.
+		\item Se \(F\) è iniettiva allora è un embedding.
+		\item Se \(F\) è biiettiva allora è un omeomorfismo.
+	\end{enumerate}
+\end{teor}
+
+\begin{proof}
+	\graffito{\(1)\)}Se \(C\subset X\) chiuso, allora è compatto, in quanto ogni chiuso è compatto in uno spazio compatto.
+	In particolare \(F(C)\) è compatto in \(Y\) in quanto immagine di un compatto.
+	D'altronde sappiamo che un insieme compatto in uno spazio di Hausdorff è chiuso, per cui \(F\) è un'applicazione chiusa.
+
+	\graffito{\(2)\)}Se \(F\) è un'applicazione chiusa manderà chiusi saturi in chiusi.
+	Inoltre \(F\) è suriettiva, quindi è un'applicazione quoziente per la caratterizzazione tramite insiemi saturi.
+
+	\graffito{\(3)\)}Segue dalla definizione di embedding.
+	Infatti se \(F\) è iniettiva sarà biiettiva sull'immagine, d'altronde \(F\) è chiusa e pertanto risulta un omeomorfismo su \(F(X)\).
+
+	\graffito{\(4)\)}Se \(F\) è biiettiva risulta essere un omeomorfismo in quanto, essendo chiusa, avrà inversa continua.
+\end{proof}
+
+\begin{prop}{Compatti e convessi di \(\R^n\)}{compattiConvessiRn}
+	Sia \(K\subset \R^n\) un insieme compatto e convesso e tale che \(\mathring{K}\neq \emptyset\).
+	Allora
+	\[
+		K \approx \overline{B_1(\bar{0})} \qquad\text{e}\qquad \pd K \approx S^{n-1}.
+	\]
+\end{prop}
+
+\begin{proof}
+	Sia \(q\) un punto interno di \(K\).
+	Tramite la traslazione \(x\mapsto x-q\), che è un omeomorfismo di \(\R^n\) in se stesso, possiamo supporre che \(\bar{0}\in \mathring{K}\).
+	Per definizione di punto interno, esisterà \(\e>0\) tale che \(B_\e(\bar{0})\) è contenuto in \(K\).
+	Tramite la dilatazione \(x\mapsto x/\e\), che è nuovamente un omeomorfismo di \(\R^n\) in se stesso, assumiamo che
+	\[
+		B^n = B_1(\bar{0})\subset K.
+	\]
+	La strategia è dimostrare che ogni raggio in partenza dall'origine interseca \(\pd K\) esattamente in un punto.
+	Per ipotesi \(K\) è compatto, quindi l'intersezione con ogni raggio chiuso è compatta.
+	Pertanto esisterà un punto \(x_0\) in tale intersezione la cui distanza dall'origine è massima.
+	%TODO
+\end{proof}
